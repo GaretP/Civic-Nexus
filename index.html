@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civic Nexus Intro</title>
+<link rel="stylesheet" href="splash-styles.css">
+</head>
+<body>
+  <div class="splash" id="splash">
+    <div class="door left">
+      <div class="edge-line"></div>
+    </div>
+    <div class="door right">
+      <div class="edge-line"></div>
+    </div>
+    <div class="logo-container">
+      <div class="logo">
+        <img src="SRC/logo.png" alt="Civic Cube Logo" />
+      </div>
+      <h1>Civic Nexus</h1>
+    </div>
+  </div>
+
+<script>
+ window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('ready');
+    setTimeout(() => {
+      document.getElementById('splash').classList.add('open');
+      // Wait for the doors to finish sliding
+      setTimeout(() => {
+        window.location.href = "Civic-Cube/test.html";
+      }, 1000); // 1s = duration of door transition
+    }, 400);
+  }, 800);
+});
+</script>
+</body>
+</html>

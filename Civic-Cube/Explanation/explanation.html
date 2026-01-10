@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Explanation – Civic Cube Political Compass</title>
+  <link rel="stylesheet" href="explanation-styles.css">
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const logo = document.querySelector('.header-left img');
+  
+  // Swap logo based on dark mode
+  if (isDarkMode) {
+    localStorage.setItem('darkMode', 'enabled');
+    if (logo) logo.src = '../../SRC/logo_white.png';
+  } else {
+    localStorage.setItem('darkMode', 'disabled');
+    if (logo) logo.src = '../../SRC/logo.png';
+  }
+  
+  const checkbox = document.getElementById('darkModeToggle');
+  if (checkbox) checkbox.checked = isDarkMode;
+}
+
+function toggleDonations() {
+  const aside = document.querySelector('.donation-sidebar');
+  const button = document.getElementById('donationToggleBtn');
+  const isHidden = aside.classList.contains('hidden');
+
+  aside.classList.toggle('hidden');
+  button.innerText = isHidden ? 'Hide Donations' : 'Show Donations';
+  button.classList.toggle('active', isHidden);
+  button.classList.toggle('inactive', !isHidden);
+  
+  // Save state to localStorage
+  localStorage.setItem('donationSidebarHidden', isHidden ? 'false' : 'true');
+}
+
+ window.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.donation-sidebar');
+    const button = document.getElementById('donationToggleBtn');
+
+    // Check localStorage for saved donation sidebar state
+    const isHidden = localStorage.getItem('donationSidebarHidden') !== 'false';
+    
+    if (isHidden) {
+      sidebar.classList.add('hidden');
+      button.innerText = 'Show Donations';
+    } else {
+      // Temporarily apply fade-in effect only if visible
+      sidebar.classList.add('fade-init');
+      requestAnimationFrame(() => {
+        sidebar.classList.add('fade-init-animate');
+        setTimeout(() => {
+          sidebar.classList.remove('fade-init', 'fade-init-animate');
+        }, 700);
+      });
+    }
+
+    // Check dark mode preference and set correct logo
+    const darkMode = localStorage.getItem('darkMode');
+    const logo = document.querySelector('.header-left img');
+    const checkbox = document.getElementById('darkModeToggle');
+    
+    if (darkMode === 'enabled') {
+      document.body.classList.add('dark-mode');
+      if (checkbox) checkbox.checked = true;
+      if (logo) logo.src = '../../SRC/logo_white.png';
+    } else {
+      if (logo) logo.src = '../../SRC/logo.png';
+    }
+  });
+</script>
+</head>
+<body>
+
+<!-- Header Bar -->
+<header class="main-header" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 24px; height: 48px;">
+  <div class="header-left" style="display: flex; align-items: center;">
+    <img src="../../SRC/logo.png" alt="Civic Cube Logo" style="height: 40px; margin-right: 10px;">
+    <span class="brand">Civic Cube</span>
+  </div>
+
+  <nav class="header-nav" style="display: flex; gap: 16px; align-items: center;">
+    <a href="../test.html" class="nav-link">Test</a>
+    <a href="../FAQ/faq.html" class="nav-link">FAQ</a>
+  </nav>
+
+  <div class="header-right" style="display: flex; align-items: center; gap: 8px;">
+    <button id="donationToggleBtn" class="donation-toggle-btn" onclick="toggleDonations()">Hide Donations</button>
+    <label class="toggle-switch">
+      <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+      <span class="toggle-slider"><span class="toggle-knob"></span></span>
+    </label>
+  </div>
+</header>
+
+<div style="position: relative; display: flex; justify-content: center;">
+  <aside class="donation-sidebar">
+  <h3>Support This Project</h3>
+  <p style="font-size: 14px;">If you found this tool valuable, consider donating to help with hosting and development:</p>
+  <p><a href="https://nowpayments.io/donation?api_key=7QXAC26-K294RGM-PCBF3Q9-CCYMZS6" target="_blank"><button style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; background-color: black; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;"> Donate Crypto</button></a></p>
+</aside>
+  <div style="margin-left: 160px; margin-right: 80px; max-width: 1100px;">
+  <main style="flex: 1;">
+
+<h1>Explanations Of The Definitions Used</h1>
+
+<h2>Ownership</h2>
+<p>Definition: Ownership is the recognized right to control, use, and benefit from a resource, property, or asset. It determines who has legal or moral authority over something and who is entitled to the value it produces. In political and economic theory, ownership is central to questions of power, responsibility, and distribution.</p>
+<p>Why It Matters: Understanding ownership is key to analyzing how societies structure their economies, enforce rights, and define justice. Different political ideologies build their economic visions around who should own what—and why.</p>
+    
+<h2>Private</h2>
+<p>Definition: Private refers to something that pertains exclusively to a single individual. It exists independently of others and is not shared, disclosed, or influenced by external parties. The private is defined by solitude, autonomy, and personal boundary—what is of the self and only the self.</p>
+<p>Why It Matters: Understanding the concept of the private is essential to defining boundaries between the individual and society. It forms the basis for ideas like personal rights, autonomy, and self-governance. The private sets the stage for questions about where one’s domain ends and shared or external influence begins.</p>
+    
+<h2>Group</h2>
+<p>Definition: Group refers to a collection of two or more individuals who are linked by shared interaction, goals, or identity. A group inherently requires coordination, communication, and a degree of mutual influence. It is defined by plurality and interrelation—what exists between people rather than in isolation.</p>
+<p>Why It Matters: Groups are the foundation of collective behavior—governments, communities, movements, and institutions all begin with people acting together. Studying groups helps us understand power dynamics, decision-making, and how individuals relate to one another within larger systems. It reveals where cooperation begins, and where individuality must adapt.</p>
+    
+<h2>Socialism</h2>
+<p>Definition: Socialism is the belief that key resources, institutions, and systems should be owned and managed by groups rather than by individuals. This group ownership may take the form of workers, communities, or the state acting on behalf of the collective. At its core, socialism replaces the private with the shared, emphasizing cooperation over competition.</p>
+<p>Why It Matters: Socialism frames society as a collective effort—arguing that when decisions and resources are shared, outcomes are more just, equitable, and stable. It stands in contrast to systems that prioritize private autonomy, asserting instead that individuals are best served when acting as part of a coordinated group. Understanding socialism is key to debates about ownership, power, and the role of cooperation in political life.</p>
+
+<h2>Capitalism</h2>
+<p>Definition: Capitalism is the belief that key resources, institutions, and systems should be owned and directed by private individuals. It emphasizes individual autonomy, voluntary exchange, and competition as the primary drivers of progress and prosperity. At its core, capitalism centers decision-making in the hands of the self, not the group.</p>
+<p>Why It Matters: Capitalism sees freedom and efficiency as arising from personal control and incentive. It holds that individuals, acting independently in their own interest, create better outcomes than centralized or collective systems. Understanding capitalism is essential for exploring political debates about liberty, markets, inequality, and the limits of state or group interference.</p>
+
+<h2>Adherence</h2>
+<p>Definition: Adherence refers to the degree to which a person holds to a fixed set of moral, cultural, or behavioral standards. High adherence reflects a commitment to absolute, universal, or objective codes—often rooted in tradition, religion, or ideology. Low adherence reflects a more relativistic, situational, or fluid approach to values and conduct.</p>
+<p>Why It Matters: Adherence reveals how someone relates to rules, norms, and meaning. It helps distinguish between those who seek order, structure, and consistency in human behavior—and those who favor flexibility, context, and personal interpretation. In the Civic Cube model, adherence forms one of the three core dimensions shaping a person’s political worldview, alongside economic and authority beliefs.</p>
+
+<h2>Authority</h2>
+<p>Definition: Authority refers to the degree to which one supports the use of power, force, or centralized control to maintain order, enforce rules, or achieve societal goals. High authority reflects trust in institutions, law, and hierarchy to guide behavior and shape outcomes. Low authority reflects skepticism of control and a preference for decentralization, autonomy, or resistance to imposed structures.</p>
+<p>Why It Matters: Authority measures how individuals view power and its role in society. It distinguishes those who believe order and stability require enforcement from those who prioritize liberty, dissent, and bottom-up organization. In the Civic Cube model, authority helps map whether a person leans toward obedience and control—or rebellion and decentralization.</p>
+    
+<h1>Explanations Of The Political Identities</h1>
+
+<h2>Realist Socialism</h2>
+<p>Definition: Realist Socialism is a form of socialism that embraces group ownership and collective welfare but recognizes the need for authority, central planning, and often coercive power to achieve and maintain its vision. It accepts that social transformation may require force, hierarchy, and strategic control over institutions to overcome resistance and enforce systemic change.</p>
+<p>Why It Matters: Realist Socialism reflects the belief that ideal societies cannot emerge through persuasion alone—they must be built through structured authority, disciplined planning, and, if necessary, revolutionary means. In the Civic Cube model, it sits firmly in the high authority, group ownership, and often high adherence quadrant, where order and ideological direction are considered essential to achieving collective justice.</p>
+<p>Examples:
+    Marxism – Advocates a transitional “dictatorship of the proletariat” to seize and redistribute power, eventually leading to a classless society.
+    Bolshevism (Leninism) – Emphasizes a vanguard party and centralized control to implement socialism following revolution.
+    National Socialism – Though distinct for its racial and nationalist goals, it practiced strong state control, authoritarian governance, and anti-capitalist economic features under group-centric (racial) collectivism.</p>
+
+<h2>Utopian Socialism</h2>
+<p>Definition: Utopian Socialism is a visionary form of socialism that imagines a perfect, harmonious society built on cooperation, equality, and shared ownership—often without the use of force, class struggle, or state control. It emphasizes ideal communities, moral persuasion, and human goodwill as the path to social transformation.</p>
+<p>Why It Matters: Utopian Socialism reflects the belief that society can be peacefully reshaped through enlightened planning and collective values. It appeals to those who dream of radically just systems but resist coercion or authoritarianism. In the Civic Cube model, it helps illustrate the high-adherence, low-authority end of the socialist spectrum—where idealism, ethics, and structure coexist.</p>
+<p>Examples:
+    Charles Fourier – Proposed self-sustaining “phalansteries” where people would live and work cooperatively, guided by passion and harmony.
+    Robert Owen – Created experimental communities like New Lanark and New Harmony, emphasizing education, moral reform, and worker well-being.
+    Henri de Saint-Simon – Envisioned a technocratic, merit-based society where industry would serve the public good under enlightened leadership.</p>
+    
+<h2>Progressivism</h2>
+<p>Definition: Progressivism is a political orientation that emphasizes reform, social advancement, and the active correction of perceived injustices. It sees society as improvable through rational planning, education, and policy, often advocating for the transformation of long-standing traditions and institutions in pursuit of a more equitable future.</p>
+<p>Why It Matters: Progressivism is rooted in the belief that human systems can—and should—be reshaped through deliberate action. In practice, progressives tend to favor high authority, trusting institutional power, government intervention, and cultural enforcement to achieve social progress. In the Civic Cube model, they often align with low adherence (rejecting traditional moral codes) and favor group-based economics and representation.</p>
+<p>Examples:
+    New Deal progressives – Using federal authority to restructure the economy and labor rights.
+    Cultural progressivists – Supporting top-down institutional and legal reforms to enforce equity and inclusion.</p>
+
+<h2>Corporatism</h2>
+<p>Definition: Corporatism is a form of socialist organization in which society is divided into functional groups—such as industries, labor unions, religious institutions, and professions—that are granted formal authority to govern themselves within their sphere. These groups are not merely represented in the state; they are active governing bodies, empowered to set financial policy, cultural standards, and internal regulations for their members. The state coordinates between these corporate bodies, but authority is distributed across them, not centralized in individuals or markets.</p>
+<p>Why It Matters: Corporatism redefines both ownership and governance by locating them within structured social units. It rejects individual autonomy and market spontaneity in favor of a managed, interdependent social order where each group governs its own domain. In the Civic Cube model, corporatism is a low-authority, group-ownership, and low-adherence system—rooted in representation and harmony through social structure.</p>
+<p>Examples:
+    Catholic Corporatism – Advocated for religious and vocational bodies to define moral, economic, and educational norms based on divine law and natural hierarchy.
+    Modern echoes – In some systems, large institutions—such as corporations, unions, or guild-like associations—are legally empowered to regulate labor standards, cultural conduct, or economic policy within their sector.</p>
+
+<h2>Conservatism</h2>
+<p>Definition: Conservatism is a political philosophy focused on preserving long-standing institutions, cultural norms, and moral traditions. It emphasizes order, continuity, and inherited wisdom over social experimentation or forced progress. Conservatives value stability and often see human nature as flawed and in need of guidance through enduring structures.</p>
+<p>Why It Matters: Conservatism resists radical change, viewing most revolutions and social upheavals as threats to hard-earned balance. In the Civic Cube model, conservatism falls under high adherence and usually moderate to high authority, depending on how strongly state power is used to protect tradition. It is almost always aligned with private ownership—those who support group ownership with high authority and moral structure belong instead to Realist Socialism, not Conservatism.</p>
+<p>Examples:
+    Burkean conservatism – Advocating for organic, slow social change rooted in custom and historical continuity.
+    Religious conservatism – Promoting traditional family, gender, and moral norms, often rooted in sacred texts.
+    Monarchist conservatism – Defending hierarchical rule, nobility, and divine authority as stabilizing forces.</p>
+    
+<h2>Anarchism</h2>
+<p>Definition: Anarchism is a political philosophy that rejects all centralized authority, coercive hierarchy, and imposed systems of control. It emphasizes individual autonomy, voluntary association, and decentralized organization. True anarchism rests on the belief that people can self-govern without rulers or enforcers.</p>
+<p>Why It Matters: Anarchism is often misunderstood as inherently leftist or collectivist, but in the Civic Cube model, it is a capitalist ideology rooted in private ownership and total decentralization. Anarchists believe in personal sovereignty over property, ethics, and relationships—opposing both state control and group-based enforcement. In Civic Cube terms, anarchism is defined by low authority, low adherence, and private ownership.</p>
+<p>Examples:
+    Anarcho-capitalism – Supports free markets, private defense agencies, and fully privatized law.
+    Individualist anarchism – Focuses on personal liberty, self-ownership, and opposition to all external moral codes.
+    Voluntaryism – Argues all human interaction should be consensual and contract-based, without coercion.</p>
+
+<h2>Libertarianism</h2>
+<p>Definition: Libertarianism is a political philosophy that champions individual liberty, personal responsibility, and the absolute right to private ownership. It opposes state intervention in both economic and personal life, favoring voluntary contracts, self-regulation, and minimal to zero government.</p>
+<p>Why It Matters: Libertarianism is often misunderstood as morally loose or centrist, but in the Civic Cube model, it represents a rigid adherence to natural rights, non-aggression, and personal sovereignty. It values moral consistency, not moral flexibility—placing it in the quadrant of high adherence, low authority, and private ownership. Libertarians believe that freedom and order emerge not from collective will or enforced rules, but from the natural rights of the individual.</p>
+<p>Examples:
+    Minarchism – Supports a minimal state limited to protecting property, contracts, and individual rights.
+    Natural rights libertarianism – Bases liberty on moral absolutes like self-ownership, non-aggression, and inviolable contracts.
+    Constitutional libertarians – Favor strict legal limits on government to preserve maximum individual autonomy.</p>
+
+<h2>Liberalism</h2>
+<p>Definition: Liberalism is a political philosophy that prioritizes individual rights, equality under law, and regulated markets—while supporting an active role for the state in enforcing civil protections and shaping social outcomes. It values pluralism, tolerance, and reform, often resisting rigid moral or cultural traditions.</p>
+<p>Why It Matters: Liberalism accepts authority as a necessary tool for protecting freedom and promoting social welfare, but rejects strict moral codes in favor of personal expression and progress. In the Civic Cube model, liberalism is defined by private ownership, high authority, and low adherence—favoring state enforcement of individual rights without demanding universal moral conformity.</p>
+<p>Examples:
+    Modern social liberalism – Advocates for state-enforced civil rights, market regulation, and welfare protections.
+    Neoliberalism – Promotes free trade and globalization, but accepts central institutions to manage society.
+    Legal-progressive liberalism – Seeks to expand state-defined rights across diverse identities and lifestyles.</p>
+
+<footer class="mt-auto px-8 py-6 text-sm text-gray-700 border-t text-center">
+  &copy; 2025 Civic Cube. Designed with purpose.
+</footer>
