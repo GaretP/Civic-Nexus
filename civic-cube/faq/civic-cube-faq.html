@@ -1,89 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FAQ – Civic Cube Political Compass</title>
-  <link rel="stylesheet" href="faq-styles.css">
+  <title>Civic Cube FAQ — Common Questions Answered | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Answers to the most common questions about the Civic Cube political compass test — accuracy, methodology, definitions, bias, and how results are interpreted.">
+  <link rel="stylesheet" href="civic-cube-faq-styles.css">
 <script>
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   const isDarkMode = document.body.classList.contains('dark-mode');
-  const logo = document.querySelector('.header-left img');
-  
-  // Swap logo based on dark mode
   if (isDarkMode) {
     localStorage.setItem('darkMode', 'enabled');
-    if (logo) logo.src = '../../SRC/logo_white.png';
   } else {
     localStorage.setItem('darkMode', 'disabled');
-    if (logo) logo.src = '../../SRC/logo.png';
   }
-  
   const checkbox = document.getElementById('darkModeToggle');
   if (checkbox) checkbox.checked = isDarkMode;
 }
 
-function toggleDonations() {
-  const aside = document.querySelector('.donation-sidebar');
-  const button = document.getElementById('donationToggleBtn');
-  const isHidden = aside.classList.contains('hidden');
-  aside.classList.toggle('hidden');
-  button.innerText = isHidden ? 'Hide Donations' : 'Show Donations';
-  button.classList.toggle('active', isHidden);
-  button.classList.toggle('inactive', !isHidden);
-  
-  // Save state to localStorage
-  localStorage.setItem('donationSidebarHidden', isHidden ? 'false' : 'true');
-}
-
 window.addEventListener('DOMContentLoaded', () => {
-  const sidebar = document.querySelector('.donation-sidebar');
-  const button = document.getElementById('donationToggleBtn');
-  
-  // Check localStorage for saved donation sidebar state
-  const isHidden = localStorage.getItem('donationSidebarHidden') !== 'false';
-  
-  if (isHidden) {
-    sidebar.classList.add('hidden');
-    button.innerText = 'Show Donations';
-  } else {
-    // Temporarily apply fade-in effect only if visible
-    sidebar.classList.add('fade-init');
-    requestAnimationFrame(() => {
-      sidebar.classList.add('fade-init-animate');
-      setTimeout(() => {
-        sidebar.classList.remove('fade-init', 'fade-init-animate');
-      }, 700);
-    });
-  }
-  
-  // Check dark mode preference and set correct logo
   const darkMode = localStorage.getItem('darkMode');
-  const logo = document.querySelector('.header-left img');
   const checkbox = document.getElementById('darkModeToggle');
-  
   if (darkMode === 'enabled') {
     document.body.classList.add('dark-mode');
     if (checkbox) checkbox.checked = true;
-    if (logo) logo.src = '../../SRC/logo_white.png';
-  } else {
-    if (logo) logo.src = '../../SRC/logo.png';
   }
+  document.querySelector('.header-left img').src = '../../SRC/civicnexus.svg';
 });
 </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Civic Cube test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Civic Cube test maps your political ideology across three dimensions: Economic, Authority, and Adherence. It provides a more accurate, nuanced result than standard 2D models."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Civic Cube test biased?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While eliminating all bias is impossible, the Civic Cube strives to minimise it by consolidating insights from diverse sources and writings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Civic Cube test 100% accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The test focuses on 8 major political identities with subcategories. Results are a guideline, not a definitive verdict."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why would I trust this test over others?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Civic Cube is a philosophy-driven alternative to entertainment-focused tests. Its methodology and definitions are published and open to scrutiny."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do you get your definitions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Definitions are based on literature, historical examples, and the philosophical roots of each term \u2014 not popular media usage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Civic Cube affiliated with any political group?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Civic Nexus is completely independent and not affiliated with any political group, party, or organisation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will Civic Cube collect or sell my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We collect only what is necessary for the site to function and never sell your information."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Civic Cube",
+      "item": "https://civic-nexus.net/civic-cube/civic-cube.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "FAQ",
+      "item": "https://civic-nexus.net/civic-cube/faq/civic-cube-faq.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/civic-cube/faq/civic-cube-faq.html">
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Civic Cube FAQ — Common Questions Answered">
+  <meta property="og:description" content="Answers to the most common questions about the Civic Cube — accuracy, methodology, definitions, bias, and how results are interpreted.">
+  <meta property="og:url"         content="https://civic-nexus.net/civic-cube/faq/civic-cube-faq.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Civic Cube FAQ — Common Questions Answered">
+  <meta name="twitter:description" content="Answers to the most common questions about the Civic Cube — accuracy, methodology, definitions, bias, and how results are interpreted.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 <!-- Header Bar -->
 <header class="main-header" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 24px; height: 48px;">
   <div class="header-left" style="display: flex; align-items: center;">
-    <img src="../../SRC/logo.png" alt="Civic Cube Logo" style="height: 40px; margin-right: 10px;">
+    <img src="../../SRC/civicnexus.svg" alt="Civic Nexus" style="height: 40px; margin-right: 10px; filter: drop-shadow(0 2px 8px rgba(139,92,246,0.4));">
     <span class="brand">Civic Cube</span>
   </div>
   <nav class="header-nav" style="display: flex; gap: 16px; align-items: center;">
-    <a href="../test.html" class="nav-link">Test</a>
-    <a href="../Explanation/explanation.html" class="nav-link">Explanation</a>
+    <a href="../../home.html" class="nav-link">Home</a>
+    <a href="../civic-cube.html" class="nav-link">Test</a>
+    <a href="../explanation/civic-cube-explanation.html" class="nav-link">Explanation</a>
+    <a href="../../donate/donate-page.html" class="nav-link">Donate</a>
   </nav>
   <div class="header-right" style="display: flex; align-items: center; gap: 8px;">
-    <button id="donationToggleBtn" class="donation-toggle-btn" onclick="toggleDonations()">Hide Donations</button>
     <label class="toggle-switch">
       <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
       <span class="toggle-slider"><span class="toggle-knob"></span></span>
@@ -91,12 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
   </div>
 </header>
 <div style="position: relative; display: flex; justify-content: center;">
-  <aside class="donation-sidebar">
-  <h3>Support This Project</h3>
-  <p style="font-size: 14px;">If you found this tool valuable, consider donating to help with hosting and development:</p>
-   <p><a href="https://nowpayments.io/donation?api_key=7QXAC26-K294RGM-PCBF3Q9-CCYMZS6" target="_blank"><button style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; background-color: black; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;"> Donate Crypto</button></a></p>
-</aside>
-  <div style="margin-left: 160px; margin-right: 80px; max-width: 1100px;">
+  <div style="max-width: 1100px; width: 100%; padding: 0 40px;">
   <main style="flex: 1;">
   
   <h1>Frequently Asked Questions About The Test</h1>
@@ -110,7 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <h2>Is the Civic Cube test 100% accurate?</h2>
   <p>Of course not! This test focuses on the 8 major political identities, but each has subcategories. For example, you might be labeled a libertarian, but if you're near the center (with low deviation from 0), you might be better described as a libertarian-leaning centrist. While we strive for accuracy, it's impossible to achieve 100% precision with a test like this.</p>
   <h2>Why would I trust this test over others?</h2>  
-  <p>You shouldn't blindly trust the results. Civic Cube is not a definitive test; it's a guideline that cuts through the complexity of politics as best as we can. If you have doubts, please visit the explanation page for a detailed breakdown of each position and the reasoning behind its placement. From there, you can better assess whether you agree or disagree. Additionally, if you find any discrepancies, we welcome corrections and will continue improving our products and services to ensure clear political standards.<p>
+  <p>You shouldn't blindly trust the results. Civic Cube is not a definitive test; it's a guideline that cuts through the complexity of politics as best as we can. If you have doubts, please visit the explanation page for a detailed breakdown of each position and the reasoning behind its placement. From there, you can better assess whether you agree or disagree. Additionally, if you find any discrepancies, we welcome corrections and will continue improving our products and services to ensure clear political standards.</p>
   
   <h2>Where would (x) politican be?</h2>
   <p>While we can infer the positions of politicians and public figures, we prefer direct results to avoid compounded biases that could skew outcomes. We reference some figures, but modern politicians will be excluded. If a politician takes the test and shares their results, we'll gladly use them. Until then, we refrain from making assumptions about current figures and avoid relying on former ones.</p>  
@@ -150,7 +212,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <p>We welcome feedback! If you spot an error, disagree with a definition, or have suggestions for improvement, you can reach out through our contact form or message us on social media. We’re always open to refining Civic Cube to make it clearer, fairer, and more useful.</p>
     <!-- Add more questions/answers here -->
   <footer class="mt-auto px-8 py-6 text-sm text-gray-700 border-t text-center">
-    &copy; 2025 Civic Cube. Designed with purpose.
+    &copy; 2026 Civic Cube. Designed with purpose.
   </footer>
   
 </body>

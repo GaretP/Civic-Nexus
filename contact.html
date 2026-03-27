@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contact Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with Civic Nexus. Reach us on Twitter/X, Reddit, or by email for questions, feedback, research enquiries, or to report an issue.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .bg-orb { position:fixed;border-radius:50%;filter:blur(90px);opacity:0.18;pointer-events:none;animation:drift 16s ease-in-out infinite alternate; }
+    body.dark-mode .bg-orb { opacity:0.12; }
+    .bg-orb-1 { width:520px;height:520px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-150px;left:-100px;animation-duration:18s; }
+    .bg-orb-2 { width:380px;height:380px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:0;right:-60px;animation-duration:22s;animation-delay:-7s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(30px,46px) scale(1.06);} }
+
+    /* ── Header ── */
+    .main-header {
+      position:sticky;top:0;z-index:1000;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;padding:0 28px;height:60px;
+      background:rgba(139,92,246,0.82);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(255,255,255,0.18);
+      border-radius:0 0 20px 20px;
+      box-shadow:0 4px 24px rgba(91,33,182,0.25);
+    }
+    body.dark-mode .main-header { background:rgba(28,24,48,0.92); }
+    .header-left { display:flex;align-items:center;gap:10px; }
+    .header-left img { height:32px;width:auto;filter:drop-shadow(0 2px 8px rgba(139,92,246,0.4)); }
+    .brand { font-family:'Playfair Display',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#ffffff,#EDE9FE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none; }
+    .header-nav { display:flex;align-items:center;gap:2px;justify-content:center; }
+    .nav-link { color:rgba(255,255,255,0.88);text-decoration:none;font-size:14px;font-weight:500;padding:6px 13px;border-radius:8px;transition:background 0.2s; }
+    .nav-link:hover { background:rgba(255,255,255,0.18);color:#fff; }
+    .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end; }
+    .toggle-switch { position:relative;display:inline-flex;align-items:center;width:46px;height:24px;flex-shrink:0;flex-basis:46px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider { position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:34px;transition:0.3s; }
+    .toggle-knob { position:absolute;height:20px;width:20px;left:2px;top:2px;background:linear-gradient(135deg,#ffffff,#EDE9FE);border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob { transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    /* ── Page ── */
+    .page-wrap {
+      position:relative;z-index:1;
+      max-width:640px;margin:0 auto;
+      padding:64px 24px 80px;
+    }
+
+    /* ── Hero ── */
+    .contact-hero { text-align:center;margin-bottom:52px;animation:fadeUp 0.6s ease both; }
+    .hero-eyebrow {
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--violet-core);background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:100px;
+      padding:6px 18px;margin-bottom:24px;
+    }
+    .eyebrow-dot { width:6px;height:6px;background:var(--violet-core);border-radius:50%;animation:pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);} }
+    .contact-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.1;
+      background:linear-gradient(135deg,var(--violet-deep),var(--violet-core),var(--violet-light));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:14px;
+    }
+    body.dark-mode .contact-title { background:linear-gradient(135deg,#C4B5FD,#A78BFA,#ffffff);-webkit-background-clip:text;background-clip:text; }
+    .contact-sub { font-size:15px;color:var(--text-muted);line-height:1.7;max-width:480px;margin:0 auto; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ── Contact cards ── */
+    .contact-list { display:flex;flex-direction:column;gap:14px; }
+
+    .contact-card {
+      background:var(--glass-bg);backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);border-radius:20px;
+      padding:22px 24px;box-shadow:0 4px 20px var(--glass-shadow);
+      display:flex;align-items:center;gap:18px;
+      text-decoration:none;color:inherit;
+      transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;
+      animation:fadeUp 0.5s ease both;
+      position:relative;overflow:hidden;
+    }
+    .contact-card::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,0.04),transparent 60%);pointer-events:none; }
+    .contact-card:hover { transform:translateY(-3px);box-shadow:0 10px 32px rgba(139,92,246,0.18);border-color:rgba(139,92,246,0.30); }
+
+    .contact-icon {
+      width:48px;height:48px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .contact-icon svg { width:24px;height:24px; }
+
+    .contact-info { flex:1;min-width:0; }
+    .contact-platform { font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px; }
+    .contact-handle { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark); }
+    .contact-desc { font-size:13px;color:var(--text-muted);margin-top:2px; }
+
+    .contact-arrow { color:var(--violet-core);flex-shrink:0;transition:transform 0.2s; }
+    .contact-card:hover .contact-arrow { transform:translateX(4px); }
+
+    /* icon bg colours */
+    .icon-twitter  { background:linear-gradient(135deg,#1DA1F2,#0d8ecf); }
+    .icon-reddit   { background:linear-gradient(135deg,#FF4500,#cc3700); }
+    .icon-email    { background:linear-gradient(135deg,var(--violet-mid),var(--violet-core)); }
+
+    /* ── Note ── */
+    .response-note {
+      margin-top:28px;
+      padding:16px 20px;
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:14px;
+      font-size:13px;color:var(--text-muted);line-height:1.6;
+      text-align:center;
+      animation:fadeUp 0.5s 0.2s ease both;
+    }
+
+    footer {
+      margin-top:60px;padding:22px 32px;text-align:center;
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border-radius:16px;border:1px solid var(--glass-border);
+      color:var(--text-muted);font-size:13px;
+    }
+    footer a { color:var(--violet-core);text-decoration:none; }
+
+    @media(max-width:640px) {
+      .main-header { grid-template-columns:1fr auto;padding:0 14px; }
+      .header-nav { display:none; }
+      .page-wrap { padding:40px 16px 60px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Civic Nexus",
+  "url": "https://civic-nexus.net/contact.html",
+  "description": "Reach Civic Nexus via Twitter/X, Reddit, or email."
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/contact.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Contact Civic Nexus">
+  <meta property="og:description" content="Get in touch via Twitter/X, Reddit, or email for questions, feedback, or research enquiries.">
+  <meta property="og:url"         content="https://civic-nexus.net/contact.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Contact Civic Nexus">
+  <meta name="twitter:description" content="Get in touch via Twitter/X, Reddit, or email for questions, feedback, or research enquiries.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-left">
+      <img src="SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="home.html" class="brand">Civic Nexus</a>
+    </div>
+    <nav class="header-nav">
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="home.html#tools"   class="nav-link">Tools</a>
+      <a href="research/research-page.html" class="nav-link">Research</a>
+      <a href="donate/donate-page.html" class="nav-link">Donate</a>
+    </nav>
+    <div class="header-right">
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- Page -->
+  <div class="page-wrap">
+
+    <!-- Hero -->
+    <div class="contact-hero">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Get In Touch
+      </div>
+      <h1 class="contact-title">Contact Civic Nexus</h1>
+      <p class="contact-sub">Have a question, spotted an error, or want to suggest an improvement? Reach out through any of the channels below.</p>
+    </div>
+
+    <!-- Contact cards -->
+    <div class="contact-list">
+
+      <!-- Twitter / X -->
+      <a href="https://twitter.com/nexuscivic" target="_blank" class="contact-card" style="animation-delay:0s;">
+        <div class="contact-icon icon-twitter">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-platform">Twitter / X</div>
+          <div class="contact-handle">@NexusCivic</div>
+          <div class="contact-desc">Updates, research announcements, and civic discourse.</div>
+        </div>
+        <svg class="contact-arrow" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="16" height="16"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+
+      <!-- Reddit -->
+      <!--
+      <a href="https://reddit.com/r/" target="_blank" class="contact-card" style="animation-delay:0.07s;">
+        <div class="contact-icon icon-reddit">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-platform">Reddit</div>
+          <div class="contact-handle">r/CivicNexus</div>
+          <div class="contact-desc">Community discussion, feedback, and questions.</div>
+        </div>
+        <svg class="contact-arrow" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="16" height="16"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      -->
+      
+      <!-- Email -->
+      <a href="/cdn-cgi/l/email-protection#5e3d31302a3f3d2a1e3d3728373d73303b262b2d70303b2a" class="contact-card" style="animation-delay:0.14s;">
+        <div class="contact-icon icon-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-platform">Email</div>
+          <div class="contact-handle"><span class="__cf_email__" data-cfemail="e5868a8b91848691a5868c938c86c88b809d9096cb8b8091">[email&#160;protected]</span></div>
+          <div class="contact-desc">For research enquiries, data requests, or legal matters.</div>
+        </div>
+        <svg class="contact-arrow" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="16" height="16"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+
+    </div>
+
+    <!-- Response note -->
+    <div class="response-note">
+      We aim to respond to emails within 30 days. For quick questions and general feedback, Twitter or Reddit will get a faster response.
+    </div>
+
+    <footer style="margin-top:48px;">
+      &copy; 2026 Civic Nexus &nbsp;·&nbsp;
+      <a href="legal/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="legal/terms-of-service.html">Terms of Service</a>
+    </footer>
+
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+    }
+    window.addEventListen

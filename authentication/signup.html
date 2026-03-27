@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create an Account — Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a free Civic Nexus account to save your test results, track your ideological history, and access original political research.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.78);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.13);
+      --input-bg:      rgba(255,255,255,0.90);
+      --error:         #EF4444;
+      --success:       #10B981;
+    }
+    body.dark-mode {
+      --bg-light:    #0D0B18;
+      --text-dark:   #EDE9FE;
+      --text-muted:  #9D8EC5;
+      --glass-bg:    rgba(28,24,48,0.82);
+      --glass-border:rgba(139,92,246,0.25);
+      --glass-shadow:rgba(139,92,246,0.22);
+      --input-bg:    rgba(20,16,36,0.90);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+
+    .bg-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(90px); opacity: 0.20; pointer-events: none;
+      animation: drift 16s ease-in-out infinite alternate;
+    }
+    body.dark-mode .bg-orb { opacity: 0.13; }
+    .bg-orb-1 { width:500px;height:500px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-150px;left:-100px;animation-duration:18s; }
+    .bg-orb-2 { width:380px;height:380px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:0;right:-60px;animation-duration:22s;animation-delay:-7s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(30px,46px) scale(1.06);} }
+
+    /* Header */
+    .main-header {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 28px; height: 60px;
+      background: rgba(139,92,246,0.82);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 24px rgba(91,33,182,0.25);
+    }
+    body.dark-mode .main-header {
+      background: rgba(28,24,48,0.92);
+      border-bottom-color: rgba(139,92,246,0.28);
+    }
+    .header-left { display:flex;align-items:center;gap:10px; }
+    .header-left img { height:30px;width:auto; }
+    .brand {
+      font-family:'Playfair Display',serif; font-size:21px; font-weight:700;
+      background:linear-gradient(135deg,#ffffff,#EDE9FE);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-decoration:none;
+    }
+    .header-right { display:flex;align-items:center;gap:10px; }
+    .header-link {
+      color:rgba(255,255,255,0.85); text-decoration:none; font-size:14px; font-weight:500;
+      padding:6px 14px; border-radius:8px; transition:background 0.2s;
+    }
+    .header-link:hover { background:rgba(255,255,255,0.18); color:#fff; }
+    .toggle-switch { position:relative;display:inline-block;width:46px;height:24px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider {
+      position:absolute;cursor:pointer;inset:0;
+      background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);
+      border-radius:34px;transition:0.3s;
+    }
+    .toggle-knob {
+      position:absolute;height:20px;width:20px;left:2px;top:2px;
+      background:linear-gradient(135deg,#ffffff,#EDE9FE);
+      border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob {
+      transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD);
+    }
+
+    /* Page body */
+    .page-body {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 48px 24px; position: relative; z-index: 1;
+    }
+
+    /* Auth card */
+    .auth-card {
+      width: 100%; max-width: 460px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 44px 40px 40px;
+      box-shadow: 0 12px 48px var(--glass-shadow);
+      animation: cardIn 0.6s cubic-bezier(0.34,1.4,0.64,1) both;
+      position: relative; overflow: hidden;
+    }
+    .auth-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--violet-mid),var(--violet-core),var(--violet-pale));
+    }
+    @keyframes cardIn {
+      from { opacity:0; transform:translateY(20px) scale(0.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    .card-logo { display:flex;align-items:center;gap:10px;margin-bottom:28px; }
+    .card-logo img { height:28px;width:auto; }
+    .card-logo span {
+      font-family:'Playfair Display',serif; font-size:18px; font-weight:700;
+      color:var(--violet-core);
+    }
+
+    .auth-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem; font-weight:700; line-height:1.2;
+      color:var(--text-dark); margin-bottom:6px;
+    }
+    .auth-sub { font-size:14px;color:var(--text-muted);margin-bottom:32px;line-height:1.5; }
+
+    /* Form */
+    .auth-form { display:flex;flex-direction:column;gap:16px; }
+
+    .field { display:flex;flex-direction:column;gap:6px; }
+    .field label { font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:0.3px; }
+
+    .field-row { display:grid;grid-template-columns:1fr;gap:16px; }
+
+    .label-row { display:flex;justify-content:space-between;align-items:center; }
+    .optional-tag {
+      font-size:11px;font-weight:500;color:var(--text-muted);
+      background:rgba(139,92,246,0.08);border:1px solid var(--glass-border);
+      padding:2px 8px;border-radius:100px;
+    }
+
+    .input-wrap { position:relative;display:flex;align-items:center; }
+    .input-wrap svg.field-icon {
+      position:absolute;left:14px;width:16px;height:16px;
+      stroke:var(--text-muted);flex-shrink:0;pointer-events:none;transition:stroke 0.2s;
+    }
+    .input-wrap:focus-within svg.field-icon { stroke:var(--violet-core); }
+    .input-wrap input {
+      width:100%;padding:12px 14px 12px 42px;
+      font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-dark);
+      background:var(--input-bg);border:1.5px solid var(--glass-border);
+      border-radius:12px;outline:none;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-wrap input::placeholder { color:var(--text-muted);opacity:0.7; }
+    .input-wrap input:focus {
+      border-color:var(--violet-core);
+      box-shadow:0 0 0 3px rgba(139,92,246,0.12);
+    }
+    .input-wrap input.error-field {
+      border-color:var(--error);box-shadow:0 0 0 3px rgba(239,68,68,0.10);
+    }
+    .input-wrap input.valid-field {
+      border-color:var(--success);box-shadow:0 0 0 3px rgba(16,185,129,0.10);
+    }
+
+    .eye-btn {
+      position:absolute;right:12px;background:none;border:none;
+      cursor:pointer;padding:4px;display:flex;align-items:center;
+      color:var(--text-muted);transition:color 0.2s;
+      width:auto;margin:0;box-shadow:none;
+    }
+    .eye-btn:hover { color:var(--violet-core);transform:none;box-shadow:none; }
+    .eye-btn svg { width:16px;height:16px;stroke:currentColor; }
+
+    .field-error {
+      font-size:12px;color:var(--error);display:none;
+      align-items:center;gap:4px;
+    }
+    .field-error.show { display:flex; }
+    .field-error svg { width:12px;height:12px;flex-shrink:0; }
+
+    /* password strength meter */
+    .strength-meter {
+      height:4px;border-radius:100px;
+      background:var(--glass-border);overflow:hidden;margin-top:4px;
+    }
+    .strength-bar {
+      height:100%;width:0%;border-radius:100px;
+      transition:width 0.4s ease, background 0.4s ease;
+    }
+    .strength-label {
+      font-size:11px;color:var(--text-muted);margin-top:4px;
+      transition:color 0.3s;
+    }
+
+    /* requirements checklist */
+    .req-list {
+      display:flex;flex-direction:column;gap:4px;margin-top:2px;
+    }
+    .req-item {
+      display:flex;align-items:center;gap:6px;
+      font-size:12px;color:var(--text-muted);transition:color 0.2s;
+    }
+    .req-item svg { width:12px;height:12px;flex-shrink:0; }
+    .req-item.met { color:var(--success); }
+    .req-item.met svg { stroke:var(--success); }
+
+    /* msg bar */
+    .msg-bar {
+      display:none;align-items:center;gap:8px;
+      padding:12px 16px;border-radius:12px;font-size:14px;font-weight:500;
+      margin-bottom:4px;
+    }
+    .msg-bar.show { display:flex; }
+    .msg-bar.error  { background:rgba(239,68,68,0.10);border:1px solid rgba(239,68,68,0.25);color:var(--error); }
+    .msg-bar.success{ background:rgba(16,185,129,0.10);border:1px solid rgba(16,185,129,0.25);color:var(--success); }
+    .msg-bar svg { width:16px;height:16px;flex-shrink:0; }
+
+    /* submit */
+    .submit-btn {
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      width:100%;padding:14px 24px;margin:6px 0 0;
+      font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;
+      color:white;background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      border:none;border-radius:14px;cursor:pointer;
+      box-shadow:0 4px 18px rgba(124,58,237,0.38);
+      transition:transform 0.25s,box-shadow 0.25s,opacity 0.2s;
+    }
+    .submit-btn:hover { transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,0.52); }
+    .submit-btn:disabled { opacity:0.6;cursor:not-allowed;transform:none; }
+    .btn-spinner { display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg);} }
+    .submit-btn.loading .btn-spinner { display:block; }
+    .submit-btn.loading .btn-label { display:none; }
+
+    /* divider */
+    .divider { display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-muted);margin:4px 0; }
+    .divider::before,.divider::after { content:'';flex:1;height:1px;background:var(--glass-border); }
+
+    /* privacy note */
+    .privacy-note {
+      display:flex;align-items:flex-start;gap:8px;
+      font-size:12px;color:var(--text-muted);line-height:1.5;
+      padding:12px 14px;
+      background:rgba(139,92,246,0.06);border:1px solid var(--glass-border);
+      border-radius:10px;margin-top:4px;
+    }
+    .privacy-note svg { width:14px;height:14px;flex-shrink:0;margin-top:1px;stroke:var(--violet-core); }
+
+    /* switch row */
+    .switch-row { text-align:center;font-size:14px;color:var(--text-muted);margin-top:4px; }
+    .switch-row a { color:var(--violet-core);text-decoration:none;font-weight:600; }
+    .switch-row a:hover { text-decoration:underline; }
+
+    /* terms */
+    .terms-row {
+      display:flex;align-items:flex-start;gap:10px;
+      font-size:13px;color:var(--text-muted);line-height:1.5;margin-top:2px;
+    }
+    .terms-row input[type=checkbox] {
+      width:16px;height:16px;margin-top:2px;flex-shrink:0;
+      accent-color:var(--violet-core);cursor:pointer;
+    }
+    .terms-row a { color:var(--violet-core);text-decoration:none; }
+    .terms-row a:hover { text-decoration:underline; }
+
+    .page-footer {
+      position:relative;z-index:1;text-align:center;
+      padding:20px 24px;font-size:13px;color:var(--text-muted);
+      border-top:1px solid var(--glass-border);
+    }
+    .page-footer a { color:var(--violet-core);text-decoration:none; }
+    .page-footer a:hover { text-decoration:underline; }
+
+    @media(max-width:480px) {
+      .auth-card { padding:36px 24px 32px; }
+      .main-header { padding:0 16px; }
+    }
+  </style>
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-left">
+      <img src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <div class="header-right">
+      <a href="login.html" class="header-link">Sign in</a>
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- PAGE -->
+  <div class="page-body">
+    <div class="auth-card">
+
+      <div class="card-logo">
+        <img id="cardLogo" src="../SRC/civicnexus_black.svg" alt="Civic Nexus">
+        <span>Civic Nexus</span>
+      </div>
+
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-sub">Join Civic Nexus to save your results, track your profile, and access upcoming research tools.</p>
+
+      <!-- Message bar -->
+      <div class="msg-bar" id="msgBar">
+        <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3M8 11h.01"/></svg>
+        <span id="msgText"></span>
+      </div>
+
+      <form class="auth-form" id="signupForm" novalidate>
+
+        <!-- Username -->
+        <div class="field">
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <svg class="field-icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.5"/><path d="M2.5 13c0-3 2.4-5 5.5-5s5.5 2 5.5 5"/></svg>
+            <input type="text" id="username" name="username" placeholder="choose_a_username"
+              autocomplete="username" required
+              oninput="validateUsername(this.value)">
+          </div>
+          <div class="field-error" id="usernameErr">
+            <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 4v2M6 8h.01" stroke-linecap="round"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Email (optional) -->
+        <div class="field">
+          <div class="label-row">
+            <label for="email">Email</label>
+            <span class="optional-tag">Optional</span>
+          </div>
+          <div class="input-wrap">
+            <svg class="field-icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 5.5l6.5 4 6.5-4"/></svg>
+            <input type="email" id="email" name="email" placeholder="you@example.com"
+              autocomplete="email">
+          </div>
+          <div class="field-error" id="emailErr">
+            <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 4v2M6 8h.01" stroke-linecap="round"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <svg class="field-icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="8" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></svg>
+            <input type="password" id="password" name="password" placeholder="••••••••"
+              autocomplete="new-password" required
+              oninput="updateStrength(this.value)">
+            <button type="button" class="eye-btn" onclick="toggleEye('password', this)" aria-label="Toggle password">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            </button>
+          </div>
+          <!-- strength meter -->
+          <div class="strength-meter"><div class="strength-bar" id="strengthBar"></div></div>
+          <div class="strength-label" id="strengthLabel"></div>
+          <!-- requirements -->
+          <div class="req-list" id="reqList">
+            <div class="req-item" id="req-length">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/></svg>
+              At least 8 characters
+            </div>
+            <div class="req-item" id="req-upper">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/></svg>
+              One uppercase letter
+            </div>
+            <div class="req-item" id="req-number">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/></svg>
+              One number
+            </div>
+          </div>
+          <div class="field-error" id="passwordErr">
+            <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 4v2M6 8h.01" stroke-linecap="round"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Confirm password -->
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="input-wrap">
+            <svg class="field-icon" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="8" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/><path d="M6.5 11l1 1 2-2"/></svg>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••"
+              autocomplete="new-password" required>
+            <button type="button" class="eye-btn" onclick="toggleEye('confirmPassword', this)" aria-label="Toggle confirm password">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="confirmPasswordErr">
+            <svg fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 4v2M6 8h.01" stroke-linecap="round"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="terms-row">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">
+            I agree to the <a href="../legal/terms-of-service.html">Terms of Service</a> and <a href="../legal/privacy-policy.html">Privacy Policy</a>.
+            I understand my password is hashed client-side and Civic Nexus never stores plaintext credentials.
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-label">Create Account</span>
+          <div class="btn-spinner"></div>
+        </button>
+
+      </form>
+
+      <div class="divider" style="margin-top:20px;">or</div>
+
+      <!-- Privacy note -->
+      <div class="privacy-note">
+        <svg fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14"><path d="M7 1L2 3.5v4C2 10.6 4.3 13 7 13.5 9.7 13 12 10.6 12 7.5v-4L7 1z"/></svg>
+        <span>Passwords are SHA-256 hashed in your browser before being sent. Your plaintext password never leaves your device. Email is entirely optional and never required.</span>
+      </div>
+
+      <div class="switch-row" style="margin-top:20px;">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    © 2026 Civic Nexus · <a href="../home.html">Home</a> · <a href="../civic-cube/civic-cube.html">Take the Test</a>
+  </footer>
+
+  <script>
+    const API_BASE   = 'https://web-production-12975.up.railway.app';
+    const CN_API_KEY = 'b5c501ca4a61d5dbffb0d6944d6f059787d76a768b27c405f67333fd7d0b66dc';
+
+    /* ── Dark mode ── */
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+      document.getElementById('cardLogo').src = isDark
+        ? '../SRC/civicnexus.svg'
+        : '../SRC/civicnexus_black.svg';
+    }
+
+    /* ── Eye toggle ── */
+    function toggleEye(fieldId, btn) {
+      const input = document.getElementById(fieldId);
+      const isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      btn.querySelector('svg').innerHTML = isHidden
+        ? `<path d="M1 1l14 14M6.5 6.5A2 2 0 0110 9.5M4.3 4.3C2.6 5.4 1 8 1 8s2.5 5 7 5a7 7 0 003.7-1.1M7 3a7 7 0 015 2S9.5 10 8 10.5" stroke-linecap="round" stroke-linejoin="round"/>`
+        : `<path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke-linecap="round"/><circle cx="8" cy="8" r="2"/>`;
+    }
+
+    /* ── Password strength ── */
+    function updateStrength(val) {
+      const bar   = document.getElementById('strengthBar');
+      const label = document.getElementById('strengthLabel');
+
+      const checks = {
+        length: val.length >= 8,
+        upper:  /[A-Z]/.test(val),
+        number: /[0-9]/.test(val),
+        special:/[^A-Za-z0-9]/.test(val),
+      };
+
+      /* update req items */
+      setReq('req-length', checks.length);
+      setReq('req-upper',  checks.upper);
+      setReq('req-number', checks.number);
+
+      const score = Object.values(checks).filter(Boolean).length;
+      const levels = [
+        { pct:'0%',   color:'transparent',        text:'' },
+        { pct:'25%',  color:'#EF4444',             text:'Weak' },
+        { pct:'50%',  color:'#F59E0B',             text:'Fair' },
+        { pct:'75%',  color:'#8B5CF6',             text:'Good' },
+        { pct:'100%', color:'#10B981',             text:'Strong' },
+      ];
+      const lv = levels[score] || levels[0];
+      bar.style.width     = lv.pct;
+      bar.style.background = lv.color;
+      label.textContent   = lv.text;
+      label.style.color   = lv.color;
+    }
+
+    function setReq(id, met) {
+      const el  = document.getElementById(id);
+      const svg = el.querySelector('svg');
+      if (met) {
+        el.classList.add('met');
+        svg.innerHTML = `<path d="M2 6l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>`;
+      } else {
+        el.classList.remove('met');
+        svg.innerHTML = `<circle cx="6" cy="6" r="5"/>`;
+      }
+    }
+
+    /* ── Username live validation ── */
+    function validateUsername(val) {
+      const input = document.getElementById('username');
+      const errEl = document.getElementById('usernameErr');
+      const re = /^[a-zA-Z0-9_]{3,20}$/;
+      if (val && !re.test(val)) {
+        errEl.querySelector('span').textContent = '3–20 characters, letters, numbers, and underscores only.';
+        errEl.classList.add('show');
+        input.classList.add('error-field');
+        input.classList.remove('valid-field');
+      } else if (val) {
+        errEl.classList.remove('show');
+        input.classList.remove('error-field');
+        input.classList.add('valid-field');
+      } else {
+        errEl.classList.remove('show');
+        input.classList.remove('error-field','valid-field');
+      }
+    }
+
+    /* ── Msg bar ── */
+    function showMsg(text, type) {
+      const bar = document.getElementById('msgBar');
+      document.getElementById('msgText').textContent = text;
+      bar.className = `msg-bar show ${type}`;
+    }
+    function clearMsg() { document.getElementById('msgBar').className = 'msg-bar'; }
+
+    /* ── Field errors ── */
+    function fieldErr(id, msg) {
+      const el = document.getElementById(id + 'Err');
+      if (!el) return;
+      el.querySelector('span').textContent = msg;
+      el.classList.add('show');
+      document.getElementById(id).classList.add('error-field');
+    }
+    function clearFieldErr(id) {
+      const el = document.getElementById(id + 'Err');
+      if (!el) return;
+      el.classList.remove('show');
+      document.getElementById(id).classList.remove('error-field');
+    }
+
+    /* ── SHA-256 (ETHOS challenge model) ── */
+    async function sha256(message) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(message));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    /* ── Register flow ──
+       Password is hashed client-side before sending.
+       Server stores the hash, never the plaintext.
+       Flow mirrors the ETHOS zero-knowledge registration pattern.
+    ── */
+    async function doRegister(username, email, password) {
+      const btn = document.getElementById('submitBtn');
+      btn.classList.add('loading'); btn.disabled = true;
+      clearMsg();
+
+      try {
+        const passwordHash = await sha256(password);
+
+        const body = { username, password_hash: passwordHash };
+        if (email) body.email = email;
+
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-API-Key': CN_API_KEY },
+          body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || 'Registration failed. Please try again.');
+        }
+
+        showMsg('Account created! Redirecting to sign in…', 'success');
+        setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+
+      } catch (err) {
+        showMsg(err.message, 'error');
+        btn.classList.remove('loading'); btn.disabled = false;
+      }
+    }
+
+    /* ── Form submit ── */
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMsg();
+
+      const username        = document.getElementById('username').value.trim();
+      const email           = document.getElementById('email').value.trim();
+      const password        = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const terms           = document.getElementById('terms').checked;
+
+      ['username','email','password','confirmPassword'].forEach(clearFieldErr);
+
+      let valid = true;
+
+      if (!username || !/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
+        fieldErr('username', 'Username must be 3–20 characters: letters, numbers, underscores.');
+        valid = false;
+      }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        fieldErr('email', 'Please enter a valid email address.');
+        valid = false;
+      }
+      if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+        fieldErr('password', 'Password must be at least 8 characters with one uppercase letter and one number.');
+        valid = false;
+      }
+      if (password !== confirmPassword) {
+        fieldErr('confirmPassword', 'Passwords do not match.');
+        valid = false;
+      }
+      if (!terms) {
+        showMsg('Please accept the Terms of Service to continue.', 'error');
+        valid = false;
+      }
+      if (!valid) return;
+
+      await doRegister(username, email || null, password);
+    });
+
+    /* ── Init ── */
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+        document.getElementById('cardLogo').src = '../SRC/civicnexus.svg';
+      }
+      if (sessionStorage.getItem('cn_token')) {
+        window.location.href = '../home.html';
+      }
+    });
+  </script>
+</body>
+</html>

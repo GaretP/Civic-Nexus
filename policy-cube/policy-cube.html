@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Policy Cube — Political Compass by Location | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="See where your policy positions align with current elected officials. The Policy Cube maps your views across seven issue categories and compares them to real representatives in your location.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="policy-cube-data.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+      --rep-color:     #DC2626;
+      --dem-color:     #2563EB;
+      --rep-light:     #FEE2E2;
+      --dem-light:     #DBEAFE;
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+      --rep-light:    rgba(220,38,38,0.15);
+      --dem-light:    rgba(37,99,235,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .bg-orb { position:fixed;border-radius:50%;filter:blur(90px);opacity:0.18;pointer-events:none;animation:drift 16s ease-in-out infinite alternate; }
+    body.dark-mode .bg-orb { opacity:0.12; }
+    .bg-orb-1 { width:500px;height:500px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-150px;left:-100px;animation-duration:18s; }
+    .bg-orb-2 { width:380px;height:380px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:0;right:-60px;animation-duration:22s;animation-delay:-7s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(30px,46px) scale(1.06);} }
+
+    /* ── Header ── */
+    .main-header {
+      position:sticky;top:0;z-index:1000;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;padding:0 28px;height:60px;
+      background:rgba(139,92,246,0.82);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(255,255,255,0.18);
+      border-radius:0 0 20px 20px;
+      box-shadow:0 4px 24px rgba(91,33,182,0.25);
+    }
+    body.dark-mode .main-header { background:rgba(28,24,48,0.92); }
+    .header-left { display:flex;align-items:center;gap:10px; }
+    .header-left img { height:32px;width:auto;filter:drop-shadow(0 2px 8px rgba(139,92,246,0.4)); }
+    .brand { font-family:'Playfair Display',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#ffffff,#EDE9FE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none; }
+    .header-nav { display:flex;align-items:center;gap:2px;justify-content:center; }
+    .nav-link { color:rgba(255,255,255,0.88);text-decoration:none;font-size:14px;font-weight:500;padding:6px 13px;border-radius:8px;transition:background 0.2s; }
+    .nav-link:hover { background:rgba(255,255,255,0.18);color:#fff; }
+    .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end; }
+    .toggle-switch { position:relative;display:inline-flex;align-items:center;width:46px;height:24px;flex-shrink:0;flex-basis:46px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider { position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:34px;transition:0.3s; }
+    .toggle-knob { position:absolute;height:20px;width:20px;left:2px;top:2px;background:linear-gradient(135deg,#ffffff,#EDE9FE);border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob { transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    /* ── Page wrap ── */
+    .page-wrap { position:relative;z-index:1;max-width:760px;margin:0 auto;padding:48px 24px 80px; }
+
+    /* ── Progress bar ── */
+    .progress-wrap { margin-bottom:32px; }
+    .progress-track { height:6px;background:var(--glass-border);border-radius:100px;overflow:hidden; }
+    .progress-fill { height:100%;background:linear-gradient(90deg,var(--violet-mid),var(--violet-core));border-radius:100px;transition:width 0.4s ease; }
+    .progress-label { font-size:12px;color:var(--text-muted);margin-top:6px;text-align:right; }
+
+    /* ── Stage cards ── */
+    .stage { display:none;animation:fadeUp 0.4s ease both; }
+    .stage.active { display:block; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+
+    .stage-eyebrow { font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--violet-core);margin-bottom:8px;display:block; }
+    .stage-title { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;line-height:1.15;color:var(--text-dark);margin-bottom:8px; }
+    body.dark-mode .stage-title { color:var(--text-dark); }
+    .stage-sub { font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:32px; }
+
+    /* ── Location grid ── */
+    .location-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px; }
+    .location-card {
+      cursor:pointer;padding:22px 20px;border-radius:18px;
+      border:2px solid var(--glass-border);
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      transition:all 0.2s ease;text-align:center;
+    }
+    .location-card:hover { border-color:var(--violet-core);box-shadow:0 4px 16px rgba(139,92,246,0.16); }
+    .location-card.selected { border-color:var(--violet-core);background:rgba(139,92,246,0.10);box-shadow:0 4px 20px rgba(139,92,246,0.22); }
+    .location-card .loc-name { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:4px; }
+    .location-card .loc-sub { font-size:12px;color:var(--text-muted); }
+    .location-card.federal-card { grid-column:span 2; }
+
+    /* ── Pre-gauge questions ── */
+    .pregauge-list { display:flex;flex-direction:column;gap:12px;margin-bottom:28px; }
+    .pregauge-item {
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:14px;
+      padding:16px 20px;
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+    }
+    .pregauge-q { font-size:15px;color:var(--text-dark);font-weight:500;flex:1; }
+    .pregauge-options { display:flex;gap:8px;flex-shrink:0; }
+    .pregauge-btn {
+      padding:6px 16px;border-radius:100px;font-size:13px;font-weight:600;
+      border:1px solid var(--glass-border);background:transparent;
+      color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;
+      transition:all 0.2s;
+    }
+    .pregauge-btn:hover { border-color:var(--violet-core);color:var(--violet-core); }
+    .pregauge-btn.selected-yes { background:rgba(16,185,129,0.12);border-color:#10B981;color:#10B981; }
+    .pregauge-btn.selected-no { background:rgba(239,68,68,0.10);border-color:#EF4444;color:#EF4444; }
+
+    /* ── Question cards ── */
+    .question-wrap { margin-bottom:20px; }
+    .question-card {
+      background:var(--glass-bg);backdrop-filter:blur(16px);
+      border:1px solid var(--glass-border);border-radius:18px;
+      padding:24px;box-shadow:0 4px 16px var(--glass-shadow);
+    }
+    .question-num { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet-core);margin-bottom:8px; }
+    .question-category {
+      display:inline-block;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      padding:3px 10px;border-radius:100px;
+      background:rgba(139,92,246,0.10);border:1px solid var(--glass-border);
+      color:var(--violet-core);margin-bottom:12px;
+    }
+    .question-text { font-size:16px;font-weight:500;color:var(--text-dark);line-height:1.55;margin-bottom:20px; }
+
+    .answer-options { display:grid;grid-template-columns:1fr 1fr;gap:8px; }
+    .answer-btn {
+      padding:12px 10px;border-radius:12px;font-size:13px;font-weight:600;
+      border:1.5px solid var(--glass-border);background:var(--glass-bg);
+      color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;
+      transition:all 0.2s;text-align:center;
+    }
+    .answer-btn:hover { border-color:var(--violet-core);color:var(--violet-core);background:rgba(139,92,246,0.06); }
+    .answer-btn.selected-agree { background:rgba(37,99,235,0.10);border-color:var(--dem-color);color:var(--dem-color); }
+    .answer-btn.selected-somewhat-agree { background:rgba(37,99,235,0.06);border-color:rgba(37,99,235,0.4);color:var(--dem-color); }
+    .answer-btn.selected-somewhat-disagree { background:rgba(220,38,38,0.06);border-color:rgba(220,38,38,0.4);color:var(--rep-color); }
+    .answer-btn.selected-disagree { background:rgba(220,38,38,0.10);border-color:var(--rep-color);color:var(--rep-color); }
+
+    /* ── Nav buttons ── */
+    .nav-btns { display:flex;justify-content:space-between;gap:12px;margin-top:24px; }
+    .btn-primary {
+      display:inline-flex;align-items:center;gap:6px;
+      padding:12px 24px;font-family:'DM Sans',sans-serif;
+      font-size:14px;font-weight:600;color:white;
+      background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      border:none;border-radius:14px;cursor:pointer;
+      box-shadow:0 4px 14px rgba(124,58,237,0.35);
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.48); }
+    .btn-primary:disabled { opacity:0.4;cursor:not-allowed;transform:none; }
+    .btn-secondary {
+      display:inline-flex;align-items:center;gap:6px;
+      padding:12px 20px;font-family:'DM Sans',sans-serif;
+      font-size:14px;font-weight:600;color:var(--text-muted);
+      background:var(--glass-bg);backdrop-filter:blur(10px);
+      border:1px solid var(--glass-border);border-radius:14px;cursor:pointer;
+      transition:all 0.2s;
+    }
+    .btn-secondary:hover { border-color:var(--violet-core);color:var(--violet-core); }
+
+    /* ── Results ── */
+    .results-header { margin-bottom:32px; }
+    .results-location-badge {
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:var(--violet-core);background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:100px;
+      padding:5px 14px;margin-bottom:16px;
+    }
+    .results-title { font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--text-dark);margin-bottom:8px; }
+    .results-sub { font-size:14px;color:var(--text-muted);line-height:1.6; }
+
+    /* Category bars */
+    .category-bars { display:flex;flex-direction:column;gap:16px;margin:28px 0; }
+    .category-bar-wrap {
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:16px;
+      padding:16px 20px;box-shadow:0 2px 12px var(--glass-shadow);
+    }
+    .category-bar-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:10px; }
+    .category-bar-label { font-size:13px;font-weight:600;color:var(--text-dark); }
+    .category-bar-score { font-size:13px;font-weight:700; }
+    .bar-track { height:10px;background:var(--glass-border);border-radius:100px;overflow:hidden;position:relative; }
+    .bar-center { position:absolute;left:50%;top:0;width:1px;height:100%;background:rgba(139,92,246,0.4); }
+    .bar-fill { height:100%;border-radius:100px;transition:width 0.8s ease,background 0.8s ease; }
+    .bar-labels { display:flex;justify-content:space-between;margin-top:5px; }
+    .bar-label-dem { font-size:11px;color:var(--dem-color);font-weight:600; }
+    .bar-label-rep { font-size:11px;color:var(--rep-color);font-weight:600; }
+
+    /* Officials match */
+    .officials-section { margin-top:32px; }
+    .officials-title { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark);margin-bottom:16px; }
+    .officials-list { display:flex;flex-direction:column;gap:12px; }
+    .official-card {
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:16px;
+      padding:18px 20px;display:flex;align-items:center;gap:16px;
+      box-shadow:0 2px 12px var(--glass-shadow);
+    }
+    .official-card.top-match { border-color:var(--violet-core);box-shadow:0 4px 20px rgba(139,92,246,0.20); }
+    .official-avatar {
+      width:44px;height:44px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
+      color:white;flex-shrink:0;
+    }
+    .official-info { flex:1;min-width:0; }
+    .official-name { font-weight:700;font-size:15px;color:var(--text-dark);margin-bottom:2px; }
+    .official-title-text { font-size:12px;color:var(--text-muted); }
+    .match-pct { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;flex-shrink:0; }
+    .top-match-badge {
+      font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+      padding:2px 8px;border-radius:100px;
+      background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      color:white;margin-left:8px;vertical-align:middle;
+    }
+
+    /* share / retake */
+    .results-actions { display:flex;gap:12px;margin-top:28px;flex-wrap:wrap; }
+
+    /* ── Short mode note ── */
+    .accuracy-note {
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:12px;color:var(--violet-core);
+      background:rgba(139,92,246,0.08);border:1px solid var(--glass-border);
+      border-radius:8px;padding:5px 12px;margin-bottom:16px;
+    }
+
+    /* ── Responsive ── */
+    @media(max-width:700px) {
+      .main-header { grid-template-columns:1fr auto;padding:0 14px; }
+      .header-nav { display:none; }
+      .location-grid { grid-template-columns:1fr; }
+      .location-card.federal-card { grid-column:span 1; }
+      .answer-options { grid-template-columns:1fr 1fr; }
+      .page-wrap { padding:32px 16px 60px; }
+    }
+    @media(max-width:480px) {
+      .answer-options { grid-template-columns:1fr; }
+      .pregauge-item { flex-direction:column;align-items:flex-start; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Policy Cube Political Compass",
+  "url": "https://civic-nexus.net/policy-cube/policy-cube.html",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "description": "A location-based political compass mapping your policy views across seven categories and comparing them to current elected officials.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Policy Cube",
+      "item": "https://civic-nexus.net/policy-cube/policy-cube.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/policy-cube/policy-cube.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Policy Cube — Political Compass by Location">
+  <meta property="og:description" content="See where your policy positions align with current elected officials. Seven issue categories. Five locations. Free and anonymous.">
+  <meta property="og:url"         content="https://civic-nexus.net/policy-cube/policy-cube.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Policy Cube — Political Compass by Location">
+  <meta name="twitter:description" content="See where your policy positions align with current elected officials. Seven issue categories. Five locations. Free and anonymous.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-left">
+      <img src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <nav class="header-nav">
+      <a href="../home"   class="nav-link">Home</a>
+      <a href="faq/policy-cube-faq.html" class="nav-link">FAQ</a>
+      <a href="explanation/explanation.html" class="nav-link">Explanation</a>
+      <a href="../donate/donate-page.html" class="nav-link">Donate</a>
+    </nav>
+    <div class="header-right">
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- PAGE -->
+  <div class="page-wrap">
+
+    <!-- Progress bar -->
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-label" id="progressLabel">Step 1 of 4</div>
+    </div>
+
+    <!-- ── Stage 1: Location picker ── -->
+    <div class="stage active" id="stage-location">
+      <span class="stage-eyebrow">Policy Cube</span>
+      <h1 class="stage-title">Where would you like to explore?</h1>
+      <p class="stage-sub">Select a location to see policy questions relevant to that area. Your results will show how your views align with current elected officials there.</p>
+
+      <div class="location-grid" id="locationGrid"></div>
+
+      <div class="nav-btns">
+        <div></div>
+        <button class="btn-primary" id="locationNextBtn" onclick="goToPreGauge()" disabled style="opacity:0.4;cursor:not-allowed;">
+          Continue
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Stage 2: Pre-gauge questions ── -->
+    <div class="stage" id="stage-pregauge">
+      <span class="stage-eyebrow">Before We Begin</span>
+      <h1 class="stage-title" id="pregaugeTitle">A few quick questions</h1>
+      <p class="stage-sub">These help us understand your context. Your answers won't affect your policy results.</p>
+
+      <div class="pregauge-list" id="pregaugeList"></div>
+
+      <div class="nav-btns">
+        <button class="btn-secondary" onclick="goToLocation()">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M12 7H2M6 3L2 7l4 4"/></svg>
+          Back
+        </button>
+        <button class="btn-primary" onclick="goToQuestions()">
+          Start Survey
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Stage 3: Questions ── -->
+    <div class="stage" id="stage-questions">
+      <span class="stage-eyebrow" id="questionEyebrow">Policy Cube</span>
+      <h1 class="stage-title" id="questionSectionTitle"></h1>
+      <p class="stage-sub">Select how much you agree or disagree with each statement.</p>
+
+      <div id="questionContainer"></div>
+
+      <div class="nav-btns">
+        <button class="btn-secondary" id="questionBackBtn" onclick="questionBack()">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M12 7H2M6 3L2 7l4 4"/></svg>
+          Back
+        </button>
+        <button class="btn-primary" id="questionNextBtn" onclick="questionNext()">
+          Next
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Stage 4: Results ── -->
+    <div class="stage" id="stage-results">
+      <div class="results-header">
+        <div class="results-location-badge" id="resultsLocationBadge"></div>
+        <h1 class="results-title">Your Policy Alignment</h1>
+        <p class="results-sub">Here's how your responses align across seven policy categories, and which current officials most closely match your positions.</p>
+      </div>
+
+      <div class="category-bars" id="categoryBars"></div>
+
+      <div class="officials-section">
+        <h2 class="officials-title">Closest Match Among Current Officials</h2>
+        <div class="officials-list" id="officialsList"></div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn-primary" onclick="submitResults()">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M7 1v12M1 7l6 6 6-6"/></svg>
+          Submit to Research
+        </button>
+        <button class="btn-secondary" onclick="resetSurvey()">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14" width="14" height="14"><path d="M1 7a6 6 0 1 1 2 4.5"/><path d="M1 3v4h4"/></svg>
+          Take Again
+        </button>
+      </div>
+
+      <p id="submitConfirm" style="display:none;font-size:13px;color:#10B981;margin-top:12px;">✓ Results submitted. Thank you!</p>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE   = 'https://web-production-12975.up.railway.app';
+    const CN_API_KEY = 'b5c501ca4a61d5dbffb0d6944d6f059787d76a768b27c405f67333fd7d0b66dc';
+
+    // ── State ──────────────────────────────────────────────────────────────────
+    let selectedLocation = null;
+    let locationData     = null;
+    let preGaugeAnswers  = {};
+    let responses        = {};   // { questionIndex: score } -1 to 1
+    let currentPage      = 0;   // which page of questions we're on
+    const QUESTIONS_PER_PAGE = 5;
+
+    // ── Dark mode ──────────────────────────────────────────────────────────────
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+    }
+
+    // ── Progress ───────────────────────────────────────────────────────────────
+    function setProgress(pct, label) {
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressLabel').textContent = label;
+    }
+
+    // ── Stage navigation ───────────────────────────────────────────────────────
+    function showStage(id) {
+      document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+      document.getElementById('stage-' + id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function buildLocationGrid() {
+      const grid = document.getElementById('locationGrid');
+      grid.innerHTML = LOCATIONS.map(loc => `
+        <div class="location-card ${loc.id === 'federal' ? 'federal-card' : ''}"
+             id="loc-${loc.id}"
+             onclick="selectLocation('${loc.id}')">
+          <div class="loc-name">${loc.label}</div>
+          <div class="loc-sub">${loc.id === 'federal' ? 'National policy questions' : 'State-level policy questions'}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectLocation(id) {
+      selectedLocation = id;
+      locationData = SURVEY_DATA[id];
+      document.querySelectorAll('.location-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('loc-' + id).classList.add('selected');
+      const btn = document.getElementById('locationNextBtn');
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor  = 'pointer';
+    }
+
+    function goToLocation() {
+      showStage('location');
+      setProgress(0, 'Step 1 of 4');
+    }
+
+    function goToPreGauge() {
+      if (!selectedLocation) return;
+      preGaugeAnswers = {};
+
+      document.getElementById('pregaugeTitle').textContent =
+        locationData.state
+          ? `A few quick questions about ${locationData.name}`
+          : 'A few quick questions';
+
+      const list = document.getElementById('pregaugeList');
+      list.innerHTML = locationData.preGauge.map(q => `
+        <div class="pregauge-item">
+          <span class="pregauge-q">${q.text}</span>
+          <div class="pregauge-options">
+            <button class="pregauge-btn" id="pg-${q.id}-yes" onclick="setPregauge('${q.id}', true)">Yes</button>
+            <button class="pregauge-btn" id="pg-${q.id}-no"  onclick="setPregauge('${q.id}', false)">No</button>
+          </div>
+        </div>
+      `).join('');
+
+      showStage('pregauge');
+      setProgress(25, 'Step 2 of 4');
+    }
+
+    function setPregauge(id, value) {
+      preGaugeAnswers[id] = value;
+      document.getElementById(`pg-${id}-yes`).className = 'pregauge-btn' + (value ? ' selected-yes' : '');
+      document.getElementById(`pg-${id}-no`).className  = 'pregauge-btn' + (!value ? ' selected-no' : '');
+    }
+
+    const ANSWER_OPTIONS = [
+      { label: 'Agree',           key: 'agree',            score: 1.0 },
+      { label: 'Somewhat Agree',  key: 'somewhat_agree',   score: 0.5 },
+      { label: 'Somewhat Disagree', key: 'somewhat_disagree', score: -0.5 },
+      { label: 'Disagree',        key: 'disagree',         score: -1.0 },
+    ];
+
+    function goToQuestions() {
+      currentPage = 0;
+      responses = {};
+      renderQuestionPage();
+      showStage('questions');
+    }
+
+    function renderQuestionPage() {
+      const questions = locationData.questions;
+      const start = currentPage * QUESTIONS_PER_PAGE;
+      const end   = Math.min(start + QUESTIONS_PER_PAGE, questions.length);
+      const pageQuestions = questions.slice(start, end);
+      const totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
+
+      document.getElementById('questionEyebrow').textContent =
+        `${locationData.name} Survey — Page ${currentPage + 1} of ${totalPages}`;
+      document.getElementById('questionSectionTitle').textContent =
+        `Question ${start + 1}–${end} of ${questions.length}`;
+
+      const pct = 25 + ((currentPage / totalPages) * 50);
+      setProgress(pct, `Step 3 of 4 — Page ${currentPage + 1} of ${totalPages}`);
+
+      const container = document.getElementById('questionContainer');
+      container.innerHTML = pageQuestions.map((q, i) => {
+        const globalIdx = start + i;
+        const cat = CATEGORIES[q.category];
+        return `
+          <div class="question-wrap">
+            <div class="question-card">
+              <div class="question-num">Question ${globalIdx + 1}</div>
+              <div class="question-category">${cat.label}</div>
+              <div class="question-text">${q.text}</div>
+              <div class="answer-options">
+                ${ANSWER_OPTIONS.map(opt => `
+                  <button class="answer-btn ${responses[globalIdx] === opt.score ? 'selected-' + opt.key.replace('_', '-') : ''}"
+                    onclick="selectAnswer(${globalIdx}, ${opt.score}, '${opt.key}', this)">
+                    ${opt.label}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Back button visibility
+      document.getElementById('questionBackBtn').style.visibility =
+        currentPage === 0 ? 'hidden' : 'visible';
+
+      // Next button label
+      const isLast = end >= questions.length;
+      document.getElementById('questionNextBtn').textContent = isLast ? 'See Results' : 'Next Page';
+    }
+
+    function selectAnswer(idx, score, key, btn) {
+      responses[idx] = score;
+      // Update button styles within that card
+      const card = btn.closest('.answer-options');
+      card.querySelectorAll('.answer-btn').forEach(b => {
+        b.className = 'answer-btn';
+      });
+      btn.className = `answer-btn selected-${key.replace('_', '-')}`;
+    }
+
+    function questionBack() {
+      if (currentPage === 0) {
+        goToPreGauge();
+      } else {
+        currentPage--;
+        renderQuestionPage();
+      }
+    }
+
+    function questionNext() {
+      const questions = locationData.questions;
+      const start = currentPage * QUESTIONS_PER_PAGE;
+      const end   = Math.min(start + QUESTIONS_PER_PAGE, questions.length);
+
+      // Check all answered
+      for (let i = start; i < end; i++) {
+        if (responses[i] === undefined) {
+          alert('Please answer all questions on this page before continuing.');
+          return;
+        }
+      }
+
+      if (end >= questions.length) {
+        calculateResults();
+      } else {
+        currentPage++;
+        renderQuestionPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function calculateResults() {
+      const questions = locationData.questions;
+
+      // Calculate per-category score
+      const catScores   = {};
+      const catCounts   = {};
+      Object.keys(CATEGORIES).forEach(c => { catScores[c] = 0; catCounts[c] = 0; });
+
+      questions.forEach((q, i) => {
+        const raw = responses[i] ?? 0;
+        // Apply direction: if direction is 1, agree = Republican (+1)
+        // if direction is -1, agree = Democrat (-1)
+        const aligned = raw * q.direction;
+        catScores[q.category] += aligned;
+        catCounts[q.category]++;
+      });
+
+      // Normalize to [-1, 1]
+      const finalScores = {};
+      Object.keys(CATEGORIES).forEach(c => {
+        finalScores[c] = catCounts[c] > 0 ? catScores[c] / catCounts[c] : 0;
+      });
+
+      renderResults(finalScores);
+    }
+
+    function renderResults(scores) {
+      setProgress(100, 'Complete');
+      showStage('results');
+
+      // Location badge
+      document.getElementById('resultsLocationBadge').innerHTML = `
+        <svg fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" viewBox="0 0 12 12" width="10" height="10"><path d="M6 1C4.3 1 3 2.3 3 4c0 2.5 3 7 3 7s3-4.5 3-7c0-1.7-1.3-3-3-3z"/><circle cx="6" cy="4" r="1"/></svg>
+        ${locationData.name} Policy Survey
+      `;
+
+      // Category bars
+      const barsEl = document.getElementById('categoryBars');
+      barsEl.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => {
+        const score = scores[key] ?? 0;
+        const isRep = score > 0;
+        const pct   = Math.abs(score) * 50; // 0–50% from center
+
+        const barLeft  = isRep ? 50 : (50 - pct);
+        const barWidth = pct;
+        const barColor = isRep ? 'var(--rep-color)' : 'var(--dem-color)';
+        const scoreLabel = score === 0 ? 'Centrist'
+          : (isRep ? `+${score.toFixed(2)} Republican` : `${score.toFixed(2)} Democrat`);
+        const scoreColor = isRep ? 'var(--rep-color)' : score === 0 ? 'var(--text-muted)' : 'var(--dem-color)';
+
+        return `
+          <div class="category-bar-wrap">
+            <div class="category-bar-header">
+              <span class="category-bar-label">${cat.label}</span>
+              <span class="category-bar-score" style="color:${scoreColor}">${scoreLabel}</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-center"></div>
+              <div class="bar-fill" style="
+                width:${barWidth}%;
+                margin-left:${barLeft}%;
+                background:${barColor};
+              "></div>
+            </div>
+            <div class="bar-labels">
+              <span class="bar-label-dem">${cat.demLabel}</span>
+              <span class="bar-label-rep">${cat.repLabel}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const officials = locationData.officials.map(off => {
+        let totalDiff = 0;
+        let count = 0;
+        Object.keys(CATEGORIES).forEach(cat => {
+          if (off.scores[cat] !== undefined && scores[cat] !== undefined) {
+            totalDiff += Math.abs(off.scores[cat] - scores[cat]);
+            count++;
+          }
+        });
+        const avgDiff = count > 0 ? totalDiff / count : 2;
+        const matchPct = Math.round((1 - avgDiff / 2) * 100);
+        return { ...off, matchPct };
+      }).sort((a, b) => b.matchPct - a.matchPct);
+
+      const offEl = document.getElementById('officialsList');
+      offEl.innerHTML = officials.map((off, i) => {
+        const isRep = off.party === 'Republican';
+        const avatarBg = isRep ? 'linear-gradient(135deg,#DC2626,#EF4444)' : 'linear-gradient(135deg,#1D4ED8,#2563EB)';
+        const initials = off.name.split(' ').map(n => n[0]).join('').slice(0, 2);
+        const matchColor = off.matchPct >= 70 ? '#10B981' : off.matchPct >= 50 ? 'var(--violet-core)' : 'var(--text-muted)';
+
+        return `
+          <div class="official-card ${i === 0 ? 'top-match' : ''}">
+            <div class="official-avatar" style="background:${avatarBg}">${initials}</div>
+            <div class="official-info">
+              <div class="official-name">
+                ${off.name}
+                ${i === 0 ? '<span class="top-match-badge">Closest Match</span>' : ''}
+              </div>
+              <div class="official-title-text">${off.title} · ${off.party}</div>
+            </div>
+            <div class="match-pct" style="color:${matchColor}">${off.matchPct}%</div>
+          </div>
+        `;
+      }).join('');
+
+      // Store for submission
+      window._lastPolicyCubeResults = { location: selectedLocation, scores, preGauge: preGaugeAnswers };
+    }
+
+    // ── Submit results ─────────────────────────────────────────────────────────
+    async function submitResults() {
+      const data = window._lastPolicyCubeResults;
+      if (!data) return;
+
+      // Check for duplicate submission
+      const key = `policy-cube-submitted-${data.location}`;
+      const token = sessionStorage.getItem('cn_token');
+
+      if (!token && localStorage.getItem(key) === 'true') {
+        alert('You have already submitted results for this location. Sign in to submit again.');
+        return;
+      }
+
+      const payload = {
+        location: data.location,
+        scores: data.scores,
+        pre_gauge: data.preGauge,
+      };
+
+      try {
+        const headers = {
+          'Content-Type': 'application/json',
+          'X-API-Key': CN_API_KEY,
+        };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(`${API_BASE}/policy-cube/submit`, { method: 'POST', headers, body: JSON.stringify(payload) });
+
+        if (res.ok) {
+          if (!token) localStorage.setItem(key, 'true');
+          document.getElementById('submitConfirm').style.display = 'block';
+        } else {
+          throw new Error();
+        }
+      } catch {
+        if (!token) localStorage.setItem(key, 'true');
+        document.getElementById('submitConfirm').style.display = 'block';
+      }
+    }
+
+    // ── Reset ──────────────────────────────────────────────────────────────────
+    function resetSurvey() {
+      selectedLocation = null;
+      locationData     = null;
+      preGaugeAnswers  = {};
+      responses        = {};
+      currentPage      = 0;
+      document.querySelectorAll('.location-card').forEach(c => c.classList.remove('selected'));
+      const btn = document.getElementById('locationNextBtn');
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+      btn.style.cursor = 'not-allowed';
+      document.getElementById('submitConfirm').style.display = 'none';
+      showStage('location');
+      setProgress(0, 'Step 1 of 4');
+    }
+
+    // ── Init ───────────────────────────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+      }
+      buildLocationGrid();
+    });
+  </script>
+</body>
+</html>

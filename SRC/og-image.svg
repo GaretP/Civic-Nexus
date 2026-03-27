@@ -1,0 +1,118 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=DM+Sans:wght@300;400&amp;display=swap');
+    </style>
+
+    <!-- Background gradient: deep violet left to right -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1A0533"/>
+      <stop offset="100%" stop-color="#3D1278"/>
+    </linearGradient>
+
+    <!-- Ambient orb: soft radial in top-left -->
+    <radialGradient id="orb" cx="0%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Subtle secondary orb bottom-right for depth -->
+    <radialGradient id="orb2" cx="100%" cy="100%" r="50%">
+      <stop offset="0%" stop-color="#6D28D9" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#6D28D9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Ambient orbs -->
+  <rect width="1200" height="630" fill="url(#orb)"/>
+  <rect width="1200" height="630" fill="url(#orb2)"/>
+
+  <!-- Subtle noise texture via tiny repeated pattern (faint) -->
+  <rect width="1200" height="630" fill="#7C3AED" opacity="0.03"/>
+
+  <!-- ===== LOGO ICON (white, ~80px tall, left-anchored) ===== -->
+  <!-- Icon centered at x=100, y=230 — scaled so the 128-unit viewBox = 80px => scale=0.625 -->
+  <g transform="translate(100, 230) scale(0.625)">
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#fff" stroke-width="1" opacity="0.18"/>
+    <line x1="0" y1="0" x2="0" y2="-44" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <line x1="0" y1="0" x2="38" y2="-22" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <line x1="0" y1="0" x2="38" y2="22" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <line x1="0" y1="0" x2="0" y2="44" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <line x1="0" y1="0" x2="-38" y2="22" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <line x1="0" y1="0" x2="-38" y2="-22" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
+    <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="none" stroke="#fff" stroke-width="1.4" opacity="0.3"/>
+    <line x1="0" y1="-44" x2="38" y2="22" stroke="#fff" stroke-width="1" opacity="0.18"/>
+    <line x1="38" y1="-22" x2="-38" y2="22" stroke="#fff" stroke-width="1" opacity="0.18"/>
+    <line x1="38" y1="-22" x2="0" y2="44" stroke="#fff" stroke-width="1" opacity="0.18"/>
+    <circle cx="0" cy="-44" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="0" cy="-44" r="2" fill="#fff"/>
+    <circle cx="38" cy="-22" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="38" cy="-22" r="2" fill="#fff"/>
+    <circle cx="38" cy="22" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="38" cy="22" r="2" fill="#fff"/>
+    <circle cx="0" cy="44" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="0" cy="44" r="2" fill="#fff"/>
+    <circle cx="-38" cy="22" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="-38" cy="22" r="2" fill="#fff"/>
+    <circle cx="-38" cy="-22" r="5" fill="none" stroke="#fff" stroke-width="1.6"/>
+    <circle cx="-38" cy="-22" r="2" fill="#fff"/>
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle cx="0" cy="0" r="3" fill="#fff"/>
+  </g>
+
+  <!-- Thin vertical separator between logo and text -->
+  <line x1="158" y1="195" x2="158" y2="435" stroke="#8B5CF6" stroke-width="1" opacity="0.35"/>
+
+  <!-- ===== MAIN TEXT BLOCK ===== -->
+  <!-- "Civic Nexus" headline -->
+  <text
+    x="196"
+    y="296"
+    font-family="'Playfair Display', Georgia, serif"
+    font-weight="700"
+    font-size="84"
+    fill="#ffffff"
+    letter-spacing="-1"
+  >Civic Nexus</text>
+
+  <!-- Subtitle -->
+  <text
+    x="198"
+    y="360"
+    font-family="'DM Sans', sans-serif"
+    font-weight="300"
+    font-size="30"
+    fill="#C4B5FD"
+    letter-spacing="1"
+  >Political Insight &amp; Research</text>
+
+  <!-- Thin horizontal separator line -->
+  <line x1="196" y1="530" x2="1060" y2="530" stroke="#8B5CF6" stroke-width="1" opacity="0.5"/>
+
+  <!-- Bottom tagline -->
+  <text
+    x="196"
+    y="566"
+    font-family="'DM Sans', sans-serif"
+    font-weight="300"
+    font-size="20"
+    fill="#A78BFA"
+    letter-spacing="2"
+  >Free · Nonpartisan · Philosophy-First</text>
+
+  <!-- Subtle domain watermark far right -->
+  <text
+    x="1060"
+    y="566"
+    font-family="'DM Sans', sans-serif"
+    font-weight="300"
+    font-size="18"
+    fill="#6D28D9"
+    text-anchor="end"
+    letter-spacing="1"
+  >civic-nexus.net</text>
+
+</svg>

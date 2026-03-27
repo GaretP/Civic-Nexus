@@ -1,171 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+  width: 100%; height: 100%;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  background: #0D0B18; /* stays dark so curtain lift reveals darkness first */
 }
 
+/* ══════════════════════════════════════════
+   SPLASH CONTAINER
+══════════════════════════════════════════ */
 .splash {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 50%, #faf5ff 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  background: #F8F6FF; /* light page bg shows through once curtains lift */
 }
 
-.door {
+/* background ambient orbs — same as home page */
+.splash::before,
+.splash::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbDrift 12s ease-in-out infinite alternate;
+}
+.splash::before {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #8B5CF6, #5B21B6);
+  top: -180px; left: -120px;
+  opacity: 0.22;
+}
+.splash::after {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, #A78BFA, #7C3AED);
+  bottom: -100px; right: -80px;
+  opacity: 0.18;
+  animation-delay: -5s;
+}
+@keyframes orbDrift {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(30px,40px) scale(1.07); }
+}
+
+/* ══════════════════════════════════════════
+   CURTAINS  (replaces old .door)
+   — instead of sliding left/right they now
+     lift upward like a theatre curtain
+══════════════════════════════════════════ */
+.curtain {
   position: absolute;
   top: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(124, 58, 237, 0.98));
-  backdrop-filter: blur(10px);
-  transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: 2;
-  box-shadow: 0 0 60px rgba(139, 92, 246, 0.6);
+  /* Vertical gradient so the curtain looks weighted at the bottom */
+  transition: transform 1.0s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
 }
 
-.door.left { 
+.curtain.left {
   left: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.4);
-  background: linear-gradient(to right, rgba(124, 58, 237, 1), rgba(139, 92, 246, 0.98));
+  background: linear-gradient(
+    160deg,
+    #7C3AED 0%,
+    #8B5CF6 40%,
+    #6D28D9 100%
+  );
+  /* subtle vertical stripe texture */
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.12),
+              2px 0 40px rgba(91,33,182,0.5);
 }
 
-.door.right { 
+.curtain.right {
   right: 0;
-  border-left: 1px solid rgba(255, 255, 255, 0.4);
-  background: linear-gradient(to left, rgba(124, 58, 237, 1), rgba(139, 92, 246, 0.98));
+  background: linear-gradient(
+    200deg,
+    #6D28D9 0%,
+    #8B5CF6 40%,
+    #7C3AED 100%
+  );
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.12),
+              -2px 0 40px rgba(91,33,182,0.5);
 }
 
-.door .edge-line {
+/* curtain fold detail — thin highlight line on inner edge */
+.curtain.left::after,
+.curtain.right::after {
+  content: '';
   position: absolute;
   top: 0;
-  width: 4px;
+  width: 3px;
   height: 100%;
-  background: linear-gradient(180deg, 
-    rgba(255, 255, 255, 0) 0%, 
-    rgba(255, 255, 255, 0.9) 50%, 
-    rgba(255, 255, 255, 0) 100%
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.55) 35%,
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0.55) 65%,
+    rgba(255,255,255,0) 100%
+  );
+  animation: seam 2s ease-in-out infinite;
+}
+.curtain.left::after  { right: 0; }
+.curtain.right::after { left: 0; }
+
+@keyframes seam {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.5; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+}
+
+/* ── OPEN: curtains slide out sideways (clean, fast) ── */
+.splash.open .curtain.left  { transform: translateX(-102%); }
+.splash.open .curtain.right { transform: translateX(102%); }
+
+/* ══════════════════════════════════════════
+   SEAM LIGHT — burst from centre on open
+══════════════════════════════════════════ */
+.seam-light {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
   );
   opacity: 0;
-  transition: opacity 0.5s ease;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+  z-index: 3;
+  pointer-events: none;
+  filter: blur(1px);
+  transition: opacity 0.15s ease;
+}
+.splash.open .seam-light {
+  animation: seamBurst 0.5s ease forwards;
+}
+@keyframes seamBurst {
+  0%   { opacity: 0;   width: 2px;  filter: blur(1px); }
+  25%  { opacity: 0.3; width: 10px; filter: blur(5px); }
+  100% { opacity: 0;   width: 2px;  filter: blur(2px); }
 }
 
-.door.left .edge-line { 
-  right: -2px;
-}
-
-.door.right .edge-line { 
-  left: -2px;
-}
-
-/* Stage 1: fade in lines */
-.splash.ready .door .edge-line {
-  opacity: 1;
-  animation: glow 2.5s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  }
-  50% {
-    box-shadow: 0 0 50px rgba(255, 255, 255, 1), 0 0 80px rgba(167, 139, 250, 0.6);
-  }
-}
-
-/* Stage 2: move doors */
-.splash.open .door.left {
-  transform: translateX(-100%);
-}
-
-.splash.open .door.right {
-  transform: translateX(100%);
-}
-
+/* ══════════════════════════════════════════
+   LOGO CONTAINER CARD
+   — cleaner, sharper, matches glass cards
+     used across the site
+══════════════════════════════════════════ */
 .logo-container {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   text-align: center;
-  opacity: 1;
-  transition: opacity 1s ease, transform 1s ease;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(30px);
-  padding: 50px 70px;
-  border-radius: 30px;
-  border: 2px solid rgba(139, 92, 246, 0.5);
-  box-shadow: 
-    0 8px 32px rgba(139, 92, 246, 0.4),
-    inset 0 0 60px rgba(255, 255, 255, 0.3);
-}
 
+  /* glassmorphism card — same system as home page */
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  border-radius: 28px;
+  padding: 48px 64px;
+  box-shadow:
+    0 8px 40px rgba(139, 92, 246, 0.18),
+    0 2px 0 rgba(255,255,255,0.9) inset;
+
+  /* entrance animation */
+  animation: cardIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+  /* fade & shrink on open */
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
 .splash.open .logo-container {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 
-.logo img {
+@keyframes cardIn {
+  0%   { opacity: 0; transform: scale(0.88) translateY(16px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* logo mark */
+.logo-mark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.logo-mark img {
   width: 120px;
   height: auto;
   display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 4px 16px rgba(139, 92, 246, 0.5));
+  filter: drop-shadow(0 4px 20px rgba(139, 92, 246, 0.40));
+  animation: logoFloat 3s ease-in-out infinite;
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
 }
 
+/* wordmark */
 .logo-container h1 {
-  background: linear-gradient(135deg, #7C3AED, #8B5CF6, #A78BFA);
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin: 0 0 10px;
+  background: linear-gradient(135deg, #5B21B6, #7C3AED, #A78BFA);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 20px 0 0;
-  font-size: 3em;
-  font-weight: 700;
-  letter-spacing: 2px;
-  animation: pulse 2s ease-in-out infinite;
-  text-shadow: 0 2px 20px rgba(139, 92, 246, 0.3);
-  filter: drop-shadow(0 0 1px rgba(139, 92, 246, 0.8));
+  /* prevent the gradient text from causing layout shifts */
+  filter: drop-shadow(0 0 1px rgba(139, 92, 246, 0.3));
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.02);
-    filter: brightness(1.1);
-  }
+/* tagline */
+.splash-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(107, 100, 148, 0.85);
+  margin: 0;
 }
 
-/* Mobile Responsiveness */
+/* ══════════════════════════════════════════
+   MOBILE
+══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .logo-container {
-    padding: 40px 50px;
+    padding: 40px 44px;
   }
-
-  .logo img {
+  .logo-mark img {
     width: 90px;
   }
-
   .logo-container h1 {
-    font-size: 2.2em;
+    font-size: 2.2rem;
+  }
+  .splash-tagline {
+    font-size: 0.74rem;
+    letter-spacing: 2px;
   }
 }
 
 @media (max-width: 480px) {
   .logo-container {
-    padding: 30px 40px;
+    padding: 32px 32px;
   }
-
-  .logo img {
-    width: 70px;
+  .logo-mark img {
+    width: 72px;
   }
-
   .logo-container h1 {
-    font-size: 1.8em;
+    font-size: 1.8rem;
   }
 }

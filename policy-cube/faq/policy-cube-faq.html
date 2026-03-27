@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Policy Cube FAQ — Common Questions Answered | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Answers to common questions about the Policy Cube Political Compass — location selection, result accuracy, how officials are scored, and data privacy.">
+  <link rel="stylesheet" href="../civic-cube/faq/civic-cube-faq-styles.css">
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  if (isDarkMode) {
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    localStorage.setItem('darkMode', 'disabled');
+  }
+  const checkbox = document.getElementById('darkModeToggle');
+  if (checkbox) checkbox.checked = isDarkMode;
+}
+
+function toggleDonations() {
+  const aside = document.querySelector('.donation-sidebar');
+  const button = document.getElementById('donationToggleBtn');
+  const isHidden = aside.classList.contains('hidden');
+  aside.classList.toggle('hidden');
+  button.innerText = isHidden ? 'Hide Donations' : 'Show Donations';
+  button.classList.toggle('active', isHidden);
+  button.classList.toggle('inactive', !isHidden);
+  localStorage.setItem('donationSidebarHidden', isHidden ? 'false' : 'true');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.donation-sidebar');
+  const button = document.getElementById('donationToggleBtn');
+  const isHidden = localStorage.getItem('donationSidebarHidden') !== 'false';
+
+  if (isHidden) {
+    sidebar.classList.add('hidden');
+    button.innerText = 'Show Donations';
+  } else {
+    sidebar.classList.add('fade-init');
+    requestAnimationFrame(() => {
+      sidebar.classList.add('fade-init-animate');
+      setTimeout(() => sidebar.classList.remove('fade-init', 'fade-init-animate'), 700);
+    });
+  }
+
+  const darkMode = localStorage.getItem('darkMode');
+  const checkbox = document.getElementById('darkModeToggle');
+  if (darkMode === 'enabled') {
+    document.body.classList.add('dark-mode');
+    if (checkbox) checkbox.checked = true;
+  }
+
+  document.querySelector('.header-left img').src = '../../SRC/civicnexus.svg';
+});
+</script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Policy Cube?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Policy Cube is a location-based political compass that maps your views across seven policy categories and compares them to current elected officials in your chosen location."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the Policy Cube different from the Civic Cube?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Civic Cube measures abstract ideological identity across three philosophical dimensions. The Policy Cube measures concrete policy alignment against actual elected representatives."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I have to choose a location?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Policy is inherently local. Location-specific questions and officials make results relevant and accurate to your political landscape."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Policy Cube 100% accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Results are a directional indicator based on a limited question set and simplified official position scores. They should not be treated as definitive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are official positions determined?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Official positions are assigned by Civic Nexus researchers based on publicly available voting records, campaign platforms, bill sponsorships, and public statements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data collected?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you submit results to our research dataset, category scores and location are stored anonymously. No personally identifiable information is collected."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Policy Cube",
+      "item": "https://civic-nexus.net/policy-cube/policy-cube.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "FAQ",
+      "item": "https://civic-nexus.net/policy-cube/faq/policy-cube-faq.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/policy-cube/faq/policy-cube-faq.html">
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Policy Cube FAQ — Common Questions Answered">
+  <meta property="og:description" content="Answers to common questions about the Policy Cube — location selection, result accuracy, how officials are scored, and data privacy.">
+  <meta property="og:url"         content="https://civic-nexus.net/policy-cube/faq/policy-cube-faq.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Policy Cube FAQ — Common Questions Answered">
+  <meta name="twitter:description" content="Answers to common questions about the Policy Cube — location selection, result accuracy, how officials are scored, and data privacy.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+<!-- Header -->
+<header class="main-header" style="display:flex;justify-content:space-between;align-items:center;padding:4px 24px;height:48px;">
+  <div class="header-left" style="display:flex;align-items:center;">
+    <img src="../../SRC/civicnexus.svg" alt="Civic Nexus" style="height:40px;margin-right:10px;filter:drop-shadow(0 2px 8px rgba(139,92,246,0.4));">
+    <span class="brand">Policy Cube</span>
+  </div>
+  <nav class="header-nav" style="display:flex;gap:16px;align-items:center;">
+    <a href="../../home.html" class="nav-link">Home</a>
+    <a href="../policy-cube.html" class="nav-link">Policy Cube</a>
+    <a href="policy-cube-explanation.html" class="nav-link">Explanation</a>
+  </nav>
+  <div class="header-right" style="display:flex;align-items:center;gap:8px;">
+    <button id="donationToggleBtn" class="donation-toggle-btn" onclick="toggleDonations()">Hide Donations</button>
+    <label class="toggle-switch">
+      <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+      <span class="toggle-slider"><span class="toggle-knob"></span></span>
+    </label>
+  </div>
+</header>
+
+<div style="position:relative;display:flex;justify-content:center;">
+  <aside class="donation-sidebar">
+    <h3>Support This Project</h3>
+    <p style="font-size:14px;">If you found this tool valuable, consider donating to help with hosting and development:</p>
+    <p><a href="https://nowpayments.io/donation?api_key=7QXAC26-K294RGM-PCBF3Q9-CCYMZS6" target="_blank"><button style="display:flex;align-items:center;gap:8px;padding:10px 14px;background-color:black;color:white;font-weight:bold;border:none;border-radius:6px;cursor:pointer;">Donate Crypto</button></a></p>
+  </aside>
+
+  <div style="margin-left:160px;margin-right:80px;max-width:1100px;">
+  <main style="flex:1;">
+
+  <h1>Frequently Asked Questions — Policy Cube</h1>
+
+  <!-- ── About the Survey ── -->
+  <h2>What is the Policy Cube?</h2>
+  <p>The Policy Cube is a location-based policy alignment tool that maps your views on real policy issues across seven categories — Economic, Social, Environmental, Criminal Justice, Education, Healthcare, and Immigration — and compares them to the positions of current elected officials in your chosen location.</p>
+
+  <h2>How is the Policy Cube different from the Civic Cube?</h2>
+  <p>The Civic Cube measures abstract ideological identity — where you sit philosophically across three dimensions. The Policy Cube measures concrete policy alignment — how your positions on real, active policy debates compare to actual elected representatives in a specific place. One tells you what you believe in principle; the other tells you who in government currently reflects those beliefs in practice.</p>
+
+  <h2>Why do I have to choose a location?</h2>
+  <p>Policy is inherently local. A question about water regulation means something very different in Michigan (where PFAS contamination is a live crisis) than it does in Colorado (where water rights and public land use dominate). By anchoring the survey to a specific location, we can ask questions that are actually relevant to the political landscape there, and compare your answers to the people who represent that place.</p>
+
+  <h2>Does the location I choose affect my results?</h2>
+  <p>Yes — both the questions and the officials you're compared against are specific to the location you select. If you choose Michigan, you'll see questions about Michigan policy debates and be compared to Michigan's governor and senators. Choosing Federal gives you national-level policy questions and compares you to the President and Vice President.</p>
+
+  <h2>What are the pre-survey questions for?</h2>
+  <p>The three yes/no questions before the survey — whether you live there, whether you're politically engaged, and whether you vote locally — are for research context only. They do not affect your policy scores or your results in any way. We collect them to understand whether our respondents are local residents or people exploring out-of-state politics, which helps us interpret the dataset more accurately.</p>
+
+  <h2>Is the Policy Cube 100% accurate?</h2>
+  <p>No. The survey uses a limited set of questions per location and compares you to officials based on their known public positions — which are themselves simplifications of complex voting records and policy stances. Results should be treated as a directional indicator, not a definitive verdict. A close match with an official doesn't mean you agree with everything they've done; it means your answers to these specific questions align with their general policy orientation.</p>
+
+  <h2>Why do some locations have different questions?</h2>
+  <p>Each location has five core questions covering broad themes shared across all locations, plus ten questions specific to live policy debates in that place. This mix ensures the survey is both comparable across locations and genuinely relevant to local political context. A question about Great Lakes oil drilling only makes sense for Michigan; a question about Florida's parental rights legislation only makes sense for Florida.</p>
+
+  <!-- ── About the Results ── -->
+  <h1>Understanding Your Results</h1>
+
+  <h2>What do the seven category bars show?</h2>
+  <p>Each bar represents your average alignment on that policy category, scored from fully Democrat-leaning (left) to fully Republican-leaning (right). A bar in the centre means your answers on that category were mixed or balanced. A bar to the left means your positions on those questions aligned more with typical Democratic policy stances; to the right, more with Republican stances.</p>
+
+  <h2>What does the match percentage with officials mean?</h2>
+  <p>Each official in your chosen location has an estimated policy position score across all seven categories, based on their public record, voting history, and stated positions. The match percentage measures how closely your average scores across all categories align with theirs — 100% would mean perfect alignment on every category, 50% means you align on roughly half. It is not a political endorsement and should not be read as one.</p>
+
+  <h2>How are official positions determined?</h2>
+  <p>Official positions are assigned by Civic Nexus researchers based on publicly available voting records, campaign platforms, bill sponsorships, and public statements. These are necessarily simplified — a senator's actual positions are far more nuanced than a single score. We update official profiles when significant changes in their public record occur. If you believe an official's position is misrepresented, we welcome feedback.</p>
+
+  <h2>Can I align with officials from the opposing party?</h2>
+  <p>Absolutely — and it happens often. Policy positions don't always map cleanly onto party affiliation. A respondent might hold fiscally conservative views but strongly progressive environmental positions, producing a mixed result that aligns with a moderate official from either party rather than a strong partisan on either side.</p>
+
+  <h2>Why does my result show a close match with someone I disagree with?</h2>
+  <p>The survey covers seven broad policy categories. If you strongly agree on five categories but disagree sharply on two, the overall match percentage may still be high. The per-category bars are the more useful tool for understanding where you agree and where you diverge. A high overall match doesn't mean agreement on every issue.</p>
+
+  <!-- ── About the Data ── -->
+  <h1>Data & Privacy</h1>
+
+  <h2>Is my data collected?</h2>
+  <p>If you choose to submit your results to our research dataset, we store your category scores, location, and pre-survey answers anonymously. No personally identifiable information is collected or stored. If you are logged in, results are linked to your account so you can view your history — but your account itself contains only the information you provided at registration.</p>
+
+  <h2>Do you sell data?</h2>
+  <p>No. We do not sell, share, or monetise any respondent data. Data collected through the survey is used exclusively for Civic Nexus research and published only in aggregate, anonymised form.</p>
+
+  <h2>Will you add more locations?</h2>
+  <p>Yes. The survey is built to accept new locations without structural changes — adding a new state or country is a matter of writing the questions and entering the officials' positions. We plan to expand coverage as the platform grows. If you'd like to see your state or country added, let us know through the feedback form.</p>
+
+  <h2>How often are questions and official positions updated?</h2>
+  <p>We review and update the survey periodically — particularly after elections, when new officials take office, or when significant policy changes occur in a location. The survey is a snapshot of the current political landscape, not a permanent record, and we treat accuracy as an ongoing responsibility rather than a one-time task.</p>
+
+  <footer style="margin-top:60px;padding:28px 32px;text-align:center;background:var(--glass-bg);backdrop-filter:blur(12px);border-radius:16px;border:1px solid var(--glass-border);color:var(--text-muted);font-size:13px;">
+    &copy; 2026 Civic Nexus. Designed with purpose.
+  </footer>
+
+  </main>
+  </div>
+</div>
+
+</body>
+</html>

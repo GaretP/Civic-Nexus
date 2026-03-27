@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Support Civic Nexus — Donate</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Help keep Civic Nexus free, independent, and agenda-free. Donate via PayPal or GoFundMe. Every contribution supports hosting, research, and platform development.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --violet-ghost:  #EDE9FE;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+      --icon-stroke:   #8B5CF6;
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+      --icon-stroke:  #A78BFA;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* orbs */
+    .bg-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(90px); opacity: 0.20; pointer-events: none;
+      animation: drift 16s ease-in-out infinite alternate;
+    }
+    body.dark-mode .bg-orb { opacity: 0.13; }
+    .bg-orb-1 { width:560px;height:560px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-160px;left:-100px;animation-duration:18s; }
+    .bg-orb-2 { width:420px;height:420px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:5%;right:-70px;animation-duration:22s;animation-delay:-8s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(32px,50px) scale(1.06);} }
+
+    /* ── Header ── */
+    .main-header {
+      position: sticky; top: 0; z-index: 1000;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 0 28px; height: 60px;
+      background: rgba(139,92,246,0.82);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 24px rgba(91,33,182,0.25);
+      transition: background 0.4s;
+    }
+    body.dark-mode .main-header {
+      background: rgba(28,24,48,0.92);
+      border-bottom-color: rgba(139,92,246,0.30);
+      box-shadow: 0 4px 24px rgba(139,92,246,0.28);
+    }
+    .header-left { display:flex;align-items:center;gap:10px;justify-content:flex-start; }
+    .header-left img { height:32px;width:auto; }
+    .brand {
+      font-family:'Playfair Display',serif; font-size:22px; font-weight:700;
+      background:linear-gradient(135deg,#ffffff,#EDE9FE);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      text-decoration: none;
+    }
+    .header-nav { display:flex;align-items:center;gap:2px;justify-content:center; }
+    .nav-link {
+      color:rgba(255,255,255,0.88); text-decoration:none; font-size:14px; font-weight:500;
+      padding:6px 13px; border-radius:8px; white-space:nowrap;
+      transition:background 0.2s,transform 0.2s;
+    }
+    .nav-link:hover { background:rgba(255,255,255,0.18);color:#fff;transform:translateY(-1px); }
+    .nav-link.active { background:rgba(255,255,255,0.20);color:#fff; }
+    .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end; }
+
+    /* toggle */
+    .toggle-switch { position:relative;display:inline-block;width:46px;height:24px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider {
+      position:absolute;cursor:pointer;inset:0;
+      background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);
+      border-radius:34px;transition:0.3s;
+    }
+    .toggle-knob {
+      position:absolute;height:20px;width:20px;left:2px;top:2px;
+      background:linear-gradient(135deg,#ffffff,#EDE9FE);
+      border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob {
+      transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD);
+    }
+
+    /* ── Page layout ── */
+    .page-wrap {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── Hero header ── */
+    .donate-hero {
+      text-align: center;
+      margin-bottom: 56px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .donate-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--violet-core);
+      background: var(--glass-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 100px;
+      padding: 6px 18px; margin-bottom: 28px;
+    }
+    .eyebrow-dot { width:6px;height:6px;background:var(--violet-core);border-radius:50%;animation:pulse-dot 2s ease infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);} }
+
+    .donate-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--violet-deep), var(--violet-core), var(--violet-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+    }
+    body.dark-mode .donate-title {
+      background: linear-gradient(135deg, #C4B5FD, #A78BFA, #ffffff);
+      -webkit-background-clip: text; background-clip: text;
+    }
+    .donate-subtitle {
+      font-size: 16px; color: var(--text-muted); line-height: 1.7;
+      max-width: 520px; margin: 0 auto;
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
+
+    /* ── Mission statement card ── */
+    .mission-card {
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 32px 36px; margin-bottom: 40px;
+      box-shadow: 0 8px 32px var(--glass-shadow);
+      display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start;
+      animation: fadeUp 0.7s 0.1s ease both;
+      position: relative; overflow: hidden;
+    }
+    .mission-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--violet-mid), var(--violet-core), var(--violet-pale));
+    }
+    .mission-card-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--violet-mid), var(--violet-core));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(124,58,237,0.35); flex-shrink: 0;
+    }
+    .mission-card-icon svg { width: 26px; height: 26px; }
+    .mission-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--text-dark);
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .mission-card p {
+      font-size: 15px; color: var(--text-muted); line-height: 1.7; margin: 0;
+    }
+
+    /* ── What funds go toward ── */
+    .funds-section {
+      margin-bottom: 40px;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--violet-core); margin-bottom: 16px;
+      display: block;
+    }
+    .funds-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .fund-item {
+      background: var(--glass-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 20px 22px;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .fund-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px var(--glass-shadow);
+      border-color: rgba(139,92,246,0.32);
+    }
+    .fund-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(139,92,246,0.10); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .fund-icon svg { width: 18px; height: 18px; }
+    .fund-text strong {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--text-dark); margin-bottom: 3px;
+    }
+    .fund-text span { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── Frequency toggle ── */
+    .frequency-section {
+      margin-bottom: 32px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .freq-toggle {
+      display: inline-flex;
+      background: var(--glass-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 12px;
+      padding: 4px; gap: 4px; margin-bottom: 0;
+    }
+    .freq-btn {
+      padding: 8px 24px; border-radius: 9px; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      color: var(--text-muted); background: transparent;
+      width: auto; display: inline-block; margin: 0; box-shadow: none;
+    }
+    .freq-btn.active {
+      background: linear-gradient(135deg, var(--violet-mid), var(--violet-core));
+      color: white;
+      box-shadow: 0 3px 12px rgba(124,58,237,0.35);
+    }
+    .freq-btn:hover:not(.active) { color: var(--violet-core); background: rgba(139,92,246,0.08); box-shadow: none; transform: none; }
+
+    /* ── Donation option cards ── */
+    .options-section { animation: fadeUp 0.7s 0.25s ease both; }
+    .options-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+
+    .donate-card {
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 32px; box-shadow: 0 8px 32px var(--glass-shadow);
+      display: flex; flex-direction: column; gap: 16px;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .donate-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(139,92,246,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .donate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 44px rgba(139,92,246,0.20);
+      border-color: rgba(139,92,246,0.36);
+    }
+
+    /* card header row */
+    .card-header { display: flex; align-items: center; gap: 14px; }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--violet-mid), var(--violet-core));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(124,58,237,0.35); flex-shrink: 0;
+    }
+    .card-icon svg { width: 24px; height: 24px; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); }
+    .card-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 1px; }
+
+    .card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* recurring badge */
+    .recurring-badge {
+      display: none; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--violet-core); padding: 4px 12px; border-radius: 100px;
+      background: rgba(139,92,246,0.10); border: 1px solid var(--glass-border);
+      align-self: flex-start;
+    }
+    .recurring-badge.show { display: inline-flex; }
+    .recurring-badge svg { width: 12px; height: 12px; }
+
+    /* CTA button */
+    .donate-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 24px; width: 100%; margin: 0;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: white; text-decoration: none;
+      background: linear-gradient(135deg, var(--violet-mid), var(--violet-core));
+      border: none; border-radius: 14px; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(124,58,237,0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .donate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,58,237,0.50); }
+    .donate-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* note under crypto card */
+    .crypto-note {
+      font-size: 12px; color: var(--text-muted);
+      text-align: center; line-height: 1.5;
+      padding-top: 4px;
+    }
+
+    /* ── Thank you note ── */
+    .thankyou-card {
+      margin-top: 40px;
+      background: linear-gradient(135deg, var(--violet-deep), var(--violet-mid));
+      border-radius: 24px; padding: 40px;
+      text-align: center; position: relative; overflow: hidden;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .thankyou-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .thankyou-icon {
+      width: 60px; height: 60px; margin: 0 auto 20px;
+      background: rgba(255,255,255,0.15); border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .thankyou-icon svg { width: 30px; height: 30px; }
+    .thankyou-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700;
+      color: #fff; margin-bottom: 14px; position: relative;
+    }
+    .thankyou-card p {
+      font-size: 15px; color: rgba(255,255,255,0.78);
+      line-height: 1.7; max-width: 500px; margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 32px 24px;
+      font-size: 13px; color: var(--text-muted);
+      border-top: 1px solid var(--glass-border);
+      margin-top: 48px;
+    }
+    .page-footer a { color: var(--violet-core); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .main-header { padding: 0 20px; }
+      .nav-link { padding: 6px 10px; font-size: 13px; }
+    }
+    @media (max-width: 700px) {
+      .main-header { grid-template-columns: 1fr auto; }
+      .header-nav { display: none; }
+      .options-grid { grid-template-columns: 1fr; }
+      .mission-card { grid-template-columns: 1fr; }
+      .mission-card-icon { display: none; }
+      .page-wrap { padding: 40px 16px 60px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "DonateAction",
+  "name": "Support Civic Nexus",
+  "url": "https://civic-nexus.net/donate/donate-page.html",
+  "description": "Help keep Civic Nexus free and independent. Donate via PayPal or GoFundMe."
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Donate",
+      "item": "https://civic-nexus.net/donate/donate-page.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/donate/donate-page.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Support Civic Nexus — Donate">
+  <meta property="og:description" content="Help keep Civic Nexus free and independent. Donate via PayPal or GoFundMe. Every contribution supports hosting and research.">
+  <meta property="og:url"         content="https://civic-nexus.net/donate/donate-page.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Support Civic Nexus — Donate">
+  <meta name="twitter:description" content="Help keep Civic Nexus free and independent. Donate via PayPal or GoFundMe. Every contribution supports hosting and research.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- ── HEADER ── -->
+  <header class="main-header">
+    <div class="header-left">
+      <img id="headerLogo" src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <nav class="header-nav">
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../home.html" class="nav-link">Home</a>
+      <a href="../home.html#tools" class="nav-link">Tools</a>
+      <a href="../research/research-page.html" class="nav-link">Research</a>
+    </nav>
+    <div class="header-right">
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- ── PAGE ── -->
+  <div class="page-wrap">
+
+    <!-- Hero -->
+    <div class="donate-hero">
+      <div class="donate-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Support the Mission
+      </div>
+      <h1 class="donate-title">Keep Civic Nexus Free<br>& Independent</h1>
+      <p class="donate-subtitle">
+        Civic Nexus is built by one person with no corporate funding and no political agenda.
+        Every contribution goes directly toward keeping these tools free, accurate, and growing.
+      </p>
+    </div>
+
+    <!-- Mission statement card -->
+    <div class="mission-card">
+      <div class="mission-card-icon">
+        <!-- person / builder icon -->
+        <svg viewBox="0 0 26 26" fill="none" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="13" cy="8" r="4"/>
+          <path d="M5 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </div>
+      <div>
+        <h2>Built by one person, for everyone</h2>
+        <p>
+          Civic Nexus is an independent project, no VC funding, no ad revenue, no political sponsors.
+          The tools are free to use because public understanding of politics shouldn't cost anything.
+          Your support goes directly to the developer to cover hosting, research time, and continued
+          development of new tools like the Values Survey, Social Perception Index, and Policy Simulator.
+        </p>
+      </div>
+    </div>
+
+    <!-- What funds go toward -->
+    <div class="funds-section">
+      <span class="section-label">Where your money goes</span>
+      <div class="funds-grid">
+        <div class="fund-item">
+          <div class="fund-icon">
+            <!-- server icon -->
+            <svg viewBox="0 0 18 18" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="14" height="5" rx="1.5"/>
+              <rect x="2" y="10" width="14" height="5" rx="1.5"/>
+              <circle cx="14.5" cy="5.5" r="0.8" fill="var(--icon-stroke)"/>
+              <circle cx="14.5" cy="12.5" r="0.8" fill="var(--icon-stroke)"/>
+            </svg>
+          </div>
+          <div class="fund-text">
+            <strong>Hosting & Infrastructure</strong>
+            <span>Server costs, API hosting, and database upkeep to keep tools online and fast.</span>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-icon">
+            <!-- code / development icon -->
+            <svg viewBox="0 0 18 18" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 6l-3 3 3 3M13 6l3 3-3 3M10 4l-2 10"/>
+            </svg>
+          </div>
+          <div class="fund-text">
+            <strong>Development Time</strong>
+            <span>Building and refining new tools, Values Survey, Social Perception Index, and more.</span>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-icon">
+            <!-- book / research icon -->
+            <svg viewBox="0 0 18 18" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 4C7 2.5 4 2 2 2.5v13c2-.5 5 0 7 1.5M9 4c2-1.5 5-2 7-1.5v13c-2-.5-5 0-7 1.5M9 4v14"/>
+            </svg>
+          </div>
+          <div class="fund-text">
+            <strong>Research & Accuracy</strong>
+            <span>Sourcing literature and philosophy texts to keep definitions grounded and unbiased.</span>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-icon">
+            <!-- globe / outreach icon -->
+            <svg viewBox="0 0 18 18" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="9" r="7"/>
+              <path d="M2 9h14M9 2c-2 3-2 11 0 14M9 2c2 3 2 11 0 14"/>
+            </svg>
+          </div>
+          <div class="fund-text">
+            <strong>Outreach & Availability</strong>
+            <span>Ensuring Civic Nexus stays accessible, discoverable, and free for everyone globally.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frequency toggle -->
+    <div class="frequency-section">
+      <span class="section-label">Contribution type</span>
+      <div class="freq-toggle">
+        <button class="freq-btn active" onclick="setFreq('one-time', this)">One-Time</button>
+        <button class="freq-btn"        onclick="setFreq('recurring', this)">Recurring</button>
+      </div>
+    </div>
+
+    <!-- Donation cards -->
+    <div class="options-section">
+      <span class="section-label">Choose your method</span>
+      <div class="options-grid">
+
+        <!-- GoFundMe -->
+        <div class="donate-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <!-- heart / fundraise icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21S4 14 4 8.5a4.5 4.5 0 018-2.84A4.5 4.5 0 0120 8.5C20 14 12 21 12 21z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="card-title">GoFundMe</div>
+              <div class="card-subtitle">Card, bank, PayPal &amp; more</div>
+            </div>
+          </div>
+          <div class="recurring-badge" id="gfm-badge">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 6a4 4 0 014-4 4 4 0 013.5 2M10 6a4 4 0 01-4 4 4 4 0 01-3.5-2"/><path d="M9.5 4l.5-2M2.5 8l-.5 2"/></svg>
+            Monthly giving available
+          </div>
+          <p class="card-desc">
+            Donate via GoFundMe using a credit card, debit card, PayPal, or bank transfer.
+            GoFundMe supports recurring monthly contributions if you'd like to give ongoing support.
+          </p>
+          <a href="../error/404.html" target="_blank" class="donate-btn" id="gfm-btn">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12S3 8.8 3 5.5a3.5 3.5 0 015-3.15A3.5 3.5 0 0113 5.5C13 8.8 8 12 8 12z"/></svg>
+            Donate on GoFundMe
+          </a>
+          <p class="crypto-note">GoFundMe link coming soon — placeholder active</p>
+        </div>
+
+        <!-- PayPal -->
+        <div class="donate-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <!-- PayPal icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="6" width="18" height="13" rx="2"/>
+                <path d="M3 10h18"/>
+                <path d="M7 15h2M12 15h3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="card-title">PayPal</div>
+              <div class="card-subtitle">Card, bank &amp; PayPal balance</div>
+            </div>
+          </div>
+          <div class="recurring-badge" id="paypal-badge">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 6a4 4 0 014-4 4 4 0 013.5 2M10 6a4 4 0 01-4 4 4 4 0 01-3.5-2"/><path d="M9.5 4l.5-2M2.5 8l-.5 2"/></svg>
+            Recurring giving available
+          </div>
+          <p class="card-desc">
+            Donate securely via PayPal using a credit card, debit card, or your PayPal balance.
+            PayPal supports recurring monthly contributions if you'd like to give ongoing support.
+          </p>
+          <button class="donate-btn" id="paypal-btn" onclick="openPayPalPopup()">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M2 7h12"/><path d="M5 10.5h2M9 10.5h2"/></svg>
+            Donate via PayPal
+          </button>
+          <p class="crypto-note">Secured and processed by PayPal</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Thank you -->
+    <div class="thankyou-card">
+      <div class="thankyou-icon">
+        <svg viewBox="0 0 30 30" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 26S6 19.5 6 13a6 6 0 0110-4.47A6 6 0 0124 13c0 6.5-9 13-9 13z"/>
+        </svg>
+      </div>
+      <h2>Thank you for believing in this</h2>
+      <p>
+        Civic Nexus exists because political understanding should be free, unbiased, and built with
+        integrity, not clicks or ad revenue. Every contribution, large or small, helps keep that
+        true. It means more than you know.
+      </p>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <footer class="page-footer">
+    <p>© 2026 Civic Nexus — <a href="../home.html">Home</a> · <a href="../civic-cube/civic-cube.html">Take the Test</a> · <a href="https://github.com/GaretP/Civic-Nexus" target="_blank">GitHub</a></p>
+  </footer>
+
+  <script>
+    // ── Dark mode ──
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+      const logo = document.getElementById('headerLogo');
+      if (logo) logo.src = isDark ? '../SRC/civicnexus.svg' : '../SRC/civicnexus_black.svg';
+      // header is always on violet so logo always stays white
+    }
+
+    // ── Frequency toggle ──
+    let currentFreq = 'one-time';
+
+    function setFreq(type, btn) {
+      currentFreq = type;
+      document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const badge = document.getElementById('gfm-badge');
+      const gfmBtn = document.getElementById('gfm-btn');
+      const paypalBadge = document.getElementById('paypal-badge');
+      const paypalBtn = document.getElementById('paypal-btn');
+
+      if (type === 'recurring') {
+        badge.classList.add('show');
+        paypalBadge.classList.add('show');
+        gfmBtn.innerHTML = `
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 8a6 6 0 016-6 6 6 0 015.2 3M14 8a6 6 0 01-6 6 6 6 0 01-5.2-3"/><path d="M13 5l1-3M3 11l-1 3"/></svg>
+          Set Up Monthly Giving`;
+        paypalBtn.innerHTML = `
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 8a6 6 0 016-6 6 6 0 015.2 3M14 8a6 6 0 01-6 6 6 6 0 01-5.2-3"/><path d="M13 5l1-3M3 11l-1 3"/></svg>
+          Set Up Monthly Giving`;
+      } else {
+        badge.classList.remove('show');
+        paypalBadge.classList.remove('show');
+        gfmBtn.innerHTML = `
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12S3 8.8 3 5.5a3.5 3.5 0 015-3.15A3.5 3.5 0 0113 5.5C13 8.8 8 12 8 12z"/></svg>
+          Donate on GoFundMe`;
+        paypalBtn.innerHTML = `
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M2 7h12"/><path d="M5 10.5h2M9 10.5h2"/></svg>
+          Donate via PayPal`;
+      }
+    }
+
+    // ── Restore dark mode ──
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+      }
+
+      // scroll reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, i * 70);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.fund-item, .donate-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s, border-color 0.3s';
+        observer.observe(el);
+      });
+    });
+  </script>
+  <!-- PayPal Donation SDK -->
+  <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+  <script>
+    function openPayPalPopup() {
+      PayPal.Donation.Button({
+        env: 'production',
+        hosted_button_id: 'WU8B3CNQMHK68',
+        image: {
+          src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+          alt: 'Donate with PayPal button',
+          title: 'PayPal - The safer, easier way to pay online!',
+        }
+      }).render('#paypal-popup-container');
+
+      // Trigger click on the rendered PayPal button
+      setTimeout(() => {
+        const btn = document.querySelector('#paypal-popup-container input, #paypal-popup-container button, #paypal-popup-container img');
+        if (btn) btn.click();
+      }, 100);
+    }
+
+    // Hidden container for PayPal to render into
+    const container = document.createElement('div');
+    container.id = 'paypal-popup-container';
+    container.style.display = 'none';
+    document.body.appendChild(container);
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Page Not Found — Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The page you're looking for doesn't exist or has moved. You'll be redirected to the Civic Nexus home page.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .bg-orb { position:fixed;border-radius:50%;filter:blur(90px);opacity:0.20;pointer-events:none;animation:drift 16s ease-in-out infinite alternate; }
+    body.dark-mode .bg-orb { opacity:0.13; }
+    .bg-orb-1 { width:560px;height:560px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-160px;left:-100px;animation-duration:18s; }
+    .bg-orb-2 { width:420px;height:420px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:5%;right:-70px;animation-duration:22s;animation-delay:-8s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(32px,50px) scale(1.06);} }
+
+    /* ── Card ── */
+    .card {
+      position: relative; z-index: 1;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 52px 48px;
+      box-shadow: 0 16px 56px var(--glass-shadow);
+      text-align: center;
+      max-width: 480px;
+      width: 90%;
+      animation: fadeUp 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--violet-mid), var(--violet-core), var(--violet-pale));
+      border-radius: 28px 28px 0 0;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);} }
+
+    /* ── Icon ── */
+    .icon-wrap {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--violet-mid), var(--violet-core));
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      box-shadow: 0 8px 28px rgba(124,58,237,0.40);
+    }
+    .icon-wrap svg { width: 36px; height: 36px; }
+
+    /* ── 404 number ── */
+    .error-code {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 10vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--violet-deep), var(--violet-core), var(--violet-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      opacity: 0.25;
+      display: block;
+    }
+    body.dark-mode .error-code {
+      background: linear-gradient(135deg, #C4B5FD, #A78BFA, #ffffff);
+      -webkit-background-clip: text; background-clip: text;
+    }
+
+    /* ── Text ── */
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-weight: 900;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--violet-deep), var(--violet-core), var(--violet-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    body.dark-mode .page-title {
+      background: linear-gradient(135deg, #C4B5FD, #A78BFA, #ffffff);
+      -webkit-background-clip: text; background-clip: text;
+    }
+    .page-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* ── Countdown ring ── */
+    .countdown-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .ring-svg { transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--glass-border); stroke-width: 3; }
+    .ring-fill {
+      fill: none;
+      stroke: var(--violet-core);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 138.2;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+    .ring-number {
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--violet-core);
+    }
+    .ring-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+    }
+    .countdown-label { font-size: 13px; color: var(--text-muted); }
+
+    /* ── Skip link ── */
+    .skip-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600;
+      color: var(--violet-core);
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      background: var(--glass-bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .skip-link:hover {
+      border-color: var(--violet-core);
+      box-shadow: 0 2px 12px rgba(139,92,246,0.16);
+    }
+    .skip-link svg { width: 13px; height: 13px; }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <div class="card">
+
+    <div class="icon-wrap">
+      <svg viewBox="0 0 36 36" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="18" r="14"/>
+        <path d="M18 12v8M18 24v.5"/>
+      </svg>
+    </div>
+
+    <span class="error-code">404</span>
+    <h1 class="page-title">This page doesn't exist yet</h1>
+    <p class="page-sub">The page you're looking for hasn't been built yet or has moved. We'll take you back to the home page in a moment.</p>
+
+    <div class="countdown-wrap">
+      <div class="ring-container">
+        <svg class="ring-svg" width="52" height="52" viewBox="0 0 52 52">
+          <circle class="ring-bg" cx="26" cy="26" r="22"/>
+          <circle class="ring-fill" id="ring" cx="26" cy="26" r="22"/>
+        </svg>
+        <span class="ring-number" id="countdown">5</span>
+      </div>
+      <span class="countdown-label">Redirecting to home…</span>
+    </div>
+
+    <a href="https://civic-nexus.net/home.html" class="skip-link" id="homeLink">
+      Go now
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 13 13"><path d="M2 6.5h9M7.5 3l3.5 3.5-3.5 3.5"/></svg>
+    </a>
+
+  </div>
+
+  <script>
+    // ── Dark mode ──
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+    }
+
+    const homeUrl = 'https://civic-nexus.net/home.html';
+    document.getElementById('homeLink').href = homeUrl;
+
+    // ── Countdown + redirect ──
+    const SECONDS = 5;
+    const ring = document.getElementById('ring');
+    const label = document.getElementById('countdown');
+    const circumference = 2 * Math.PI * 22;
+
+    let remaining = SECONDS;
+    ring.style.strokeDashoffset = 0;
+
+    const interval = setInterval(() => {
+      remaining--;
+      label.textContent = remaining;
+      ring.style.strokeDashoffset = circumference * (1 - remaining / SECONDS);
+      if (remaining <= 0) {
+        clearInterval(interval);
+        window.location.href = homeUrl;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

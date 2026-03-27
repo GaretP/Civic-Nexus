@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civic Nexus Intro</title>
-<link rel="stylesheet" href="splash-styles.css">
+  <title>Civic Nexus — Political Insight & Research</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Civic Nexus is a free, independent platform for political insight. Take the Civic Cube ideological compass or the Policy Cube political compass — no ads, no agenda.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="splash-styles.css">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Civic Nexus",
+  "url": "https://civic-nexus.net",
+  "description": "Free, independent political insight tools \u2014 the Civic Cube ideological compass and the Policy Cube political compass."
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/index.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Civic Nexus — Political Insight & Research">
+  <meta property="og:description" content="Free, independent political insight tools — the Civic Cube ideological compass and the Policy Cube political compass. No ads, no agenda.">
+  <meta property="og:url"         content="https://civic-nexus.net/index.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Civic Nexus — Political Insight & Research">
+  <meta name="twitter:description" content="Free, independent political insight tools — the Civic Cube ideological compass and the Policy Cube political compass. No ads, no agenda.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
   <div class="splash" id="splash">
-    <div class="door left">
-      <div class="edge-line"></div>
-    </div>
-    <div class="door right">
-      <div class="edge-line"></div>
-    </div>
-    <div class="logo-container">
-      <div class="logo">
-        <img src="SRC/logo.png" alt="Civic Cube Logo" />
+
+    <!-- Curtain panels -->
+    <div class="curtain left"></div>
+    <div class="curtain right"></div>
+
+    <!-- Ambient light burst at seam -->
+    <div class="seam-light"></div>
+
+    <!-- Centre card -->
+    <div class="logo-container" id="logoContainer">
+      <div class="logo-mark">
+        <img src="SRC/civicnexus_black.svg" alt="Civic Nexus Logo" id="splashLogo" />
       </div>
       <h1>Civic Nexus</h1>
+      <p class="splash-tagline">Political Insight &amp; Research</p>
     </div>
+
   </div>
 
-<script>
- window.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    document.getElementById('splash').classList.add('ready');
-    setTimeout(() => {
-      document.getElementById('splash').classList.add('open');
-      // Wait for the doors to finish sliding
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const splash = document.getElementById('splash');
+
+      // Stage 1: card appears (CSS handles fade-in via animation)
       setTimeout(() => {
-        window.location.href = "Civic-Cube/test.html";
-      }, 1000); // 1s = duration of door transition
-    }, 400);
-  }, 800);
-});
-</script>
+        // Stage 2: seam light pulses, curtains split
+        splash.classList.add('open');
+
+        // Stage 3: redirect once curtains have cleared
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 1100);
+      }, 1600);
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Terms of Service — Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The terms governing your use of Civic Nexus tools, content, and services. All tools are free. No data is sold. Read the full terms of service.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-mid:      #3D3060;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-mid:     #C4B5FD;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    body::before {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, #8B5CF6, #5B21B6);
+      top: -140px; left: -100px;
+      opacity: 0.14;
+    }
+    body::after {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, #A78BFA, #7C3AED);
+      bottom: 8%; right: -60px;
+      opacity: 0.10;
+      animation-duration: 22s; animation-delay: -7s;
+    }
+    body.dark-mode::before, body.dark-mode::after { opacity: 0.09; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(32px,50px) scale(1.06);} }
+
+    /* ── Header ── */
+    .main-header {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 32px; height: 60px;
+      background: rgba(139,92,246,0.82);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 24px rgba(91,33,182,0.25);
+    }
+    body.dark-mode .main-header { background: rgba(28,24,48,0.92); }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header-left img { height: 32px; width: auto; filter: drop-shadow(0 2px 8px rgba(139,92,246,0.4)); }
+    .brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+      background: linear-gradient(135deg,#ffffff,#EDE9FE); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .nav-link { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 14px;
+      font-weight: 500; padding: 6px 13px; border-radius: 8px; transition: background 0.2s; }
+    .nav-link:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .toggle-switch { position: relative; display: inline-flex; align-items: center;
+      width: 46px; height: 24px; flex-shrink: 0; flex-basis: 46px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; cursor: pointer; inset: 0;
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 34px; transition: 0.3s; }
+    .toggle-knob { position: absolute; height: 20px; width: 20px; left: 2px; top: 2px;
+      background: linear-gradient(135deg,#ffffff,#EDE9FE); border-radius: 50%;
+      transition: 0.3s; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob {
+      transform: translateX(22px); background: linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    /* ── Page ── */
+    .page-wrap {
+      position: relative; z-index: 1;
+      max-width: 800px; margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .doc-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--violet-core);
+      display: block; margin-bottom: 10px;
+    }
+    .doc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900;
+      line-height: 1.1; color: var(--text-dark); margin-bottom: 8px;
+    }
+    .doc-meta {
+      font-size: 13px; color: var(--text-muted); margin-bottom: 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .doc-section { margin-bottom: 36px; }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text-dark);
+      padding-left: 14px;
+      border-left: 3px solid var(--violet-core);
+      margin-bottom: 12px; margin-top: 36px;
+      line-height: 1.3;
+    }
+    body.dark-mode h2 { color: var(--text-dark); border-left-color: var(--violet-light); }
+
+    p {
+      font-size: 15px; line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+    li {
+      font-size: 15px; line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    strong { color: var(--text-dark); font-weight: 600; }
+
+    .highlight-box {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-left: 4px solid var(--violet-core);
+      border-radius: 0 14px 14px 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .contact-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      box-shadow: 0 4px 16px var(--glass-shadow);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 24px 32px;
+      text-align: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    @media(max-width: 640px) {
+      .main-header { padding: 0 16px; }
+      .page-wrap { padding: 36px 16px 60px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Civic Nexus Terms of Service",
+  "url": "https://civic-nexus.net/legal/terms-of-service.html",
+  "description": "The terms governing your use of Civic Nexus tools and services."
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Terms of Service",
+      "item": "https://civic-nexus.net/legal/terms-of-service.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/legal/terms-of-service.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Terms of Service — Civic Nexus">
+  <meta property="og:description" content="The terms governing your use of Civic Nexus tools and services. All tools are free. No data is sold.">
+  <meta property="og:url"         content="https://civic-nexus.net/legal/terms-of-service.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Terms of Service — Civic Nexus">
+  <meta name="twitter:description" content="The terms governing your use of Civic Nexus tools and services. All tools are free. No data is sold.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-left">
+      <img id="headerLogo" src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="../home.html" class="nav-link">Home</a>
+      <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+      <label class="toggle-switch">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <span class="doc-eyebrow">Legal</span>
+    <h1 class="doc-title">Terms of Service</h1>
+    <p class="doc-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective date: March 2026 &nbsp;·&nbsp; Jurisdiction: United States</p>
+
+    <div class="highlight-box">
+      These Terms of Service govern your use of civic-nexus.net and all tools, content, and services provided by Civic Nexus. By accessing or using the site, you agree to these terms. If you do not agree, please do not use the site.
+    </div>
+
+    <!-- 1 -->
+    <div class="doc-section">
+      <h2>1. About Civic Nexus</h2>
+      <p>Civic Nexus is an independent educational platform operated by a solo founder based in the United States. It provides political research tools, alignment tests, and data-driven civic insight resources. Civic Nexus is not affiliated with any political party, government body, campaign, or advocacy organisation. All tools are designed to be nonpartisan and educational in nature.</p>
+      <p>Civic Nexus is not a registered legal entity. These Terms constitute an agreement between you and the individual operating Civic Nexus.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="doc-section">
+      <h2>2. Eligibility</h2>
+      <p>You must be at least 13 years old to use Civic Nexus. If you are under 18, you should review these Terms with a parent or guardian. By using the site, you represent that you meet this age requirement.</p>
+      <p>You may use Civic Nexus from anywhere in the world, subject to your local laws. You are responsible for ensuring your use of the site complies with the laws of your jurisdiction.</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="doc-section">
+      <h2>3. The Tools and Services</h2>
+      <p>Civic Nexus currently provides the following tools and features:</p>
+      <ul>
+        <li><strong>Civic Cube</strong> — a three-dimensional political ideology alignment test producing a scored result across Economic, Authority, and Adherence axes.</li>
+        <li><strong>Policy Cube</strong> — a location-based Political Compass that maps your policy positions across seven issue categories and compares them to current elected officials.</li>
+        <li><strong>Research Portal</strong> — original research papers and datasets produced using anonymised survey data, accessible to registered users.</li>
+        <li><strong>User Accounts</strong> — optional registration allowing results to be saved, viewed, and managed over time.</li>
+      </ul>
+      <p>All tools are provided free of charge. No feature of the site is paywalled. Donations are accepted voluntarily to support hosting and development costs but confer no special access or privileges.</p>
+    </div>
+
+    <!-- 4 -->
+    <div class="doc-section">
+      <h2>4. User Accounts</h2>
+      <p>Creating an account is optional. You may take tests and submit results anonymously without registering. If you choose to register:</p>
+      <ul>
+        <li>You must provide a username. An email address is optional.</li>
+        <li>Your password is hashed on your device before transmission. Civic Nexus never receives or stores your plaintext password.</li>
+        <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
+        <li>You may not create accounts on behalf of others or use another person's account.</li>
+        <li>You may delete your account at any time. Upon deletion, your account data and associated results will be permanently removed from our systems.</li>
+      </ul>
+      <p>Civic Nexus reserves the right to suspend or terminate accounts that violate these Terms.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="doc-section">
+      <h2>5. Research Submissions</h2>
+      <p>When you submit test or survey results to the Civic Nexus research dataset, you grant Civic Nexus a non-exclusive, perpetual, royalty-free licence to use, store, and publish that data in anonymised aggregate form for research and educational purposes.</p>
+      <p>If submitted while logged in, results are linked to your account internally but are never published with any identifying information. If submitted anonymously, results are stored without any user identifier. Civic Nexus does not attempt to re-identify anonymous submissions.</p>
+      <p>You may delete submitted results at any time through your account dashboard. Deletion removes your results from the live dataset. Results already included in published research papers or reports cannot be retroactively removed from those publications, but will be excluded from all future datasets and exports.</p>
+    </div>
+
+    <!-- 6 -->
+    <div class="doc-section">
+      <h2>6. Acceptable Use</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use automated scripts, bots, or tools to scrape, spam, or abuse the site or its API endpoints.</li>
+        <li>Attempt to reverse-engineer, decompile, or tamper with the site's backend systems.</li>
+        <li>Submit false, misleading, or deliberately distorted survey responses intended to corrupt the research dataset.</li>
+        <li>Impersonate another person or entity when creating an account.</li>
+        <li>Use the site in any manner that violates applicable local, state, federal, or international law.</li>
+        <li>Attempt to gain unauthorised access to any part of the site, including admin-only endpoints.</li>
+      </ul>
+      <p>Civic Nexus rate-limits API requests to prevent abuse. Circumventing these limits is a violation of these Terms.</p>
+    </div>
+
+    <!-- 7 -->
+    <div class="doc-section">
+      <h2>7. Intellectual Property</h2>
+      <p>All original content on Civic Nexus — including the test questions, scoring methodology, research papers, written explanations, and site design — is the intellectual property of Civic Nexus and may not be reproduced, distributed, or used commercially without explicit written permission.</p>
+      <p>The underlying source code for the frontend is published in a public GitHub repository under the AGPL-3.0 licence. Use of that code is governed by that licence. The research methodology, question sets, and official position scores are not covered by the open-source licence and remain proprietary.</p>
+      <p>You retain ownership of any information you voluntarily submit (such as demographic data alongside test results). By submitting it, you grant the licence described in Section 5.</p>
+    </div>
+
+    <!-- 8 -->
+    <div class="doc-section">
+      <h2>8. Disclaimers</h2>
+      <p>Civic Nexus tools are provided for <strong>educational and informational purposes only</strong>. Results are not political advice, voting guidance, or an endorsement of any candidate, party, or policy position.</p>
+      <p>Test and survey results are inherently simplified approximations of complex ideological and policy positions. They should not be treated as definitive or authoritative characterisations of any individual's political identity.</p>
+      <p>Official position scores assigned to elected representatives are estimates based on publicly available information and are subject to error. They do not constitute endorsement or criticism of any official.</p>
+      <p>The site is provided <strong>"as is"</strong> without warranties of any kind, express or implied. Civic Nexus makes no guarantee of uptime, accuracy, or fitness for any particular purpose.</p>
+    </div>
+
+    <!-- 9 -->
+    <div class="doc-section">
+      <h2>9. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, Civic Nexus and its operator shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the site, even if advised of the possibility of such damages.</p>
+      <p>Civic Nexus's total liability to you for any claim arising from use of the site shall not exceed the amount you have paid to Civic Nexus in the twelve months preceding the claim — which, given all services are free, is zero.</p>
+    </div>
+
+    <!-- 10 -->
+    <div class="doc-section">
+      <h2>10. Third-Party Services</h2>
+      <p>Civic Nexus uses the following third-party services in its operation:</p>
+      <ul>
+        <li><strong>Railway</strong> — backend hosting and PostgreSQL database. Data is processed on Railway's infrastructure.</li>
+        <li><strong>Cloudflare Pages</strong> — frontend hosting and CDN. Cloudflare may process request metadata as part of its service.</li>
+        <li><strong>PayPal</strong> — donation processing. If you make a donation via PayPal, you are subject to PayPal's terms and privacy policy.</li>
+        <li><strong>GoFundMe</strong> — fiat donation processing. If you make a donation via GoFundMe, you are subject to GoFundMe's terms and privacy policy.</li>
+      </ul>
+      <p>Civic Nexus is not responsible for the practices of these third-party providers. Links to their terms and privacy policies are available on their respective websites.</p>
+    </div>
+
+    <!-- 11 -->
+    <div class="doc-section">
+      <h2>11. Changes to These Terms</h2>
+      <p>Civic Nexus may update these Terms from time to time. When changes are made, the "Last updated" date at the top of this page will be revised. Continued use of the site after changes are posted constitutes acceptance of the updated Terms.</p>
+      <p>For material changes, we will make reasonable efforts to notify registered users — for example, by displaying a notice on the site.</p>
+    </div>
+
+    <!-- 12 -->
+    <div class="doc-section">
+      <h2>12. Governing Law</h2>
+      <p>These Terms are governed by the laws of the United States. Any disputes arising from use of the site shall be resolved under applicable United States federal or state law. Civic Nexus makes no representation that the site is appropriate or available for use outside the United States, though it is accessible globally.</p>
+    </div>
+
+    <!-- 13 -->
+    <div class="doc-section">
+      <h2>13. Contact</h2>
+      <p>If you have questions about these Terms, please reach out:</p>
+      <div class="contact-card">
+        <strong>Civic Nexus</strong><br>
+        civic-nexus.net<br>
+        Operated independently from the United States.<br><br>
+        For legal enquiries, data requests, or terms questions, use the feedback form on the site or contact us through our social media channels.
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 Civic Nexus. &nbsp;·&nbsp;
+      <a href="privacy-policy.html" style="color:var(--violet-core);text-decoration:none;">Privacy Policy</a>
+      &nbsp;·&nbsp; civic-nexus.net
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+      }
+    });
+  </script>
+</body>
+</html>

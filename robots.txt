@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block utility and private pages
+Disallow: /authentication/
+Disallow: /dashboard/
+Disallow: /donate/thank-you.html
+Disallow: /error/
+
+Sitemap: https://civic-nexus.net/sitemap.xml

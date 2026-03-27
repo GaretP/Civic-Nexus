@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Civic Cube Political Compass</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Civic Cube — Three-Dimensional Ideological Compass | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover your political ideology across three axes: Economic, Authority, and Adherence. The Civic Cube goes beyond flat left-right models for a more accurate, nuanced result. Free, no sign-up required.">
+  <link rel="stylesheet" href="civic-cube-styles.css">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
@@ -11,38 +14,17 @@ window.pageLoadTime = Date.now();
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   const isDarkMode = document.body.classList.contains('dark-mode');
-  const logo = document.querySelector('.header-left img');
-  
-  // Swap logo based on dark mode
   if (isDarkMode) {
     localStorage.setItem('darkMode', 'enabled');
-    if (logo) logo.src = '../SRC/logo_white.png';
   } else {
     localStorage.setItem('darkMode', 'disabled');
-    if (logo) logo.src = '../SRC/logo.png';
   }
-  
   document.getElementById('darkModeToggle').checked = isDarkMode;
-}
-
-function toggleDonations() {
-  const aside = document.querySelector('.donation-sidebar');
-  const button = document.getElementById('donationToggleBtn');
-  const isHidden = aside.classList.contains('hidden');
-
-  aside.classList.toggle('hidden');
-  button.innerText = isHidden ? 'Hide Donations' : 'Show Donations';
-  button.classList.toggle('active', isHidden);
-  button.classList.toggle('inactive', !isHidden);
-  
-  // Save state to localStorage
-  localStorage.setItem('donationSidebarHidden', isHidden ? 'false' : 'true');
 }
 
 function toggleMore(button) {
   const content = document.getElementById("moreContent");
   const isOpen = content.classList.contains("open");
-
   if (isOpen) {
     content.classList.remove("open");
     button.textContent = "Show More ▼";
@@ -53,64 +35,88 @@ function toggleMore(button) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.querySelector('.donation-sidebar');
-    const button = document.getElementById('donationToggleBtn');
-
-    // Check localStorage for saved state (default to hidden)
-    const isHidden = localStorage.getItem('donationSidebarHidden') !== 'false';
-    
-    if (isHidden) {
-      sidebar.classList.add('hidden');
-      button.innerText = 'Show Donations';
-    } else {
-      sidebar.classList.remove('hidden');
-      button.innerText = 'Hide Donations';
-    }
-
-    // Temporarily apply fade-in effect only if visible
-    if (!isHidden) {
-      sidebar.classList.add('fade-init');
-
-      requestAnimationFrame(() => {
-        sidebar.classList.add('fade-init-animate');
-
-        // Remove the helper classes after animation ends (optional)
-        setTimeout(() => {
-          sidebar.classList.remove('fade-init', 'fade-init-animate');
-        }, 700); // just longer than the transition time
-      });
-    }
-
     // Check dark mode preference
     const darkMode = localStorage.getItem('darkMode');
-    const logo = document.querySelector('.header-left img');
-    
     if (darkMode === 'enabled') {
       document.body.classList.add('dark-mode');
       document.getElementById('darkModeToggle').checked = true;
-      if (logo) logo.src = '../SRC/logo_white.png';
-    } else {
-      if (logo) logo.src = '../SRC/logo.png';
     }
+
+    // Always use white logo — header is always on violet background
+    document.querySelector('.header-left img').src = '../SRC/civicnexus.svg';
   });
 </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Civic Cube Ideological Compass",
+  "url": "https://civic-nexus.net/civic-cube/civic-cube.html",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "description": "A three-dimensional political ideology test mapping Economic, Authority, and Adherence axes. Free, no sign-up required.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Civic Cube",
+      "item": "https://civic-nexus.net/civic-cube/civic-cube.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/civic-cube/civic-cube.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Civic Cube — Three-Dimensional Ideological Compass">
+  <meta property="og:description" content="Discover your political ideology across Economic, Authority, and Adherence axes. More accurate than flat 2D models. Free, no sign-up required.">
+  <meta property="og:url"         content="https://civic-nexus.net/civic-cube/civic-cube.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Civic Cube — Three-Dimensional Ideological Compass">
+  <meta name="twitter:description" content="Discover your political ideology across Economic, Authority, and Adherence axes. More accurate than flat 2D models. Free, no sign-up required.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
 <!-- Header Bar -->
 <header class="main-header" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 24px; height: 48px;">
   <div class="header-left" style="display: flex; align-items: center;">
-    <img src="../SRC/logo.png" alt="Civic Cube Logo" style="height: 40px; margin-right: 10px;">
+    <img src="../SRC/civicnexus.svg" alt="Civic Nexus" style="height: 40px; margin-right: 10px; filter: drop-shadow(0 2px 8px rgba(139,92,246,0.4));">
     <span class="brand">Civic Cube</span>
   </div>
 
   <nav class="header-nav" style="display: flex; gap: 40px; align-items: center;">
-    <a href="Explanation/explanation.html" class="nav-link">Explanation</a>
-    <a href="FAQ/faq.html" class="nav-link">FAQ</a>
+    <a href="../home.html" class="nav-link">Home</a>
+    <a href="explanation/civic-cube-explanation.html" class="nav-link">Explanation</a>
+    <a href="faq/civic-cube-faq.html" class="nav-link">FAQ</a>
+    <a href="../donate/donate-page.html" class="nav-link">Donate</a>
   </nav>
 
   <div class="header-right" style="display: flex; align-items: center; gap: 8px;">
-    <button id="donationToggleBtn" class="donation-toggle-btn" onclick="toggleDonations()">Hide Donations</button>
     <label class="toggle-switch">
       <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
       <span class="toggle-slider"><span class="toggle-knob"></span></span>
@@ -119,12 +125,7 @@ window.addEventListener('DOMContentLoaded', () => {
 </header>
 
 <div style="position: relative; display: flex; justify-content: center;">
-  <aside class="donation-sidebar">
-  <h3>Support This Project</h3>
-  <p style="font-size: 14px;">If you found this tool valuable, consider donating.</p>
-  <p><a href="https://nowpayments.io/donation?api_key=7QXAC26-K294RGM-PCBF3Q9-CCYMZS6" target="_blank"><button style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; background-color: black; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;"> Donate Crypto</button></a></p>
-</aside>
-  <div style="margin-left: 160px; margin-right: 80px; max-width: 1100px;">
+  <div style="max-width: 1100px; width: 100%; padding: 0 40px;">
   <main style="flex: 1;">
 
     <hr style="border: none; height: 2px; background: linear-gradient(90deg, #8B5CF6, #A78BFA); margin: 30px auto;">
@@ -142,33 +143,35 @@ window.addEventListener('DOMContentLoaded', () => {
 <!-- Collapsible Content -->
 <div id="moreContent" class="collapsible-content">
 
-  <p>The original Political Compass – while widely used – suffers from oversimplification and misinformed framing. It reduces complex ideological tendencies to two axes without accounting for depth of belief or moral foundations. For instance, moral absolutism vs relativism is a meaningful third axis that is entirely absent. Additionally, the original test tends to reflect contemporary Western political narratives and may misplace certain ideologies when viewed historically or cross-culturally. For example, Adolf Hitler is frequently placed on the far-right of the traditional 2D compass, yet his regime combined economically socialist policies, extreme nationalism, and moral absolutism rooted in a dogmatic worldview – making him more accurately categorized as a realist socialist: authoritarian, principled, and socialist.</p>
+  <p>The original Political Compass, while widely used, suffers from oversimplification and misinformed framing. It reduces complex ideological tendencies to two axes without accounting for depth of belief or moral foundations. For instance, moral absolutism vs relativism is a meaningful third axis that is entirely absent. Additionally, the original test tends to reflect contemporary Western political narratives and may misplace certain ideologies when viewed historically or cross-culturally. For example, Adolf Hitler is frequently placed on the far-right of the traditional 2D compass, yet his regime combined economically socialist policies, extreme nationalism, and moral absolutism rooted in a dogmatic worldview – making him more accurately categorized as a realist socialist: authoritarian, principled, and socialist.</p>
 
   <div style="display: flex; gap: 20px; margin-top: 20px;">
     <div class="light-box">
       <h4 style="margin-top: 0;">Traditional 2D Compass</h4>
       <p><strong>Position:</strong> Far-Right, Authoritarian</p>
       <p><em>Often shown at the top-right of the grid.</em></p>
-      <img src="SRC/hitler-2d-example.png" alt="2D Compass Position of Hitler" style="width: 100%; border-radius: 6px;">
+      <img src="src/hitler-2d-example.png" alt="2D Compass Position of Hitler" style="width: 100%; border-radius: 6px;">
     </div>
     <div class="light-box">
       <h4 style="margin-top: 0;">Reinterpreted Civic Cube</h4>
       <p><strong>Position:</strong> Authoritarian, Realist Socialist</p>
       <p><em>Located in the back-top-left quadrant.</em></p>
-      <img src="SRC/hitler-3d-placement.png" alt="3D Compass Position of Hitler" style="width: 100%; border-radius: 6px;">
+      <img src="src/hitler-3d-placement.png" alt="3D Compass Position of Hitler" style="width: 100%; border-radius: 6px;">
     </div>
   </div>
 
   <p>This visual comparison illustrates how ideological misclassification can occur when compressed into two dimensions. While the traditional chart places Hitler in the far-right authoritarian quadrant due to a multitude of misinformed factors, it primarily neglects the doctrinaire moralism and centralized collectivism that more accurately define realist socialism in this 3D model. This is not to sanitize or relativize, but to emphasize ideological structure over modern semantic bias.</p>
-  <p>Answer each question honestly. There are no right or wrong responses – only insights.</p>
+  <p>Answer each question honestly. There are no right or wrong responses, only insights.</p>
 
 </div>
 
 <!-- Progress & Quiz -->
-<hr style="border: none; height: 2px; background: linear-gradient(90deg, #8B5CF6, #A78BFA); margin: 30px auto;">
-<div id="progress-container" style="position: relative; height: 10px; background: #ddd; border-radius: 6px; overflow: hidden; margin-top: 20px; margin-bottom: 30px;">
-  <div id="progress-bar" style="height: 100%; width: 0%; background: linear-gradient(to right, #8B5CF6, #A78BFA); transition: width 0.3s ease-in-out;"></div>
-  <div id="progress-text" style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 12px;">0%</div>
+<hr style="border: none; height: 2px; background: linear-gradient(90deg, #8B5CF6, #A78BFA); margin: 30px auto; opacity:0.35;">
+<div style="margin-bottom:28px;">
+  <div id="progress-container" style="position:relative;height:6px;background:rgba(139,92,246,0.10);border-radius:100px;overflow:visible;">
+    <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--violet-mid),var(--violet-core));border-radius:100px;transition:width 0.4s ease;"></div>
+  </div>
+  <div id="progress-text" style="font-size:12px;font-weight:600;color:var(--violet-core);text-align:right;margin-top:5px;">0%</div>
 </div>
 
 <div id="quiz"></div>    
@@ -185,8 +188,20 @@ window.addEventListener('DOMContentLoaded', () => {
 </main>
 </div>
 
-<!-- Share Modal -->
-<div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;">
+<!-- Step 1: Soft prompt -->
+<div id="sharePrompt" style="display:none; position:fixed; bottom:32px; right:32px; z-index:999; max-width:320px;">
+  <div style="background:white; border-radius:16px; padding:20px 22px; box-shadow:0 8px 32px rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.2);">
+    <p style="font-size:14px; font-weight:600; color:#1A1033; margin:0 0 6px;">Help our research?</p>
+    <p style="font-size:13px; color:#6B6494; margin:0 0 16px; line-height:1.5;">Anonymously share your results to contribute to our political research dataset. Takes 30 seconds.</p>
+    <div style="display:flex; gap:8px;">
+      <button type="button" onclick="openShareForm()" style="flex:1; padding:9px 14px; font-size:13px; font-weight:600; background:linear-gradient(135deg,#7C3AED,#8B5CF6); color:white; border:none; border-radius:10px; cursor:pointer; box-shadow:0 3px 10px rgba(124,58,237,0.35);">Sure, I'll help</button>
+      <button type="button" onclick="dismissSharePrompt()" style="flex:1; padding:9px 14px; font-size:13px; font-weight:600; background:rgba(139,92,246,0.08); color:#8B5CF6; border:1px solid rgba(139,92,246,0.2); border-radius:10px; cursor:pointer;">No thanks</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2: Full share form modal -->
+<div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
   <div style="background:white; max-width:500px; margin:10% auto; padding:20px; border-radius:8px;">
     <h3>Share Your Results</h3>
     <form id="shareForm">
@@ -252,20 +267,57 @@ window.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 
-<script src="script.js"></script>
+<script src="civic-cube-script.js"></script>
 <script> 
-const BACKEND_URL = 'https://civic-cube-api.onrender.com/submit'; 
+const BACKEND_URL = 'https://web-production-12975.up.railway.app/civic-cube/submit';
+const BACKEND_AUTH_URL = 'https://web-production-12975.up.railway.app/civic-cube';
+const CN_API_KEY  = 'b5c501ca4a61d5dbffb0d6944d6f059787d76a768b27c405f67333fd7d0b66dc';
+
+function getSubmitConfig() {
+  const token = sessionStorage.getItem('cn_token');
+  if (token) {
+    return {
+      url: BACKEND_AUTH_URL,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': CN_API_KEY,
+        'Authorization': `Bearer ${token}`
+      }
+    };
+  }
+  return {
+    url: BACKEND_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': CN_API_KEY
+    }
+  };
+}
 
 let finalX = 0;
 let finalY = 0;
 let finalZ = 0;
 let finalLabel = '';
 
-function openShareForm(x, y, z, label) {
+function openSharePrompt(x, y, z, label) {
   finalX = x;
   finalY = y;
   finalZ = z;
   finalLabel = label;
+  // Don't show if already submitted
+  if (localStorage.getItem("hasSubmittedCivicCube") === "true") return;
+  // Small delay so it appears after results have rendered
+  setTimeout(() => {
+    document.getElementById("sharePrompt").style.display = "block";
+  }, 1800);
+}
+
+function dismissSharePrompt() {
+  document.getElementById("sharePrompt").style.display = "none";
+}
+
+function openShareForm() {
+  document.getElementById("sharePrompt").style.display = "none";
   document.getElementById("shareModal").style.display = "block";
 }
 
@@ -320,16 +372,23 @@ function submitResults() {
   // Close the modal right away
   closeShareForm();
 
-  fetch(BACKEND_URL, {
+  const { url, headers } = getSubmitConfig();
+  const isLoggedIn = !!sessionStorage.getItem('cn_token');
+
+  fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' }
+    headers
   })
   .then(response => {
     if (response.ok) {
       console.log("✅ Submission succeeded.");
-      // Mark this user as submitted
-      localStorage.setItem("hasSubmittedCivicCube", "true");
+      if (isLoggedIn) {
+        console.log("✅ Result saved to account.");
+      } else {
+        // Only mark anonymous submissions — logged-in users can retake
+        localStorage.setItem("hasSubmittedCivicCube", "true");
+      }
     } else {
       alert("⚠ Submission failed on the server. You do not need to resubmit.");
     }

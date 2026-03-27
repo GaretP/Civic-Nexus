@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Policy Cube Explained — How It Works | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A detailed explanation of how the Policy Cube Political Compass works — scoring methodology, the seven policy categories, how official positions are determined, and what your results mean.">
+  <link rel="stylesheet" href="../civic-cube/explanation/civic-cube-explanation-styles.css">
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  if (isDarkMode) {
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    localStorage.setItem('darkMode', 'disabled');
+  }
+  const checkbox = document.getElementById('darkModeToggle');
+  if (checkbox) checkbox.checked = isDarkMode;
+}
+
+function toggleDonations() {
+  const aside = document.querySelector('.donation-sidebar');
+  const button = document.getElementById('donationToggleBtn');
+  const isHidden = aside.classList.contains('hidden');
+  aside.classList.toggle('hidden');
+  button.innerText = isHidden ? 'Hide Donations' : 'Show Donations';
+  button.classList.toggle('active', isHidden);
+  button.classList.toggle('inactive', !isHidden);
+  localStorage.setItem('donationSidebarHidden', isHidden ? 'false' : 'true');
+}
+
+function toggleMore(button) {
+  const id = button.getAttribute('data-target');
+  const content = document.getElementById(id);
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open', !isOpen);
+  button.textContent = isOpen ? 'Show More ▼' : 'Show Less ▲';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.donation-sidebar');
+  const button = document.getElementById('donationToggleBtn');
+  const isHidden = localStorage.getItem('donationSidebarHidden') !== 'false';
+
+  if (isHidden) {
+    sidebar.classList.add('hidden');
+    button.innerText = 'Show Donations';
+  } else {
+    sidebar.classList.add('fade-init');
+    requestAnimationFrame(() => {
+      sidebar.classList.add('fade-init-animate');
+      setTimeout(() => sidebar.classList.remove('fade-init', 'fade-init-animate'), 700);
+    });
+  }
+
+  const darkMode = localStorage.getItem('darkMode');
+  const checkbox = document.getElementById('darkModeToggle');
+  if (darkMode === 'enabled') {
+    document.body.classList.add('dark-mode');
+    if (checkbox) checkbox.checked = true;
+  }
+
+  document.querySelector('.header-left img').src = '../../SRC/civicnexus.svg';
+});
+</script>
+
+<style>
+  /* Collapsible content */
+  .collapsible-content {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
+  }
+  .collapsible-content.open { max-height: 3000px; opacity: 1; }
+
+  .show-more-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin: 20px 0;
+    font-size: 14px; font-weight: 600;
+    color: var(--violet-core);
+    cursor: pointer;
+    padding: 8px 18px;
+    background: rgba(139,92,246,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .show-more-btn:hover { background: rgba(139,92,246,0.15); transform: translateY(-1px); }
+
+  /* Score bar used in category explanations */
+  .demo-bar-wrap {
+    background: var(--glass-bg); backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border); border-radius: 14px;
+    padding: 16px 20px; margin: 10px 0;
+    box-shadow: 0 2px 12px var(--glass-shadow);
+  }
+  .demo-bar-header { display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px; font-weight:600; color:var(--text-dark); }
+  .demo-bar-track { height:8px; background:var(--glass-border); border-radius:100px; position:relative; overflow:hidden; }
+  .demo-bar-center { position:absolute; left:50%; top:0; width:1px; height:100%; background:rgba(139,92,246,0.4); }
+  .demo-bar-fill { height:100%; border-radius:100px; }
+  .demo-bar-labels { display:flex; justify-content:space-between; margin-top:5px; font-size:11px; font-weight:600; }
+  .label-dem { color:#2563EB; }
+  .label-rep { color:#DC2626; }
+</style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Policy Cube Political Compass \u2014 How It Works",
+  "url": "https://civic-nexus.net/policy-cube/explanation/policy-cube-explanation.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Civic Nexus",
+    "url": "https://civic-nexus.net"
+  },
+  "description": "A detailed explanation of the Policy Cube methodology, scoring, the seven policy categories, and how official positions are determined."
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Policy Cube",
+      "item": "https://civic-nexus.net/policy-cube/policy-cube.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Explanation",
+      "item": "https://civic-nexus.net/policy-cube/explanation/policy-cube-explanation.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/policy-cube/explanation/policy-cube-explanation.html">
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Policy Cube Explained — How It Works">
+  <meta property="og:description" content="How the Policy Cube Political Compass scores your views, determines official positions, and what your results actually mean.">
+  <meta property="og:url"         content="https://civic-nexus.net/policy-cube/explanation/policy-cube-explanation.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Policy Cube Explained — How It Works">
+  <meta name="twitter:description" content="How the Policy Cube Political Compass scores your views, determines official positions, and what your results actually mean.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+<!-- Header -->
+<header class="main-header" style="display:flex;justify-content:space-between;align-items:center;padding:4px 24px;height:48px;">
+  <div class="header-left" style="display:flex;align-items:center;">
+    <img src="../../SRC/civicnexus.svg" alt="Civic Nexus" style="height:40px;margin-right:10px;filter:drop-shadow(0 2px 8px rgba(139,92,246,0.4));">
+    <span class="brand">Policy Cube</span>
+  </div>
+  <nav class="header-nav" style="display:flex;gap:16px;align-items:center;">
+    <a href="../../home.html" class="nav-link">Home</a>
+    <a href="../policy-cube.html" class="nav-link">Policy Cube</a>
+    <a href="policy-cube-faq.html" class="nav-link">FAQ</a>
+  </nav>
+  <div class="header-right" style="display:flex;align-items:center;gap:8px;">
+    <button id="donationToggleBtn" class="donation-toggle-btn" onclick="toggleDonations()">Hide Donations</button>
+    <label class="toggle-switch">
+      <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+      <span class="toggle-slider"><span class="toggle-knob"></span></span>
+    </label>
+  </div>
+</header>
+
+<div style="position:relative;display:flex;justify-content:center;">
+  <aside class="donation-sidebar">
+    <h3>Support This Project</h3>
+    <p style="font-size:14px;">If you found this tool valuable, consider donating to help with hosting and development:</p>
+    <p><a href="https://nowpayments.io/donation?api_key=7QXAC26-K294RGM-PCBF3Q9-CCYMZS6" target="_blank"><button style="display:flex;align-items:center;gap:8px;padding:10px 14px;background-color:black;color:white;font-weight:bold;border:none;border-radius:6px;cursor:pointer;">Donate Crypto</button></a></p>
+  </aside>
+
+  <div style="margin-left:160px;margin-right:80px;max-width:1100px;">
+  <main style="flex:1;">
+
+  <h1>Policy Cube — Explained</h1>
+  <p>This page breaks down how the Policy Cube works, what each policy category measures, how scoring works, and how we determine official positions. Understanding the methodology helps you interpret your results more accurately.</p>
+
+  <hr style="border:none;height:2px;background:linear-gradient(90deg,#8B5CF6,#A78BFA);margin:30px auto;opacity:0.35;">
+
+  <!-- ── How It Works ── -->
+  <h2>How the Survey Works</h2>
+  <p>The Policy Cube presents you with policy statements drawn from real, active political debates in your chosen location. You respond on a four-point scale: Agree, Somewhat Agree, Somewhat Disagree, or Disagree. Each response is mapped to a score between +1 and −1. Positive scores indicate alignment with the typical Republican position on that issue; negative scores with the typical Democratic position.</p>
+  <p>Each question is tagged with a policy category and a direction. The direction encodes which way agreement points politically — agreeing that taxes should be cut scores Republican (+1), while agreeing that the minimum wage should be raised scores Democrat (−1). This allows us to present questions naturally without forcing artificial framing.</p>
+  <p>Your final result shows seven independent bar charts — one per category — each representing your average score across all questions in that category. These are then compared against the estimated policy positions of current elected officials in your location to produce match percentages.</p>
+
+  <span class="show-more-btn" onclick="toggleMore(this)" data-target="scoringDetail">Show More ▼</span>
+  <div id="scoringDetail" class="collapsible-content">
+    <h2>The Four-Point Scale</h2>
+    <p>Rather than a binary agree/disagree, the survey uses four levels to capture the strength of your position:</p>
+    <ul style="margin:10px 0 10px 20px;">
+      <li style="margin-bottom:6px;"><strong>Agree</strong> — full score in the question's direction (±1.0)</li>
+      <li style="margin-bottom:6px;"><strong>Somewhat Agree</strong> — half score (±0.5)</li>
+      <li style="margin-bottom:6px;"><strong>Somewhat Disagree</strong> — half score in the opposite direction (∓0.5)</li>
+      <li style="margin-bottom:6px;"><strong>Disagree</strong> — full score in the opposite direction (∓1.0)</li>
+    </ul>
+    <p>Scores for all questions in a category are averaged. A category with five questions where you agreed with three Democrat-leaning questions (+1 each) and disagreed with two Republican-leaning ones (−1 each) would produce an average score of −1.0, placing you fully on the Democrat side of that bar.</p>
+    <p>A score near zero on any category means either your answers were genuinely mixed on that topic, or the questions in that category didn't strongly pull you in either direction. Neither is a problem — centrism on a specific issue is a valid and meaningful result.</p>
+  </div>
+
+  <hr style="border:none;height:2px;background:linear-gradient(90deg,#8B5CF6,#A78BFA);margin:30px auto;opacity:0.35;">
+
+  <!-- ── The Seven Categories ── -->
+  <h2>The Seven Policy Categories</h2>
+  <p>Results are broken down across seven independent categories. Each measures a distinct domain of policy, and your score on one does not affect the others. You might score strongly Democrat on environment while scoring strongly Republican on immigration — the survey captures that nuance rather than collapsing it into a single label.</p>
+
+  <!-- Economic -->
+  <h2>Economic / Fiscal Policy</h2>
+  <p>Covers questions about taxation, government spending, labour rights, business regulation, and economic redistribution. The Republican end of this axis favours lower taxes, deregulation, and free market principles. The Democrat end favours progressive taxation, stronger labour protections, and an active role for government in economic outcomes.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Economic / Fiscal</span><span style="color:#2563EB;">−0.60 Democrat</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:30%;margin-left:20%;background:#2563EB;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Government Role</span><span class="label-rep">Free Market</span></div>
+  </div>
+
+  <!-- Social -->
+  <h2>Social / Cultural Policy</h2>
+  <p>Covers questions about civil rights, gender and sexuality policy, religious expression in public life, and cultural values legislation. The Republican end favours traditional values, parental rights in education, and limited government involvement in social norms. The Democrat end favours civil liberties protections, progressive social policy, and pluralism.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Social / Cultural</span><span style="color:#DC2626;">+0.45 Republican</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:22.5%;margin-left:50%;background:#DC2626;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Progressive</span><span class="label-rep">Conservative</span></div>
+  </div>
+
+  <!-- Environment -->
+  <h2>Environment</h2>
+  <p>Covers questions about emissions regulations, energy policy, public land management, climate action, and environmental protection. The Republican end favours energy independence through fossil fuels, reduced federal environmental regulation, and state or market-led solutions. The Democrat end favours aggressive emissions targets, renewable energy transition, and strong federal environmental protection.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Environment</span><span style="color:#2563EB;">−0.80 Democrat</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:40%;margin-left:10%;background:#2563EB;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Pro-Environment</span><span class="label-rep">Pro-Industry</span></div>
+  </div>
+
+  <!-- Criminal Justice -->
+  <h2>Criminal Justice</h2>
+  <p>Covers questions about policing, sentencing, bail reform, law enforcement funding, and public safety policy. The Republican end favours strong law enforcement, mandatory sentencing, and tough-on-crime approaches. The Democrat end favours sentencing reform, reduced incarceration, civilian oversight, and addressing systemic inequities in the justice system.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Criminal Justice</span><span style="color:#8B5CF6;">0.00 Centrist</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:0%;margin-left:50%;background:#8B5CF6;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Reform</span><span class="label-rep">Law & Order</span></div>
+  </div>
+
+  <!-- Education -->
+  <h2>Education</h2>
+  <p>Covers questions about school choice, voucher programmes, curriculum policy, public school funding, and the federal role in education. The Republican end favours school choice, parental control over curriculum, and local or state control of schools. The Democrat end favours public school investment, federal standards, and equal access to quality education regardless of zip code.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Education</span><span style="color:#DC2626;">+0.30 Republican</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:15%;margin-left:50%;background:#DC2626;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Public / Federal</span><span class="label-rep">Choice / Local</span></div>
+  </div>
+
+  <!-- Healthcare -->
+  <h2>Healthcare</h2>
+  <p>Covers questions about Medicaid expansion, the Affordable Care Act, public health options, and the role of government in healthcare access. The Republican end favours market-based healthcare, limited government involvement, and individual responsibility for coverage. The Democrat end favours universal or near-universal access, Medicaid expansion, and a significant government role in ensuring coverage.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Healthcare</span><span style="color:#2563EB;">−0.50 Democrat</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:25%;margin-left:25%;background:#2563EB;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Universal Access</span><span class="label-rep">Market-Based</span></div>
+  </div>
+
+  <!-- Immigration -->
+  <h2>Immigration</h2>
+  <p>Covers questions about enforcement, deportation, pathways to citizenship, sanctuary policies, and cooperation with federal immigration authorities. The Republican end favours strong enforcement, deportation of undocumented immigrants, and border security as a priority. The Democrat end favours pathways to legal status, humane enforcement, and limiting cooperation with federal detention operations.</p>
+  <div class="demo-bar-wrap">
+    <div class="demo-bar-header"><span>Immigration</span><span style="color:#DC2626;">+0.70 Republican</span></div>
+    <div class="demo-bar-track">
+      <div class="demo-bar-center"></div>
+      <div class="demo-bar-fill" style="width:35%;margin-left:50%;background:#DC2626;"></div>
+    </div>
+    <div class="demo-bar-labels"><span class="label-dem">Pathways</span><span class="label-rep">Enforcement</span></div>
+  </div>
+
+  <hr style="border:none;height:2px;background:linear-gradient(90deg,#8B5CF6,#A78BFA);margin:30px auto;opacity:0.35;">
+
+  <!-- ── Official Matching ── -->
+  <h2>How Official Matching Works</h2>
+  <p>Each elected official in the survey database has an estimated position score on all seven categories, ranging from −1 (fully Democrat) to +1 (fully Republican). These scores are assigned by Civic Nexus researchers based on each official's public voting record, bill sponsorships, campaign platform, and public statements.</p>
+  <p>Your match percentage is calculated by comparing your average category scores to each official's scores. Specifically, we measure the average absolute difference across all seven categories, then convert that to a percentage where 0 difference = 100% match and maximum difference = 0% match. This means the match reflects overall proximity across all policy domains simultaneously — not just the ones where you feel most strongly.</p>
+
+  <span class="show-more-btn" onclick="toggleMore(this)" data-target="matchDetail">Show More ▼</span>
+  <div id="matchDetail" class="collapsible-content">
+    <h2>Why Match Percentages Can Be Misleading</h2>
+    <p>A high match percentage does not mean you agree with an official on every issue. It means your averaged positions across seven categories are close to theirs on average. Two people can have the same match percentage with an official but disagree strongly on two different categories — the individual category bars are a more honest picture of where alignment is genuine and where it isn't.</p>
+    <p>Similarly, a low match percentage doesn't mean you oppose everything about an official. It means their overall policy profile diverges substantially from yours across the categories measured. This is most likely to happen when someone has extreme positions on many categories while you hold more moderate views, or vice versa.</p>
+    <h2>Limitations of Official Position Scores</h2>
+    <p>Politicians' positions are genuinely hard to reduce to a single score per category. A senator may vote consistently one way on most healthcare questions but break with their party on a specific bill. A governor may take a moderate position on one environmental issue and an extreme position on another. Our scores represent a reasonable approximation of their general orientation — not a perfect model of every vote. We review and update scores periodically but acknowledge they are imperfect snapshots.</p>
+  </div>
+
+  <hr style="border:none;height:2px;background:linear-gradient(90deg,#8B5CF6,#A78BFA);margin:30px auto;opacity:0.35;">
+
+  <!-- ── Locations ── -->
+  <h2>Available Locations</h2>
+  <p>The survey currently covers five locations. Each has a mix of core questions shared across all locations and location-specific questions tied to active policy debates in that place.</p>
+  <ul style="margin:10px 0 10px 20px;">
+    <li><strong>Michigan</strong> — PFAS water contamination, right-to-work repeal, EV manufacturing incentives, Great Lakes policy, abortion rights</li>
+    <li><strong>Ohio</strong> — abortion amendment, gender-affirming care ban, school vouchers, redistricting reform, opioid crisis response</li>
+    <li><strong>Colorado</strong> — recreational marijuana, TABOR tax limits, public land transfers, oil and gas drilling, ranked-choice voting</li>
+    <li><strong>Florida</strong> — parental rights legislation, school vouchers, Everglades protection, stand-your-ground law, property insurance regulation</li>
+    <li><strong>Federal</strong> — national minimum wage, ACA expansion, carbon emissions, immigration enforcement, federal education funding, criminal justice reform</li>
+  </ul>
+  <p>New locations are added periodically. The architecture supports any US state or territory, and we plan to expand internationally in future versions.</p>
+
+  <footer style="margin-top:60px;padding:28px 32px;text-align:center;background:var(--glass-bg);backdrop-filter:blur(12px);border-radius:16px;border:1px solid var(--glass-border);color:var(--text-muted);font-size:13px;">
+    &copy; 2026 Civic Nexus. Designed with purpose.
+  </footer>
+
+  </main>
+  </div>
+</div>
+
+</body>
+</html>

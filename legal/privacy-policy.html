@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Privacy Policy — Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Civic Nexus collects minimal data, never uses cookies for tracking, and never sells your information. Read our full privacy policy.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-mid:      #3D3060;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-mid:     #C4B5FD;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body::before, body::after {
+      content: ''; position: fixed; border-radius: 50%;
+      filter: blur(90px); pointer-events: none; z-index: 0;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    body::before { width:520px;height:520px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-140px;left:-100px;opacity:0.14; }
+    body::after { width:380px;height:380px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:8%;right:-60px;opacity:0.10;animation-duration:22s;animation-delay:-7s; }
+    body.dark-mode::before, body.dark-mode::after { opacity: 0.09; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);}100%{transform:translate(32px,50px) scale(1.06);} }
+
+    .main-header {
+      position:sticky;top:0;z-index:1000;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:0 32px;height:60px;
+      background:rgba(139,92,246,0.82);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(255,255,255,0.18);
+      border-radius:0 0 20px 20px;
+      box-shadow:0 4px 24px rgba(91,33,182,0.25);
+    }
+    body.dark-mode .main-header { background:rgba(28,24,48,0.92); }
+    .header-left { display:flex;align-items:center;gap:10px; }
+    .header-left img { height:32px;width:auto;filter:drop-shadow(0 2px 8px rgba(139,92,246,0.4)); }
+    .brand { font-family:'Playfair Display',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#ffffff,#EDE9FE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none; }
+    .nav-link { color:rgba(255,255,255,0.88);text-decoration:none;font-size:14px;font-weight:500;padding:6px 13px;border-radius:8px;transition:background 0.2s; }
+    .nav-link:hover { background:rgba(255,255,255,0.18);color:#fff; }
+    .toggle-switch { position:relative;display:inline-flex;align-items:center;width:46px;height:24px;flex-shrink:0;flex-basis:46px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider { position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:34px;transition:0.3s; }
+    .toggle-knob { position:absolute;height:20px;width:20px;left:2px;top:2px;background:linear-gradient(135deg,#ffffff,#EDE9FE);border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob { transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    .page-wrap { position:relative;z-index:1;max-width:800px;margin:0 auto;padding:56px 24px 80px; }
+
+    .doc-eyebrow { font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--violet-core);display:block;margin-bottom:10px; }
+    .doc-title { font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;line-height:1.1;color:var(--text-dark);margin-bottom:8px; }
+    .doc-meta { font-size:13px;color:var(--text-muted);margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--glass-border); }
+
+    .doc-section { margin-bottom:36px; }
+
+    h2 { font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--text-dark);padding-left:14px;border-left:3px solid var(--violet-core);margin-bottom:12px;margin-top:36px;line-height:1.3; }
+    body.dark-mode h2 { color:var(--text-dark);border-left-color:var(--violet-light); }
+
+    p { font-size:15px;line-height:1.75;color:var(--text-muted);margin-bottom:12px; }
+    ul, ol { padding-left:22px;margin-bottom:12px; }
+    li { font-size:15px;line-height:1.7;color:var(--text-muted);margin-bottom:6px; }
+    strong { color:var(--text-dark);font-weight:600; }
+
+    .highlight-box {
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-left:4px solid var(--violet-core);
+      border-radius:0 14px 14px 0;padding:16px 20px;margin:16px 0;
+      font-size:14px;color:var(--text-muted);line-height:1.65;
+    }
+
+    /* Data table */
+    .data-table { width:100%;border-collapse:collapse;margin:16px 0;font-size:14px; }
+    .data-table th {
+      background:rgba(139,92,246,0.10);color:var(--violet-core);
+      font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+      padding:10px 14px;text-align:left;border-bottom:2px solid var(--glass-border);
+    }
+    .data-table td { padding:10px 14px;color:var(--text-muted);border-bottom:1px solid var(--glass-border);vertical-align:top; }
+    .data-table tr:last-child td { border-bottom:none; }
+    body.dark-mode .data-table th { background:rgba(139,92,246,0.15); }
+
+    .contact-card { background:var(--glass-bg);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:16px;padding:20px 24px;margin-top:16px;box-shadow:0 4px 16px var(--glass-shadow);font-size:14px;color:var(--text-muted);line-height:1.7; }
+
+    footer { margin-top:60px;padding:24px 32px;text-align:center;background:var(--glass-bg);backdrop-filter:blur(12px);border-radius:16px;border:1px solid var(--glass-border);color:var(--text-muted);font-size:13px; }
+
+    @media(max-width:640px) { .main-header{padding:0 16px;} .page-wrap{padding:36px 16px 60px;} .data-table{font-size:13px;} }
+  </style>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Civic Nexus Privacy Policy",
+  "url": "https://civic-nexus.net/legal/privacy-policy.html",
+  "description": "Civic Nexus collects minimal data, never uses tracking cookies, and never sells your information."
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://civic-nexus.net/home.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy",
+      "item": "https://civic-nexus.net/legal/privacy-policy.html"
+    }
+  ]
+}
+  </script>
+  <link rel="canonical" href="https://civic-nexus.net/legal/privacy-policy.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Privacy Policy — Civic Nexus">
+  <meta property="og:description" content="Civic Nexus collects minimal data, never uses tracking cookies, and never sells your information.">
+  <meta property="og:url"         content="https://civic-nexus.net/legal/privacy-policy.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@NexusCivic">
+  <meta name="twitter:title"       content="Privacy Policy — Civic Nexus">
+  <meta name="twitter:description" content="Civic Nexus collects minimal data, never uses tracking cookies, and never sells your information.">
+  <meta name="twitter:image"       content="https://civic-nexus.net/SRC/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SRC/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="header-left">
+      <img id="headerLogo" src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      <a href="../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="../home.html" class="nav-link">Home</a>
+      <a href="terms-of-service.html" class="nav-link">Terms of Service</a>
+      <label class="toggle-switch">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <span class="doc-eyebrow">Legal</span>
+    <h1 class="doc-title">Privacy Policy</h1>
+    <p class="doc-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective date: March 2026 &nbsp;·&nbsp; civic-nexus.net</p>
+
+    <div class="highlight-box">
+      This Privacy Policy explains what data Civic Nexus collects, why it is collected, how it is stored and used, and what rights you have over your data. Civic Nexus is committed to collecting as little data as possible and never selling or sharing it with third parties for commercial purposes.
+    </div>
+
+    <!-- 1 -->
+    <div class="doc-section">
+      <h2>1. Who We Are</h2>
+      <p>Civic Nexus is an independent educational platform operated by a solo founder based in the United States. The site is accessible at <strong>civic-nexus.net</strong>. References to "Civic Nexus," "we," "us," or "our" in this Policy refer to the individual operating this platform.</p>
+      <p>Civic Nexus is not a registered legal entity. This Policy represents our genuine commitment to your privacy and applies to all data collected through the site and its services.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="doc-section">
+      <h2>2. What Data We Collect</h2>
+      <p>We collect only what is necessary to operate the service. The table below describes each category of data, when it is collected, and why.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>When collected</th>
+            <th>Why</th>
+            <th>Required?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Username</strong></td>
+            <td>Account registration</td>
+            <td>Identifies your account. Not your real name — you choose it.</td>
+            <td>Yes, if registering</td>
+          </tr>
+          <tr>
+            <td><strong>Email address</strong></td>
+            <td>Account registration</td>
+            <td>Optional contact method for account recovery.</td>
+            <td>No — optional</td>
+          </tr>
+          <tr>
+            <td><strong>Password hash</strong></td>
+            <td>Account registration &amp; login</td>
+            <td>We store only a SHA-256 hash of your password. Your plaintext password never leaves your device.</td>
+            <td>Yes, if registering</td>
+          </tr>
+          <tr>
+            <td><strong>Civic Cube results</strong></td>
+            <td>Test completion</td>
+            <td>Axis scores and ideology label. Stored to your account if logged in; stored anonymously if not.</td>
+            <td>Only if you submit</td>
+          </tr>
+          <tr>
+            <td><strong>Policy Cube results</strong></td>
+            <td>Survey completion</td>
+            <td>Category scores and location. Stored to your account if logged in; stored anonymously if not.</td>
+            <td>Only if you submit</td>
+          </tr>
+          <tr>
+            <td><strong>Pre-gauge answers</strong></td>
+            <td>Before Policy Cube Political Compass</td>
+            <td>Yes/no answers about local political engagement. Stored alongside survey results for research context.</td>
+            <td>Only if you submit</td>
+          </tr>
+          <tr>
+            <td><strong>Optional demographics</strong></td>
+            <td>Research submission form</td>
+            <td>Age range, sex, education, income bracket, country, party affiliation. Used only in anonymised aggregate research.</td>
+            <td>No — optional</td>
+          </tr>
+          <tr>
+            <td><strong>Donation log</strong></td>
+            <td>Donation page interaction</td>
+            <td>Platform used (GoFundMe / PayPal), optional reference. Linked to account if logged in.</td>
+            <td>Only if you interact</td>
+          </tr>
+          <tr>
+            <td><strong>Session token (JWT)</strong></td>
+            <td>Login</td>
+            <td>A temporary authentication token stored in your browser's sessionStorage. Expires when you close the tab. Never written to a database.</td>
+            <td>Yes, while logged in</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3 -->
+    <div class="doc-section">
+      <h2>3. What We Do Not Collect</h2>
+      <p>Civic Nexus does <strong>not</strong> collect:</p>
+      <ul>
+        <li>Your IP address (beyond what third-party infrastructure providers may log — see Section 7)</li>
+        <li>Cookies of any kind — we use <code>localStorage</code> and <code>sessionStorage</code> only for functional preferences (dark mode, session state)</li>
+        <li>Tracking pixels, advertising identifiers, or analytics scripts</li>
+        <li>Your browsing history or behaviour on other websites</li>
+        <li>Device fingerprints or location data</li>
+        <li>Plaintext passwords — ever</li>
+      </ul>
+    </div>
+
+    <!-- 4 -->
+    <div class="doc-section">
+      <h2>4. How We Use Your Data</h2>
+      <p>Data collected by Civic Nexus is used exclusively for the following purposes:</p>
+      <ul>
+        <li><strong>Operating the service</strong> — authenticating your account, saving and displaying your results, enabling dashboard features.</li>
+        <li><strong>Research</strong> — anonymised, aggregate analysis of survey results to produce the research papers and datasets published on the Research portal. Individual responses are never published.</li>
+        <li><strong>Improving the site</strong> — understanding which tools are used and identifying technical issues. This is done without any tracking scripts — only through server logs maintained by our infrastructure provider.</li>
+      </ul>
+      <p>We do not use your data for advertising, profiling, automated decision-making, or any commercial purpose beyond operating the site.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="doc-section">
+      <h2>5. How Your Data Is Protected</h2>
+      <p>Civic Nexus takes a privacy-by-design approach to data security:</p>
+      <ul>
+        <li><strong>Zero-knowledge authentication</strong> — your password is hashed with SHA-256 on your device before transmission. We store only the hash, and use a nonce-based challenge/response system for login so the hash itself is never sent over the network in a reusable form.</li>
+        <li><strong>Encrypted in transit</strong> — all data between your browser and our servers is encrypted via HTTPS/TLS. The backend database connection requires SSL.</li>
+        <li><strong>No unnecessary retention</strong> — session tokens are stored in <code>sessionStorage</code> only, meaning they are automatically deleted when you close the browser tab. They are never written to our database.</li>
+        <li><strong>Minimal collection</strong> — we only collect what is functionally necessary. Optional fields (email, demographics) are never required.</li>
+        <li><strong>Rate limiting</strong> — all API endpoints are rate-limited to prevent brute-force attacks and data scraping.</li>
+      </ul>
+    </div>
+
+    <!-- 6 -->
+    <div class="doc-section">
+      <h2>6. Data Sharing</h2>
+      <p>Civic Nexus does <strong>not</strong> sell, rent, or share your personal data with third parties for any commercial purpose.</p>
+      <p>The only circumstances under which data may be disclosed are:</p>
+      <ul>
+        <li><strong>Infrastructure providers</strong> — data is stored on Railway's servers and served via Cloudflare Pages. These providers have access to data as part of their hosting services. See Section 7 for details.</li>
+        <li><strong>Legal requirements</strong> — if required by a valid legal process, such as a court order or subpoena under US law.</li>
+        <li><strong>Aggregate research</strong> — anonymised, non-identifiable data may be published in research papers or made available as open datasets. No individual can be identified from this data.</li>
+      </ul>
+    </div>
+
+    <!-- 7 -->
+    <div class="doc-section">
+      <h2>7. Third-Party Infrastructure</h2>
+      <p>Civic Nexus operates using the following third-party infrastructure providers. Each has its own privacy policy which governs their handling of data they process on our behalf.</p>
+      <ul>
+        <li><strong>Railway</strong> (railway.app) — backend API hosting and PostgreSQL database. Account data, results, and research submissions are stored on Railway's infrastructure in the United States.</li>
+        <li><strong>Cloudflare Pages</strong> (cloudflare.com) — frontend hosting and CDN. Cloudflare processes request metadata (including IP addresses) as part of its standard operation and DDoS protection. Civic Nexus does not have access to this data.</li>
+        <li><strong>PayPal</strong> — donation processing. If you choose to donate via PayPal, PayPal processes that transaction. Civic Nexus receives only a basic confirmation log.</li>
+        <li><strong>GoFundMe</strong> — fiat donation processing. Governed entirely by GoFundMe's own privacy policy.</li>
+        <li><strong>Google Fonts</strong> — the site loads fonts from Google's CDN. Google may log font requests per their standard privacy policy.</li>
+        <li><strong>Plotly CDN</strong> — the 3D graph on the Civic Cube results page loads Plotly.js from a CDN. CDN providers may log requests.</li>
+      </ul>
+    </div>
+
+    <!-- 8 -->
+    <div class="doc-section">
+      <h2>8. Your Rights</h2>
+      <p>You have the following rights regarding your data:</p>
+      <ul>
+        <li><strong>Access</strong> — you can view all results and account data saved to your account through the dashboard at any time.</li>
+        <li><strong>Deletion of results</strong> — you can delete individual test or survey results from your account dashboard at any time.</li>
+        <li><strong>Account deletion</strong> — you can delete your account and all associated data. This permanently removes your username, email (if provided), password hash, and all linked results from our systems.</li>
+        <li><strong>Correction</strong> — if you believe data stored against your account is incorrect, you can update your username and email through account settings.</li>
+        <li><strong>Portability</strong> — your results are viewable in your dashboard. If you need a structured export, contact us and we will provide one in a reasonable format.</li>
+      </ul>
+      <p>Anonymous submissions (made without an account) cannot be identified or deleted after submission, as there is no identifier linking them to you. This is by design — it is also what makes them genuinely anonymous.</p>
+    </div>
+
+    <!-- 9 -->
+    <div class="doc-section">
+      <h2>9. Children's Privacy</h2>
+      <p>Civic Nexus is not directed at children under the age of 13. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has provided us with personal information, please contact us and we will delete it promptly.</p>
+      <p>Users between 13 and 17 should use the site with parental awareness. The research submission form asks for demographic data including age range — users under 18 are encouraged to use the broadest available age bracket to avoid providing identifying information.</p>
+    </div>
+
+    <!-- 10 -->
+    <div class="doc-section">
+      <h2>10. Data Retention</h2>
+      <p>We retain data for as long as it is needed to operate the service or as required by law:</p>
+      <ul>
+        <li><strong>Account data</strong> — retained until you delete your account.</li>
+        <li><strong>Results linked to an account</strong> — retained until you delete them or delete your account.</li>
+        <li><strong>Anonymous results</strong> — retained indefinitely for research purposes, as they cannot be linked to any individual.</li>
+        <li><strong>Session tokens</strong> — stored in browser <code>sessionStorage</code> only; automatically deleted when the tab is closed. Never persisted to our database.</li>
+        <li><strong>Donation logs</strong> — retained as basic operational records. They contain only platform type and optional reference — no payment details.</li>
+      </ul>
+    </div>
+
+    <!-- 11 -->
+    <div class="doc-section">
+      <h2>11. Cookies and Local Storage</h2>
+      <p>Civic Nexus does not use cookies. We use browser <code>localStorage</code> for the following functional purposes only:</p>
+      <ul>
+        <li>Remembering your dark mode preference</li>
+        <li>Saving in-progress test responses so you can resume if the page refreshes</li>
+        <li>Recording whether you have previously submitted an anonymous research result (to prevent duplicate submissions)</li>
+      </ul>
+      <p>We use <code>sessionStorage</code> to hold your JWT authentication token while you are logged in. This is cleared automatically when you close the tab.</p>
+      <p>None of this data is transmitted to our servers or shared with third parties. It exists only in your own browser.</p>
+    </div>
+
+    <!-- 12 -->
+    <div class="doc-section">
+      <h2>12. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, the "Last updated" date at the top of this page will be revised. We encourage you to review this page periodically.</p>
+      <p>For material changes that affect how we handle existing data, we will make reasonable efforts to notify registered users through the site.</p>
+    </div>
+
+    <!-- 13 -->
+    <div class="doc-section">
+      <h2>13. Contact</h2>
+      <p>For privacy-related questions, data requests, or to exercise your rights under this Policy:</p>
+      <div class="contact-card">
+        <strong>Civic Nexus</strong><br>
+        civic-nexus.net<br>
+        Operated independently from the United States.<br><br>
+        Use the feedback form on the site or reach out through our social media channels. We aim to respond to data-related requests within 30 days.
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 Civic Nexus. &nbsp;·&nbsp;
+      <a href="terms-of-service.html" style="color:var(--violet-core);text-decoration:none;">Terms of Service</a>
+      &nbsp;·&nbsp; civic-nexus.net
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+      }
+    });
+  </script>
+</body>
+</html>
