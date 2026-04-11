@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <!-- ── Core pages ── -->
   <url>
     <loc>https://civic-nexus.net/home.html</loc>
@@ -17,7 +16,6 @@
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
-
   <!-- ── Civic Cube ── -->
   <url>
     <loc>https://civic-nexus.net/civic-cube/civic-cube.html</loc>
@@ -34,7 +32,6 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
-
   <!-- ── Policy Cube ── -->
   <url>
     <loc>https://civic-nexus.net/policy-cube/policy-cube.html</loc>
@@ -51,21 +48,24 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
-
+  <!-- ── Affiliate / Books ── -->
+  <url>
+    <loc>https://civic-nexus.net/affiliate/books.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
   <!-- ── Research ── -->
   <url>
     <loc>https://civic-nexus.net/research/research-page.html</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
-
   <!-- ── Donate ── -->
   <url>
     <loc>https://civic-nexus.net/donate/donate-page.html</loc>
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
-
   <!-- ── Legal ── -->
   <url>
     <loc>https://civic-nexus.net/legal/privacy-policy.html</loc>
@@ -77,5 +77,4 @@
     <priority>0.4</priority>
     <changefreq>yearly</changefreq>
   </url>
-
 </urlset>
