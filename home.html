@@ -366,6 +366,48 @@
       font-size:13px;color:var(--text-muted);
     }
 
+    /* hamburger button */
+    .hamburger {
+      display:none;flex-direction:column;justify-content:center;align-items:center;
+      gap:5px;width:36px;height:36px;border-radius:8px;cursor:pointer;
+      background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);
+      transition:background 0.2s;flex-shrink:0;
+    }
+    .hamburger:hover { background:rgba(255,255,255,0.20); }
+    .hamburger span {
+      display:block;width:18px;height:2px;border-radius:2px;
+      background:#fff;transition:transform 0.3s,opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* mobile nav drawer */
+    .mobile-nav {
+      display:none;position:fixed;top:60px;left:0;right:0;z-index:999;
+      background:rgba(28,18,56,0.97);backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(139,92,246,0.30);
+      padding:16px 20px 24px;flex-direction:column;gap:4px;
+      animation:slideDown 0.22s ease both;
+    }
+    body:not(.dark-mode) .mobile-nav { background:rgba(91,33,182,0.97); }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);} }
+    .mobile-nav.open { display:flex; }
+    .mobile-nav-link {
+      color:rgba(255,255,255,0.90);text-decoration:none;font-size:15px;font-weight:500;
+      padding:11px 14px;border-radius:10px;transition:background 0.15s;
+    }
+    .mobile-nav-link:hover { background:rgba(255,255,255,0.14);color:#fff; }
+    .mobile-nav-divider { height:1px;background:rgba(255,255,255,0.15);margin:8px 0; }
+    .mobile-nav-btn {
+      display:flex;align-items:center;gap:8px;
+      color:#fff;text-decoration:none;font-size:15px;font-weight:600;
+      padding:11px 14px;border-radius:10px;transition:background 0.15s;
+    }
+    .mobile-nav-btn:hover { background:rgba(255,255,255,0.14); }
+    /* dashboard link — hidden until JS confirms logged in */
+    .dashboard-link { display:none; }
+
     /* responsive */
     @media(max-width:1100px) {
       .main-header { padding:0 20px; }
@@ -382,6 +424,7 @@
     @media(max-width:700px) {
       .main-header { grid-template-columns:1fr auto;padding:0 14px; }
       .header-nav { display:none; }
+      .hamburger { display:flex; }
       .hero-stats { flex-direction:column; }
       .stat-item { border-right:none;border-bottom:1px solid var(--glass-border); }
       .stat-item:last-child { border-bottom:none; }
@@ -467,21 +510,44 @@
         </svg>
         Donate
       </a>
-      <!-- Sign In -->
-      <a href="authentication/login.html" class="header-btn-ghost">
+      <!-- Auth-aware: shown/hidden by JS -->
+      <a href="authentication/login.html" class="header-btn-ghost" id="signInBtn">
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
           <circle cx="7" cy="5" r="2.5"/>
           <path d="M2 12c0-2.5 2.2-4.5 5-4.5s5 2 5 4.5"/>
         </svg>
         Sign In
       </a>
+      <a href="authentication/dashboard.html" class="header-btn-solid dashboard-link" id="dashBtn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+          <rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/>
+          <rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/>
+        </svg>
+        Dashboard
+      </a>
       <!-- Dark mode toggle -->
       <label class="toggle-switch" title="Toggle dark mode">
         <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
         <span class="toggle-slider"><span class="toggle-knob"></span></span>
       </label>
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile nav drawer -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="#tools" class="mobile-nav-link" onclick="closeMobileNav()">Tools</a>
+    <a href="#mission" class="mobile-nav-link" onclick="closeMobileNav()">Mission</a>
+    <a href="research/research-page.html" class="mobile-nav-link">Research</a>
+    <div class="mobile-nav-divider"></div>
+    <a href="donate/donate-page.html" class="mobile-nav-btn">❤ Donate</a>
+    <a href="authentication/login.html" class="mobile-nav-btn" id="mobileSignInBtn">Sign In</a>
+    <a href="authentication/dashboard.html" class="mobile-nav-btn dashboard-link" id="mobileDashBtn">Dashboard</a>
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
@@ -743,6 +809,48 @@
       if (footerLogo) footerLogo.src = isDark ? 'SRC/civicnexus.svg' : 'SRC/civicnexus_black.svg';
     }
 
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobileNav');
+      const btn = document.getElementById('hamburger');
+      const open = nav.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    }
+
+    function closeMobileNav() {
+      document.getElementById('mobileNav').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // Close mobile nav when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobileNav');
+      const btn = document.getElementById('hamburger');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+        closeMobileNav();
+      }
+    });
+
+    // Auth-aware header: show Dashboard if token exists, else show Sign In
+    function updateAuthHeader() {
+      const token = sessionStorage.getItem('cn_token') || localStorage.getItem('cn_token');
+      const signInBtn     = document.getElementById('signInBtn');
+      const dashBtn       = document.getElementById('dashBtn');
+      const mobileSignIn  = document.getElementById('mobileSignInBtn');
+      const mobileDash    = document.getElementById('mobileDashBtn');
+      if (token) {
+        if (signInBtn)    signInBtn.style.display    = 'none';
+        if (dashBtn)      dashBtn.style.display      = 'inline-flex';
+        if (mobileSignIn) mobileSignIn.style.display = 'none';
+        if (mobileDash)   mobileDash.style.display   = 'flex';
+      } else {
+        if (signInBtn)    signInBtn.style.display    = '';
+        if (dashBtn)      dashBtn.style.display      = 'none';
+        if (mobileSignIn) mobileSignIn.style.display = '';
+        if (mobileDash)   mobileDash.style.display   = 'none';
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
@@ -750,6 +858,8 @@
         const footerLogo = document.getElementById('footerLogo');
         if (footerLogo) footerLogo.src = 'SRC/civicnexus.svg';
       }
+
+      updateAuthHeader();
 
       // Scroll-reveal
       const observer = new IntersectionObserver((entries) => {
