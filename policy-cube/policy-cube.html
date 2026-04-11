@@ -322,42 +322,52 @@
     <link rel="manifest" href="/site.webmanifest">
 
 <style>
-/* Mobile nav — injected fix */
-.hamburger {
-  display:none;flex-direction:column;justify-content:center;align-items:center;
-  gap:5px;width:36px;height:36px;border-radius:8px;cursor:pointer;
-  background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);
-  transition:background 0.2s;flex-shrink:0;
-}
-.hamburger:hover { background:rgba(255,255,255,0.20); }
-.hamburger span { display:block;width:18px;height:2px;border-radius:2px;background:#fff;transition:transform 0.3s,opacity 0.3s; }
-.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity:0; }
-.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-.mobile-nav {
-  display:none;position:fixed;top:48px;left:0;right:0;z-index:999;
-  background:rgba(28,18,56,0.97);backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(139,92,246,0.30);
-  padding:16px 20px 24px;flex-direction:column;gap:4px;
-}
-.mobile-nav.open { display:flex; }
-.mobile-nav-link {
-  color:rgba(255,255,255,0.90);text-decoration:none;font-size:15px;font-weight:500;
-  padding:11px 14px;border-radius:10px;transition:background 0.15s;
-}
-.mobile-nav-link:hover { background:rgba(255,255,255,0.14);color:#fff; }
-.mobile-nav-divider { height:1px;background:rgba(255,255,255,0.15);margin:8px 0; }
-.mobile-nav-btn {
-  display:flex;align-items:center;gap:8px;
-  color:#fff;text-decoration:none;font-size:15px;font-weight:600;
-  padding:11px 14px;border-radius:10px;transition:background 0.15s;
-}
-.mobile-nav-btn:hover { background:rgba(255,255,255,0.14); }
-.dashboard-link { display:none; }
-@media(max-width:700px) {
-  .header-nav { display:none !important; }
-  .hamburger { display:flex !important; }
-}
+/* ── Mobile nav drawer ── */
+  .mobile-nav {
+    display: none !important;
+    position: fixed;
+    top: 60px; left: 0; right: 0; z-index: 998;
+    background: rgba(28,18,56,0.97);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(139,92,246,0.30);
+    padding: 16px 20px 24px;
+    flex-direction: column; gap: 4px;
+  }
+  .mobile-nav.open { display: flex !important; }
+  .mobile-nav-link {
+    color: rgba(255,255,255,0.90); text-decoration: none;
+    font-size: 15px; font-weight: 500;
+    padding: 11px 14px; border-radius: 10px; transition: background 0.15s;
+  }
+  .mobile-nav-link:hover { background: rgba(255,255,255,0.14); color: #fff; }
+  .mobile-nav-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 8px 0; }
+  .mobile-nav-btn {
+    display: flex; align-items: center; gap: 8px;
+    color: #fff; text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 11px 14px; border-radius: 10px; transition: background 0.15s;
+  }
+  .mobile-nav-btn:hover { background: rgba(255,255,255,0.14); }
+  .dashboard-link { display: none; }
+  button.hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; width: 36px; height: 36px;
+    padding: 0; margin: 0; border-radius: 8px; cursor: pointer;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow: none; flex-shrink: 0; transition: background 0.2s;
+  }
+  button.hamburger:hover { background: rgba(255,255,255,0.20); transform: none; box-shadow: none; }
+  button.hamburger span { display: block; width: 18px; height: 2px; border-radius: 2px; background: #fff; transition: transform 0.3s, opacity 0.3s; }
+  button.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  button.hamburger.open span:nth-child(2) { opacity: 0; }
+  button.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media(max-width:700px) {
+    .header-nav { display: none !important; }
+    button.hamburger { display: flex !important; }
+    .main-header { height: 60px !important; flex-wrap: nowrap !important; padding: 0 14px !important; }
+  }
 </style>
 </head>
 <body>
@@ -372,9 +382,9 @@
       <a href="../home.html" class="brand">Civic Nexus</a>
     </div>
     <nav class="header-nav">
-      <a href="../home"   class="nav-link">Home</a>
+      <a href="../home.html"   class="nav-link">Home</a>
       <a href="faq/policy-cube-faq.html" class="nav-link">FAQ</a>
-      <a href="explanation/explanation.html" class="nav-link">Explanation</a>
+      <a href="explanation/policy-cube-explanation.html" class="nav-link">Explanation</a>
       <a href="../donate/donate-page.html" class="nav-link">Donate</a>
     </nav>
     <div class="header-right">
@@ -868,5 +878,39 @@
       buildLocationGrid();
     });
   </script>
+<script>
+  function _mobileNavToggle() {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('hamburger');
+    if (!nav || !btn) return;
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  function _mobileNavClose() {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('hamburger');
+    if (nav) nav.classList.remove('open');
+    if (btn) btn.classList.remove('open');
+  }
+  document.addEventListener('click', (e) => {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('hamburger');
+    if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+      _mobileNavClose();
+    }
+  });
+  (function updateAuthHeader() {
+    const token = sessionStorage.getItem('cn_token') || localStorage.getItem('cn_token');
+    ['signInBtn','mobileSignInBtn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = token ? 'none' : '';
+    });
+    ['dashBtn','mobileDashBtn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = token ? (id.startsWith('mobile') ? 'flex' : 'inline-flex') : 'none';
+    });
+  })();
+</script>
 </body>
 </html>

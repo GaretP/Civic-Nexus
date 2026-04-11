@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Reading List — Books Matched to Your Political Identity | Civic Nexus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A curated reading list of political philosophy books matched to each ideological axis of the Civic Cube. Find the books most relevant to where you actually stand.">
+  <link rel="canonical" href="https://civic-nexus.net/affiliate/books.html">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Civic Nexus">
+  <meta property="og:title"       content="Reading List — Books Matched to Your Political Identity">
+  <meta property="og:description" content="Curated political philosophy books matched to each axis of the Civic Cube. Find the books most relevant to where you actually stand.">
+  <meta property="og:url"         content="https://civic-nexus.net/affiliate/books.html">
+  <meta property="og:image"       content="https://civic-nexus.net/SRC/og-image.png">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:site"       content="@NexusCivic">
+  <meta name="twitter:title"      content="Reading List — Books Matched to Your Political Identity">
+  <meta name="twitter:description" content="Curated political philosophy books matched to each axis of the Civic Cube.">
+  <meta name="twitter:image"      content="https://civic-nexus.net/SRC/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/SRC/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/SRC/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/SRC/favicon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:  #5B21B6;
+      --violet-mid:   #7C3AED;
+      --violet-core:  #8B5CF6;
+      --violet-light: #A78BFA;
+      --violet-pale:  #C4B5FD;
+      --bg-light:     #F8F6FF;
+      --text-dark:    #1A1033;
+      --text-muted:   #6B6494;
+      --glass-bg:     rgba(255,255,255,0.72);
+      --glass-border: rgba(139,92,246,0.18);
+      --glass-shadow: rgba(139,92,246,0.12);
+      --icon-stroke:  #8B5CF6;
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+      --icon-stroke:  #A78BFA;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* ── Orbs ── */
+    .bg-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(90px); opacity: 0.22; pointer-events: none;
+      animation: drift 16s ease-in-out infinite alternate;
+    }
+    body.dark-mode .bg-orb { opacity: 0.15; }
+    .bg-orb-1 { width:600px;height:600px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-180px;left:-120px;animation-duration:18s; }
+    .bg-orb-2 { width:480px;height:480px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:8%;right:-80px;animation-duration:22s;animation-delay:-7s; }
+    .bg-orb-3 { width:280px;height:280px;background:radial-gradient(circle,#C4B5FD,#8B5CF6);top:44%;left:38%;animation-duration:13s;animation-delay:-4s; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(36px,56px) scale(1.07);} }
+
+    /* ── Header ── */
+    .main-header {
+      position: sticky; top: 0; z-index: 1000;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 0 28px; height: 60px;
+      background: rgba(139,92,246,0.82);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 24px rgba(91,33,182,0.25);
+      transition: background 0.4s;
+    }
+    body.dark-mode .main-header {
+      background: rgba(28,24,48,0.92);
+      border-bottom-color: rgba(139,92,246,0.30);
+      box-shadow: 0 4px 24px rgba(139,92,246,0.28);
+    }
+    .header-left { display:flex;align-items:center;gap:10px;justify-content:flex-start; }
+    .header-logo { height:44px;display:flex;align-items:center; }
+    .header-logo img { height:40px;width:auto; }
+    .brand {
+      font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+      background:linear-gradient(135deg,#ffffff,#EDE9FE);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      white-space:nowrap;
+    }
+    .header-nav { display:flex;align-items:center;gap:2px;justify-content:center; }
+    .nav-link {
+      color:rgba(255,255,255,0.88);text-decoration:none;font-size:14px;font-weight:500;
+      padding:6px 13px;border-radius:8px;white-space:nowrap;
+      transition:background 0.2s,transform 0.2s;
+    }
+    .nav-link:hover { background:rgba(255,255,255,0.18);color:#fff;transform:translateY(-1px); }
+    .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end; }
+    .header-btn-ghost {
+      display:inline-flex;align-items:center;gap:6px;
+      color:rgba(255,255,255,0.88);text-decoration:none;
+      font-size:13px;font-weight:600;white-space:nowrap;
+      padding:6px 13px;border-radius:8px;
+      border:1px solid rgba(255,255,255,0.25);
+      background:rgba(255,255,255,0.10);
+      transition:background 0.2s,transform 0.2s;
+      cursor:pointer;font-family:'DM Sans',sans-serif;
+    }
+    .header-btn-ghost:hover { background:rgba(255,255,255,0.22);transform:translateY(-1px);color:#fff; }
+    .header-btn-solid {
+      display:inline-flex;align-items:center;gap:6px;
+      color:#fff;text-decoration:none;
+      font-size:13px;font-weight:600;white-space:nowrap;
+      padding:6px 14px;border-radius:8px;
+      background:rgba(255,255,255,0.22);
+      border:1px solid rgba(255,255,255,0.35);
+      transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
+      cursor:pointer;font-family:'DM Sans',sans-serif;
+    }
+    .header-btn-solid:hover { background:rgba(255,255,255,0.32);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+
+    /* ── Toggle ── */
+    .toggle-switch { position:relative;display:inline-flex;align-items:center;width:46px;height:24px;flex-shrink:0; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider { position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:34px;transition:0.3s; }
+    .toggle-knob { position:absolute;height:20px;width:20px;left:2px;top:2px;background:linear-gradient(135deg,#fff,#EDE9FE);border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob { transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    /* ── Hamburger ── */
+    button.hamburger {
+      display:none;flex-direction:column;justify-content:center;align-items:center;
+      gap:5px;width:36px;height:36px;padding:0;margin:0;border-radius:8px;cursor:pointer;
+      background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);
+      box-shadow:none;flex-shrink:0;transition:background 0.2s;
+    }
+    button.hamburger:hover { background:rgba(255,255,255,0.20);transform:none;box-shadow:none; }
+    button.hamburger span { display:block;width:18px;height:2px;border-radius:2px;background:#fff;transition:transform 0.3s,opacity 0.3s; }
+    button.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    button.hamburger.open span:nth-child(2) { opacity:0; }
+    button.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile nav ── */
+    .mobile-nav {
+      display:none !important;position:fixed;
+      top:60px;left:0;right:0;z-index:998;
+      background:rgba(28,18,56,0.97);backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(139,92,246,0.30);
+      padding:16px 20px 24px;flex-direction:column;gap:4px;
+    }
+    .mobile-nav.open { display:flex !important; }
+    .mobile-nav-link {
+      color:rgba(255,255,255,0.90);text-decoration:none;font-size:15px;font-weight:500;
+      padding:11px 14px;border-radius:10px;transition:background 0.15s;
+    }
+    .mobile-nav-link:hover { background:rgba(255,255,255,0.14);color:#fff; }
+    .mobile-nav-divider { height:1px;background:rgba(255,255,255,0.15);margin:8px 0; }
+    .mobile-nav-btn {
+      display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;
+      font-size:15px;font-weight:600;padding:11px 14px;border-radius:10px;transition:background 0.15s;
+    }
+    .mobile-nav-btn:hover { background:rgba(255,255,255,0.14); }
+    .dashboard-link { display:none; }
+
+    /* ── Hero ── */
+    .hero {
+      position:relative;z-index:1;
+      text-align:center;padding:72px 24px 56px;
+    }
+    .hero-eyebrow {
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--violet-core);background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:100px;
+      padding:6px 18px;margin-bottom:28px;
+    }
+    .eyebrow-dot { width:6px;height:6px;background:var(--violet-core);border-radius:50%;animation:pulse-dot 2s ease infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);} }
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.1;
+      letter-spacing:-1px;max-width:760px;margin:0 auto 20px;
+      background:linear-gradient(135deg,var(--violet-deep) 0%,var(--violet-core) 45%,var(--violet-light) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    body.dark-mode .hero-title {
+      background:linear-gradient(135deg,#C4B5FD 0%,#A78BFA 45%,#ffffff 100%);
+      -webkit-background-clip:text;background-clip:text;
+    }
+    .hero-sub {
+      font-size:clamp(1rem,2vw,1.15rem);color:var(--text-muted);
+      line-height:1.7;max-width:580px;margin:0 auto 36px;
+    }
+    .hero-cta {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:13px 28px;font-family:'DM Sans',sans-serif;
+      font-size:15px;font-weight:600;color:#fff;text-decoration:none;
+      background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      border:none;border-radius:14px;cursor:pointer;
+      box-shadow:0 6px 24px rgba(124,58,237,0.40);transition:transform 0.25s,box-shadow 0.25s;
+    }
+    .hero-cta:hover { transform:translateY(-3px);box-shadow:0 10px 32px rgba(124,58,237,0.55); }
+
+    /* ── Page sections ── */
+    .page-wrap { position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 80px; }
+    .divider { width:100%;height:2px;border:none;background:linear-gradient(90deg,transparent,var(--violet-core),transparent);margin:0 auto 56px;opacity:0.4; }
+    .section-label { display:inline-block;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--violet-core);margin-bottom:10px; }
+    .section-title { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--text-dark);line-height:1.2;margin-bottom:14px; }
+    .section-sub { font-size:15px;color:var(--text-muted);line-height:1.7;max-width:620px; }
+
+    /* ── Why we curate ── */
+    .why-section { margin-bottom:72px; }
+    .why-inner {
+      background:var(--glass-bg);backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);border-radius:24px;
+      padding:40px 44px;box-shadow:0 8px 32px var(--glass-shadow);
+    }
+    .why-inner p {
+      font-size:15px;color:var(--text-muted);line-height:1.75;margin-bottom:14px;
+    }
+    .why-inner p:last-child { margin-bottom:0; }
+    .why-inner strong { color:var(--text-dark); }
+
+    /* ── CTA band ── */
+    .cta-band {
+      background:linear-gradient(135deg,var(--violet-deep) 0%,var(--violet-mid) 60%,var(--violet-core) 100%);
+      border-radius:24px;padding:48px 40px;text-align:center;
+      margin-bottom:72px;position:relative;overflow:hidden;
+    }
+    .cta-band::before {
+      content:'';position:absolute;inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cta-band-content { position:relative; }
+    .cta-band h2 { font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:#fff;margin-bottom:12px; }
+    .cta-band p { font-size:15px;color:rgba(255,255,255,0.78);line-height:1.65;max-width:520px;margin:0 auto 28px; }
+    .btn-white {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:13px 28px;font-family:'DM Sans',sans-serif;
+      font-size:15px;font-weight:600;color:var(--violet-deep);
+      background:#fff;border:none;border-radius:14px;cursor:pointer;text-decoration:none;
+      box-shadow:0 6px 24px rgba(0,0,0,0.18);transition:transform 0.25s,box-shadow 0.25s;
+    }
+    .btn-white:hover { transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,0.26); }
+
+    /* ── Category headers ── */
+    .axis-section { margin-bottom:64px; }
+    .axis-header {
+      display:flex;align-items:center;gap:14px;
+      margin-bottom:28px;padding-bottom:16px;
+      border-bottom:1px solid var(--glass-border);
+    }
+    .axis-icon {
+      width:44px;height:44px;border-radius:12px;flex-shrink:0;
+      background:rgba(139,92,246,0.10);border:1px solid var(--glass-border);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .axis-icon svg { width:22px;height:22px; }
+    .axis-label {
+      font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:var(--violet-core);display:block;margin-bottom:2px;
+    }
+    .axis-title { font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text-dark); }
+
+    /* ── Book grid ── */
+    .book-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px; }
+
+    .book-card {
+      background:var(--glass-bg);backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);border-radius:20px;
+      overflow:hidden;box-shadow:0 4px 20px var(--glass-shadow);
+      transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;
+      display:flex;flex-direction:column;
+    }
+    .book-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 16px 40px rgba(139,92,246,0.20);
+      border-color:rgba(139,92,246,0.35);
+    }
+    .book-cover {
+      width:100%;height:220px;overflow:hidden;
+      background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(167,139,250,0.04));
+      display:flex;align-items:center;justify-content:center;
+      border-bottom:1px solid var(--glass-border);flex-shrink:0;
+    }
+    .book-cover img {
+      height:100%;width:auto;max-width:100%;object-fit:contain;
+      transition:transform 0.4s;
+    }
+    .book-card:hover .book-cover img { transform:scale(1.04); }
+    .book-cover-placeholder {
+      width:120px;height:180px;border-radius:4px;
+      background:linear-gradient(135deg,var(--violet-core),var(--violet-light));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 8px 24px rgba(139,92,246,0.35);
+    }
+    .book-cover-placeholder svg { width:40px;height:40px;opacity:0.7; }
+
+    .book-body { padding:22px 22px 20px;flex:1;display:flex;flex-direction:column;gap:10px; }
+    .book-title { font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text-dark);line-height:1.3; }
+    .book-author { font-size:13px;font-weight:600;color:var(--violet-core); }
+    body.dark-mode .book-author { color:var(--violet-light); }
+    .book-desc { font-size:13.5px;color:var(--text-muted);line-height:1.65;flex:1; }
+    .book-buy {
+      display:inline-flex;align-items:center;justify-content:center;gap:7px;
+      margin-top:6px;padding:10px 18px;
+      font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+      color:#fff;text-decoration:none;border-radius:10px;
+      background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      box-shadow:0 4px 14px rgba(124,58,237,0.35);
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .book-buy:hover { transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.50); }
+
+    /* ── Affiliate notice ── */
+    .affiliate-notice {
+      text-align:center;font-size:12px;color:var(--text-muted);
+      padding:20px;margin-bottom:48px;
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:14px;
+    }
+
+    /* ── Footer ── */
+    .main-footer {
+      background:var(--glass-bg);backdrop-filter:blur(20px);
+      border-top:1px solid var(--glass-border);padding:52px 32px 32px;
+    }
+    .footer-inner { max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px; }
+    .footer-brand-name { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--violet-core);display:flex;align-items:center;gap:8px;margin-bottom:12px; }
+    .footer-brand-name img { height:32px;width:auto; }
+    .footer-brand p { font-size:14px;color:var(--text-muted);line-height:1.65; }
+    .footer-col h4 { font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dark);margin-bottom:16px; }
+    .footer-col a { display:block;font-size:14px;color:var(--text-muted);text-decoration:none;margin-bottom:10px;transition:color 0.2s; }
+    .footer-col a:hover { color:var(--violet-core); }
+    .footer-bottom { max-width:1100px;margin:28px auto 0;padding-top:24px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-muted); }
+
+    /* ── Responsive ── */
+    @media(max-width:1100px) { .main-header { padding:0 20px; } }
+    @media(max-width:900px) { .footer-inner { grid-template-columns:1fr 1fr; } }
+    @media(max-width:700px) {
+      .main-header { grid-template-columns:1fr auto;padding:0 14px; }
+      .header-nav { display:none; }
+      button.hamburger { display:flex; }
+      .why-inner { padding:28px 22px; }
+      .cta-band { padding:36px 24px; }
+      .book-grid { grid-template-columns:1fr; }
+      .footer-inner { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-left">
+      <div class="header-logo">
+        <img id="headerLogo" src="../SRC/civicnexus.svg" alt="Civic Nexus">
+      </div>
+      <span class="brand">Civic Nexus</span>
+    </div>
+    <nav class="header-nav">
+      <a href="../home.html" class="nav-link">Home</a>
+      <a href="../civic-cube/civic-cube.html" class="nav-link">Civic Cube</a>
+      <a href="../policy-cube/policy-cube.html" class="nav-link">Policy Cube</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+    <div class="header-right">
+      <a href="../donate/donate-page.html" class="header-btn-ghost">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 12S2 8.5 2 5a3 3 0 015-2.24A3 3 0 0112 5c0 3.5-5 7-5 7z"/></svg>
+        Donate
+      </a>
+      <a href="../authentication/login.html" class="header-btn-ghost" id="signInBtn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="7" cy="5" r="2.5"/><path d="M2 12c0-2.5 2.2-4.5 5-4.5s5 2 5 4.5"/></svg>
+        Sign In
+      </a>
+      <a href="../authentication/dashboard.html" class="header-btn-solid dashboard-link" id="dashBtn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
+        Dashboard
+      </a>
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="_mobileNavToggle()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="../home.html" class="mobile-nav-link">Home</a>
+    <a href="../civic-cube/civic-cube.html" class="mobile-nav-link">Civic Cube</a>
+    <a href="../policy-cube/policy-cube.html" class="mobile-nav-link">Policy Cube</a>
+    <a href="../about.html" class="mobile-nav-link">About</a>
+    <div class="mobile-nav-divider"></div>
+    <a href="../donate/donate-page.html" class="mobile-nav-btn">Donate</a>
+    <a href="../authentication/login.html" class="mobile-nav-btn" id="mobileSignInBtn">Sign In</a>
+    <a href="../authentication/dashboard.html" class="mobile-nav-btn dashboard-link" id="mobileDashBtn">Dashboard</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Curated Reading List
+    </div>
+    <h1 class="hero-title">Books Matched to<br>Where You Stand</h1>
+    <p class="hero-sub">Every book here was selected because it illuminates a specific dimension of the Civic Cube model. Take the test first — then find the books most relevant to your result.</p>
+    <a href="../civic-cube/civic-cube.html" class="hero-cta">
+      Take the Civic Cube First
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- WHY WE CURATE -->
+    <hr class="divider">
+    <div class="why-section">
+      <span class="section-label">Our Approach</span>
+      <h2 class="section-title">Why These Books?</h2>
+      <div class="why-inner">
+        <p>Most political reading lists are curated to confirm one viewpoint. This one is different. Every book here was selected because it represents the strongest, most honest articulation of a specific ideological position, not because we agree with it, but because understanding it matters.</p>
+        <p>The Civic Cube maps your political identity across three axes: <strong>Economic</strong> (socialist to capitalist), <strong>Authority</strong> (reformist to traditionalist), and <strong>Adherence</strong> (relativistic to principled). The books below are organized by which axis and pole they illuminate most clearly.</p>
+        <p>If you haven't taken the test yet, we'd recommend doing that first. Knowing where you land makes these books significantly more useful, you'll be able to engage critically with ideas close to your own position, and explore the reasoning behind positions you disagree with.</p>
+      </div>
+    </div>
+
+    <!-- CTA BAND -->
+    <div class="cta-band">
+      <div class="cta-band-content">
+        <h2>Not Sure Where You Stand?</h2>
+        <p>The Civic Cube takes around 10 minutes and places you on a three-dimensional ideological chart. Come back and the right books will be obvious.</p>
+        <a href="../civic-cube/civic-cube.html" class="btn-white">
+          Take the Test — It's Free
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ECONOMIC AXIS
+    ══════════════════════════════════════ -->
+    <hr class="divider">
+    <div class="axis-section" id="economic">
+      <div class="axis-header">
+        <div class="axis-icon">
+          <svg viewBox="0 0 22 22" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 2v20M2 7h18M2 15h18"/>
+          </svg>
+        </div>
+        <div>
+          <span class="axis-label">Economic Axis</span>
+          <span class="axis-title">Capitalist ↔ Socialist</span>
+        </div>
+      </div>
+
+      <div class="book-grid">
+
+        <!-- Capitalism and Freedom -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780226264219-L.jpg" alt="Capitalism and Freedom cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Capitalism and Freedom</div>
+            <div class="book-author">Milton Friedman</div>
+            <p class="book-desc">The definitive case for free-market capitalism. Friedman argues that economic freedom is inseparable from political freedom, and that government intervention, however well-intentioned, consistently produces worse outcomes than voluntary exchange.</p>
+            <a href="https://amzn.to/4uRtzq3" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- The Road to Serfdom -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780226320557-L.jpg" alt="The Road to Serfdom cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">The Road to Serfdom</div>
+            <div class="book-author">F. A. Hayek</div>
+            <p class="book-desc">Hayek's landmark warning that central economic planning, regardless of political intent, inevitably erodes individual liberty. One of the most influential defenses of market economics ever written, and essential reading for understanding the capitalist position.</p>
+            <a href="https://amzn.to/420FQv7" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- Market Socialism -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780415908993-L.jpg" alt="Market Socialism cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Market Socialism: The Debate Among Socialists</div>
+            <div class="book-author">A. J. Rees</div>
+            <p class="book-desc">A rigorous examination of whether socialist goals, collective ownership, equality, democratic control, can be achieved through market mechanisms rather than central planning. Essential for understanding the internal debate on the left about how socialism actually works in practice.</p>
+            <a href="https://amzn.to/4v5lP46" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- The Communist Manifesto -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780140447576-L.jpg" alt="The Communist Manifesto cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">The Communist Manifesto</div>
+            <div class="book-author">Karl Marx &amp; Friedrich Engels</div>
+            <p class="book-desc">The foundational text of socialist and communist thought. Whether you agree with it or not, understanding where it actually argues, not the caricature, is essential to any serious engagement with the economic left and the history of collectivist ideology.</p>
+            <a href="https://amzn.to/4vqzwdR" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         AUTHORITY AXIS
+    ══════════════════════════════════════ -->
+    <hr class="divider">
+    <div class="axis-section" id="authority">
+      <div class="axis-header">
+        <div class="axis-icon">
+          <svg viewBox="0 0 22 22" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 3v16M4 19h14"/>
+            <path d="M6 7L4 12h4L6 7zM16 7l-2 5h4l-2-5z"/>
+            <path d="M6 7h10"/>
+          </svg>
+        </div>
+        <div>
+          <span class="axis-label">Authority Axis</span>
+          <span class="axis-title">Traditionalist ↔ Reformist</span>
+        </div>
+      </div>
+
+      <div class="book-grid">
+
+        <!-- On Tyranny -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780804190114-L.jpg" alt="On Tyranny cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">On Tyranny: Twenty Lessons from the Twentieth Century</div>
+            <div class="book-author">Timothy Snyder</div>
+            <p class="book-desc">Drawing on the history of fascism and Stalinism, Snyder identifies the patterns through which authority collapses into tyranny. A clear-eyed analysis of how institutions designed to constrain power are dismantled, and what it takes to preserve them.</p>
+            <a href="https://amzn.to/3NpsLIp" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- Leviathan -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780140431957-L.jpg" alt="Leviathan cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Leviathan</div>
+            <div class="book-author">Thomas Hobbes</div>
+            <p class="book-desc">The philosophical foundation of authoritarian political theory. Hobbes argues that without a powerful sovereign, human life is "solitary, poor, nasty, brutish, and short." The strongest systematic case ever made for centralized state authority and why it is necessary.</p>
+            <a href="https://amzn.to/41ph4or" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- The Political Philosophy of Poststructuralist Anarchism -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780271014593-L.jpg" alt="The Political Philosophy of Poststructuralist Anarchism cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">The Political Philosophy of Poststructuralist Anarchism</div>
+            <div class="book-author">Todd May</div>
+            <p class="book-desc">May brings together French poststructuralist thought and anarchist political theory to argue that all centralized authority is philosophically unjustifiable. A rigorous academic case for why hierarchies of power should be rejected at their root, not reformed.</p>
+            <a href="https://amzn.to/3NmljOc" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- Two Treatises of Government -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780521357302-L.jpg" alt="Two Treatises of Government cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Two Treatises of Government</div>
+            <div class="book-author">John Locke</div>
+            <p class="book-desc">The philosophical bedrock of limited government and individual rights. Locke argues that legitimate authority derives only from the consent of the governed and must be constrained by natural law. The foundational text of reformist and liberal political theory.</p>
+            <a href="https://amzn.to/47ZaLeW" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ADHERENCE AXIS
+    ══════════════════════════════════════ -->
+    <hr class="divider">
+    <div class="axis-section" id="adherence">
+      <div class="axis-header">
+        <div class="axis-icon">
+          <svg viewBox="0 0 22 22" fill="none" stroke="var(--icon-stroke)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 2L4 5v6c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V5l-7-3z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="axis-label">Adherence Axis</span>
+          <span class="axis-title">Principled ↔ Relativistic</span>
+        </div>
+      </div>
+
+      <div class="book-grid">
+
+        <!-- Bowling Alone -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780743203043-L.jpg" alt="Bowling Alone cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Bowling Alone: The Collapse and Revival of American Community</div>
+            <div class="book-author">Robert D. Putnam</div>
+            <p class="book-desc">Putnam's landmark study documents the collapse of civic engagement and social trust in America. A data-driven argument for why shared norms, community bonds, and institutional participation matter, and what happens when they erode. Essential reading for understanding the principled, high-adherence perspective.</p>
+            <a href="https://amzn.to/3NZAE7q" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- The Nicomachean Ethics -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780140449495-L.jpg" alt="Nicomachean Ethics cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Nicomachean Ethics</div>
+            <div class="book-author">Aristotle</div>
+            <p class="book-desc">The most thorough classical account of virtue, character, and moral principle. Aristotle argues that the good life is structured around stable virtues and the cultivation of character within a community, a foundational text for anyone exploring high-adherence, principled political philosophy.</p>
+            <a href="https://amzn.to/47Uq88k" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- The Lonely Crowd -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780300000030-L.jpg" alt="The Lonely Crowd cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">The Lonely Crowd: A Study of the Changing American Character</div>
+            <div class="book-author">David Riesman</div>
+            <p class="book-desc">A sociological classic charting the shift in American identity from inner-directed individuals (guided by internalized principles) to other-directed conformists (guided by external social cues). A foundational work for understanding the relativistic end of the adherence axis and what it looks like in practice.</p>
+            <a href="https://amzn.to/4t7y5PJ" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+        <!-- Beyond Good and Evil -->
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="https://covers.openlibrary.org/b/isbn/9780140449235-L.jpg" alt="Beyond Good and Evil cover" onerror="this.style.display='none';this.parentNode.querySelector('.book-cover-placeholder').style.display='flex'">
+            <div class="book-cover-placeholder" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+          </div>
+          <div class="book-body">
+            <div class="book-title">Beyond Good and Evil</div>
+            <div class="book-author">Friedrich Nietzsche</div>
+            <p class="book-desc">Nietzsche's challenge to fixed moral systems. He argues that conventional morality is a social construct that constrains the individual, and that values must be created rather than inherited. A radical articulation of the relativistic, low-adherence philosophical position.</p>
+            <a href="https://amzn.to/4c5QsPj" class="book-buy" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg>
+              View on Amazon
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Affiliate notice -->
+    <div class="affiliate-notice">
+      <strong>Affiliate disclosure:</strong> Civic Nexus participates in the Amazon Associates program. Purchases made through links on this page may earn us a small commission at no additional cost to you. This helps keep the platform free and independent.
+    </div>
+
+  </div><!-- end page-wrap -->
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">
+          <img id="footerLogo" src="../SRC/civicnexus.svg" alt="Civic Nexus">
+          Civic Nexus
+        </div>
+        <p>An open educational platform for political insight, social research, and ideological clarity. Built with rigor and no agenda.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../civic-cube/civic-cube.html">Civic Cube Test</a>
+        <a href="../policy-cube/policy-cube.html">Policy Cube</a>
+        <a href="books.html">Reading List</a>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../research/research-page.html">Research</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../legal/privacy-policy.html">Privacy Policy</a>
+        <a href="../legal/terms-of-service.html">Terms of Service</a>
+        <a href="https://github.com/GaretP/Civic-Nexus" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Civic Nexus. Designed with purpose.</span>
+      <span>Anonymized data only. No agenda. No fluff.</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+      const fl = document.getElementById('footerLogo');
+      if (fl) fl.src = isDark ? '../SRC/civicnexus.svg' : '../SRC/civicnexus_black.svg';
+    }
+
+    function _mobileNavToggle() {
+      const nav = document.getElementById('mobileNav');
+      const btn = document.getElementById('hamburger');
+      if (!nav || !btn) return;
+      const open = nav.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobileNav');
+      const btn = document.getElementById('hamburger');
+      if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+        const fl = document.getElementById('footerLogo');
+        if (fl) fl.src = '../SRC/civicnexus.svg';
+      }
+
+      // Auth-aware header
+      const token = sessionStorage.getItem('cn_token') || localStorage.getItem('cn_token');
+      ['signInBtn','mobileSignInBtn'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = token ? 'none' : '';
+      });
+      ['dashBtn','mobileDashBtn'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = token ? (id.startsWith('mobile') ? 'flex' : 'inline-flex') : 'none';
+      });
+
+      // Scroll reveal on book cards
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, i * 60);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.book-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s, border-color 0.3s';
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+</html>
