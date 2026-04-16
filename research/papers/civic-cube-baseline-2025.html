@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civic Cube: Theoretical Foundations and Methodological Framework — Civic Nexus Research</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet-deep:   #5B21B6;
+      --violet-mid:    #7C3AED;
+      --violet-core:   #8B5CF6;
+      --violet-light:  #A78BFA;
+      --violet-pale:   #C4B5FD;
+      --bg-light:      #F8F6FF;
+      --text-dark:     #1A1033;
+      --text-mid:      #3D3060;
+      --text-muted:    #6B6494;
+      --glass-bg:      rgba(255,255,255,0.72);
+      --glass-border:  rgba(139,92,246,0.18);
+      --glass-shadow:  rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+      --bg-light:     #0D0B18;
+      --text-dark:    #EDE9FE;
+      --text-mid:     #C4B5FD;
+      --text-muted:   #9D8EC5;
+      --glass-bg:     rgba(28,24,48,0.80);
+      --glass-border: rgba(139,92,246,0.25);
+      --glass-shadow: rgba(139,92,246,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .bg-orb { position:fixed;border-radius:50%;filter:blur(90px);opacity:0.14;pointer-events:none;animation:drift 18s ease-in-out infinite alternate; }
+    body.dark-mode .bg-orb { opacity:0.10; }
+    .bg-orb-1 { width:500px;height:500px;background:radial-gradient(circle,#8B5CF6,#5B21B6);top:-160px;left:-100px; }
+    .bg-orb-2 { width:360px;height:360px;background:radial-gradient(circle,#A78BFA,#7C3AED);bottom:0;right:-60px;animation-delay:-8s; }
+    @keyframes drift { 0%{transform:translate(0,0);}100%{transform:translate(28px,44px);} }
+
+    /* ── Header ── */
+    .main-header {
+      position:sticky;top:0;z-index:1000;
+      display:grid;grid-template-columns:1fr auto 1fr;
+      align-items:center;padding:0 28px;height:60px;
+      background:rgba(139,92,246,0.82);
+      backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(255,255,255,0.18);
+      border-radius:0 0 20px 20px;
+      box-shadow:0 4px 24px rgba(91,33,182,0.25);
+      transition:background 0.4s;
+    }
+    body.dark-mode .main-header { background:rgba(28,24,48,0.92);border-bottom-color:rgba(139,92,246,0.28); }
+    .header-left { display:flex;align-items:center;gap:10px; }
+    .header-left img { height:32px;width:auto; }
+    .brand { font-family:'Playfair Display',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#ffffff,#EDE9FE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none; }
+    .header-nav { display:flex;align-items:center;gap:2px;justify-content:center; }
+    .nav-link { color:rgba(255,255,255,0.88);text-decoration:none;font-size:14px;font-weight:500;padding:6px 13px;border-radius:8px;transition:background 0.2s; }
+    .nav-link:hover,.nav-link.active { background:rgba(255,255,255,0.18);color:#fff; }
+    .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end; }
+    .toggle-switch { position:relative;display:inline-flex;align-items:center;width:46px;height:24px;flex-shrink:0;flex-basis:46px; }
+    .toggle-switch input { opacity:0;width:0;height:0; }
+    .toggle-slider { position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:34px;transition:0.3s; }
+    .toggle-knob { position:absolute;height:20px;width:20px;left:2px;top:2px;background:linear-gradient(135deg,#ffffff,#EDE9FE);border-radius:50%;transition:0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider .toggle-knob { transform:translateX(22px);background:linear-gradient(135deg,#A78BFA,#C4B5FD); }
+
+    /* ── Paper layout ── */
+    .paper-wrap {
+      position:relative;z-index:1;
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:40px;
+      max-width:1100px;margin:0 auto;
+      padding:48px 24px 80px;
+      align-items:start;
+    }
+
+    /* ── TOC sidebar ── */
+    .toc {
+      position:sticky;top:80px;
+      background:var(--glass-bg);backdrop-filter:blur(16px);
+      border:1px solid var(--glass-border);border-radius:16px;
+      padding:20px;box-shadow:0 4px 16px var(--glass-shadow);
+    }
+    .toc-title { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px; }
+    .toc-link {
+      display:block;font-size:13px;color:var(--text-muted);text-decoration:none;
+      padding:5px 8px;border-radius:8px;transition:background 0.15s,color 0.15s;
+      border-left:2px solid transparent;margin-bottom:2px;
+    }
+    .toc-link:hover { color:var(--violet-core);background:rgba(139,92,246,0.06); }
+    .toc-link.active { color:var(--violet-core);border-left-color:var(--violet-core);background:rgba(139,92,246,0.08); }
+    .toc-sub { padding-left:14px;font-size:12px; }
+
+    /* ── Paper content ── */
+    .paper-content { min-width:0; }
+
+    .back-link {
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:13px;font-weight:600;color:var(--violet-core);
+      text-decoration:none;margin-bottom:32px;transition:gap 0.2s;
+    }
+    .back-link:hover { gap:10px; }
+    .back-link svg { width:14px;height:14px; }
+
+    .paper-header { margin-bottom:36px; }
+    .paper-tags { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px; }
+    .paper-tag { font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(139,92,246,0.10);border:1px solid var(--glass-border);color:var(--violet-core); }
+
+    .paper-title { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;line-height:1.15;color:var(--text-dark);margin-bottom:16px; }
+
+    .paper-byline { display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:14px 18px;background:var(--glass-bg);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:12px; }
+    .byline-item { display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);font-weight:500; }
+    .byline-item svg { width:13px;height:13px;flex-shrink:0; }
+
+    .paper-divider { height:2px;background:linear-gradient(90deg,transparent,var(--violet-core),transparent);border:none;opacity:0.35;margin:32px 0; }
+
+    .paper-section { margin-bottom:48px; }
+    .paper-section:target { scroll-margin-top:80px; }
+
+    .section-heading {
+      font-family:'Playfair Display',serif;
+      font-size:1.35rem;font-weight:700;color:var(--text-dark);
+      margin-bottom:16px;padding-left:14px;
+      border-left:3px solid var(--violet-core);
+    }
+    .subsection-heading {
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem;font-weight:700;color:var(--text-dark);
+      margin:24px 0 10px;
+    }
+
+    .paper-p {
+      font-size:15px;line-height:1.8;color:var(--text-mid);
+      margin-bottom:16px;
+    }
+    body.dark-mode .paper-p { color:var(--text-muted); }
+
+    .abstract-box {
+      background:rgba(139,92,246,0.06);
+      border:1px solid var(--glass-border);
+      border-left:4px solid var(--violet-core);
+      border-radius:0 14px 14px 0;
+      padding:22px 24px;margin-bottom:16px;
+    }
+    .abstract-label { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet-core);margin-bottom:10px; }
+    .abstract-text { font-size:15px;line-height:1.8;color:var(--text-mid);font-style:italic; }
+    body.dark-mode .abstract-text { color:var(--text-muted); }
+
+    /* Axis definition cards */
+    .axis-card {
+      background:var(--glass-bg);backdrop-filter:blur(16px);
+      border:1px solid var(--glass-border);border-radius:16px;
+      padding:24px 26px;margin:20px 0;
+      box-shadow:0 4px 16px var(--glass-shadow);
+    }
+    .axis-card-header { display:flex;align-items:center;gap:12px;margin-bottom:12px; }
+    .axis-badge {
+      font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      padding:4px 12px;border-radius:100px;
+      background:linear-gradient(135deg,var(--violet-mid),var(--violet-core));
+      color:white;flex-shrink:0;
+    }
+    .axis-name { font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text-dark); }
+    .axis-poles { display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;font-weight:600; }
+    .pole-left { color:#2563EB; }
+    .pole-right { color:#DC2626; }
+    .pole-arrow { color:var(--text-muted); }
+
+    /* Ideology table */
+    .ideology-table {
+      width:100%;border-collapse:collapse;font-size:13.5px;
+      margin:20px 0;
+    }
+    .ideology-table th {
+      text-align:left;padding:10px 14px;
+      font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+      color:var(--text-muted);border-bottom:2px solid var(--glass-border);
+    }
+    .ideology-table td {
+      padding:11px 14px;color:var(--text-mid);
+      border-bottom:1px solid var(--glass-border);line-height:1.5;
+      vertical-align:top;
+    }
+    body.dark-mode .ideology-table td { color:var(--text-muted); }
+    .ideology-table tr:last-child td { border-bottom:none; }
+    .ideology-table tr:hover td { background:rgba(139,92,246,0.04); }
+    .ideology-label { font-weight:700;color:var(--text-dark);white-space:nowrap; }
+    .sign-pos { color:#059669;font-weight:700;font-family:'DM Mono',monospace;font-size:12px; }
+    .sign-neg { color:#DC2626;font-weight:700;font-family:'DM Mono',monospace;font-size:12px; }
+
+    /* Method note */
+    .method-note {
+      background:rgba(139,92,246,0.05);
+      border:1px solid var(--glass-border);border-radius:12px;
+      padding:16px 20px;margin:16px 0;
+      font-size:14px;color:var(--text-muted);line-height:1.65;
+    }
+    .method-note strong { color:var(--text-dark); }
+
+    /* Section blocks */
+    .subsection-block {
+      background:var(--glass-bg);backdrop-filter:blur(12px);
+      border:1px solid var(--glass-border);border-radius:14px;
+      padding:20px 22px;margin:14px 0;
+      box-shadow:0 2px 10px var(--glass-shadow);
+    }
+    .subsection-block h4 {
+      font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+      color:var(--text-dark);margin-bottom:8px;
+    }
+    .subsection-block p {
+      font-size:14px;color:var(--text-muted);line-height:1.65;margin:0;
+    }
+
+    /* Citations */
+    .citation-list { list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:item; }
+    .citation-list li {
+      font-size:14px;color:var(--text-muted);line-height:1.65;
+      padding:12px 16px 12px 44px;position:relative;
+      background:var(--glass-bg);backdrop-filter:blur(10px);
+      border:1px solid var(--glass-border);border-radius:12px;
+    }
+    .citation-list li::before {
+      content:counter(item);counter-increment:item;
+      position:absolute;left:14px;top:13px;
+      color:var(--violet-core);font-weight:700;font-size:12px;
+      font-family:'DM Mono',monospace;
+    }
+    .citation-list em { font-style:italic; }
+
+    /* Responsive */
+    @media(max-width:900px) { .paper-wrap { grid-template-columns:1fr; } .toc { display:none; } }
+    @media(max-width:700px) {
+      .main-header { grid-template-columns:1fr auto;padding:0 14px; }
+      .header-nav { display:none; }
+      .paper-wrap { padding:32px 16px 60px; }
+      .ideology-table { font-size:12px; }
+      .ideology-table th, .ideology-table td { padding:8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-left">
+      <img src="../../SRC/civicnexus.svg" alt="Civic Nexus" id="headerLogo">
+      <a href="../../home.html" class="brand">Civic Nexus</a>
+    </div>
+    <nav class="header-nav">
+      <a href="../../home.html"               class="nav-link">Home</a>
+      <a href="../../civic-cube/civic-cube.html" class="nav-link">Civic Cube</a>
+      <a href="../research-page.html"          class="nav-link active">Research</a>
+      <a href="../../donate/donate-page.html"  class="nav-link">Donate</a>
+    </nav>
+    <div class="header-right">
+      <label class="toggle-switch" title="Toggle dark mode">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+        <span class="toggle-slider"><span class="toggle-knob"></span></span>
+      </label>
+    </div>
+  </header>
+
+  <!-- PAPER -->
+  <div class="paper-wrap">
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-title">Contents</div>
+      <a class="toc-link active" href="#abstract">Abstract</a>
+      <a class="toc-link" href="#background">Background</a>
+      <a class="toc-link toc-sub" href="#limitations">Limitations of Existing Models</a>
+      <a class="toc-link" href="#framework">Theoretical Framework</a>
+      <a class="toc-link toc-sub" href="#economic-axis">Economic Axis</a>
+      <a class="toc-link toc-sub" href="#authority-axis">Authority Axis</a>
+      <a class="toc-link toc-sub" href="#adherence-axis">Adherence Axis</a>
+      <a class="toc-link" href="#ideologies">Ideological Classification</a>
+      <a class="toc-link" href="#methodology">Methodology</a>
+      <a class="toc-link toc-sub" href="#question-design">Question Design</a>
+      <a class="toc-link toc-sub" href="#scoring">Scoring & Normalisation</a>
+      <a class="toc-link" href="#discussion">Discussion</a>
+      <a class="toc-link" href="#citations">Citations</a>
+    </nav>
+
+    <!-- Content -->
+    <article class="paper-content">
+
+      <a class="back-link" href="../research-page.html">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14"><path d="M12 7H2M6 3L2 7l4 4"/></svg>
+        Back to Research
+      </a>
+
+      <!-- Header -->
+      <div class="paper-header">
+        <div class="paper-tags">
+          <span class="paper-tag">Methodology</span>
+          <span class="paper-tag">Ideology</span>
+          <span class="paper-tag">Political Theory</span>
+        </div>
+        <h1 class="paper-title">Civic Cube: Theoretical Foundations and Methodological Framework of a Three-Dimensional Political Compass</h1>
+        <div class="paper-byline">
+          <div class="byline-item">
+            <svg fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" viewBox="0 0 13 13"><circle cx="6.5" cy="4" r="2.2"/><path d="M1.5 11.5c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>
+            Civic Nexus Research
+          </div>
+          <div class="byline-item">
+            <svg fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" viewBox="0 0 13 13"><circle cx="6.5" cy="6.5" r="5"/><path d="M6.5 4v2.5l1.8 1.8"/></svg>
+            2025
+          </div>
+          <div class="byline-item">
+            <svg fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" viewBox="0 0 13 13"><rect x="1" y="1" width="11" height="11" rx="1.5"/><path d="M4 6.5h5M4 8.5h3"/></svg>
+            Foundational Paper — Series 1
+          </div>
+        </div>
+      </div>
+
+      <hr class="paper-divider">
+
+      <!-- Abstract -->
+      <section class="paper-section" id="abstract">
+        <h2 class="section-heading">Abstract</h2>
+        <div class="abstract-box">
+          <div class="abstract-label">Abstract</div>
+          <p class="abstract-text">
+            This paper presents the theoretical foundations and methodological design of the Civic Cube Political Compass, a three-dimensional ideological measurement instrument developed by Civic Nexus. Existing two-dimensional compass models systematically fail to capture the moral and cultural dimensions of political identity, reducing complex ideological structures to an impoverished left-right and authoritarian-libertarian plane. The Civic Cube addresses this limitation by introducing a third axis, Adherence, which measures the degree to which an individual holds principled versus relativistic ethical commitments. Drawing on historical documents, classical and contemporary political philosophy, and the primary writings of ideological traditions, this paper defines each axis, documents the philosophical grounding of each of the eight resulting ideological positions, and describes the instrument's sixty-question design across six thematic subsections. The model is intended as a philosophically rigorous alternative to entertainment-oriented compass tools, grounded in the actual historical and philosophical meaning of political terms rather than their contemporary popular usage.
+          </p>
+        </div>
+      </section>
+
+      <!-- Background -->
+      <section class="paper-section" id="background">
+        <h2 class="section-heading">Background</h2>
+        <p class="paper-p">
+          Political self-identification is one of the most consequential and poorly understood aspects of civic life. The proliferation of online political compass tests over the past two decades has created widespread public engagement with ideological self-placement, yet the dominant instruments in this space were designed primarily for accessibility and entertainment rather than analytical rigour. The result is a landscape in which millions of people hold strong views about their own political identity that may rest on definitional foundations that bear little relationship to the historical or philosophical meaning of the labels they have adopted.
+        </p>
+        <p class="paper-p">
+          The most widely used instrument, the Political Compass test, reduces political identity to two axes: economic (left to right) and social (libertarian to authoritarian). While this simplification has proven pedagogically useful, it produces systematic misclassifications that have become well-documented in academic commentary. Most notably, it fails to distinguish between different sources and justifications for authority, collapses morally distinct positions into the same quadrant, and is broadly acknowledged to reflect contemporary Western ideological assumptions rather than historically grounded definitions.
+        </p>
+
+        <h3 class="subsection-heading" id="limitations">Limitations of Existing Two-Dimensional Models</h3>
+        <p class="paper-p">
+          The central limitation of two-dimensional political mapping is that it cannot distinguish between individuals who hold the same economic and authority positions for fundamentally different philosophical reasons. A committed Burkean conservative and a corporatist may occupy identical coordinates on a standard two-axis compass despite holding radically different moral frameworks, conceptions of community, and relationships to state authority. Similarly, a corporatist and an anarcho-capitalist may appear in the same quadrant despite disagreeing on nearly every substantive question of property and collective organization.
+        </p>
+        <p class="paper-p">
+          This conflation arises because two-dimensional models treat moral commitment, the degree to which an individual adheres to a principled, universal ethical code versus a contextual, pragmatic, or relativistic one, as a secondary feature of political identity rather than a constitutive dimension. Historically, the distinction between principled and relativistic ethical frameworks has been one of the most significant fault lines within political ideologies. It separates, for example, natural-rights libertarianism from pragmatic liberalism, orthodox Marxism from revisionist social democracy, and religious conservatism from secular traditionalism. A measurement instrument that cannot capture this distinction is structurally incapable of accurately placing a significant portion of the ideological spectrum.
+        </p>
+        <p class="paper-p">
+          A further limitation of existing models is their reliance on contemporary popular usage of political terminology rather than historically grounded definitions. Terms such as "fascism," "socialism," "libertarianism," and "anarchism" have acquired contested and often contradictory meanings in public discourse. An instrument that defines its axes by reference to current popular usage will produce results that shift with cultural fashion rather than reflecting durable ideological structures. The Civic Cube is designed to address this by grounding all definitions in primary sources, the foundational philosophical and historical documents of each tradition, rather than in how those terms are currently deployed in popular media.
+        </p>
+      </section>
+
+      <!-- Theoretical Framework -->
+      <section class="paper-section" id="framework">
+        <h2 class="section-heading">Theoretical Framework</h2>
+        <p class="paper-p">
+          The Civic Cube model defines political identity as a position in a three-dimensional space, with each dimension corresponding to a fundamental question about the organization of society and the relationship between the individual and the collective. Each axis is scored on a normalized scale from −1 to +1, with the sign and magnitude of each score jointly determining an individual's ideological classification.
+        </p>
+
+        <!-- Economic Axis -->
+        <div class="axis-card" id="economic-axis">
+          <div class="axis-card-header">
+            <span class="axis-badge">Axis I</span>
+            <span class="axis-name">Economic Axis</span>
+          </div>
+          <div class="axis-poles">
+            <span class="pole-left">− Socialist</span>
+            <span class="pole-arrow">←————————→</span>
+            <span class="pole-right">+ Capitalist</span>
+          </div>
+          <p class="paper-p" style="margin-bottom:10px;">
+            The Economic axis measures an individual's position on questions of ownership, production, and the distribution of material resources. It is anchored on the left by collectivist ownership, the belief that productive resources, key institutions, and economic systems should be owned and governed by groups rather than individuals, and on the right by private ownership, the belief that individuals should retain exclusive control over property, capital, and the fruits of their labor.
+          </p>
+          <p class="paper-p" style="margin-bottom:0;">
+            This axis draws on the foundational distinction in Western political economy between the traditions represented by Marx and Engels, who argued in <em>The Communist Manifesto</em> (1848) that "the theory of the Communists may be summed up in the single sentence: Abolition of private property", and those represented by Adam Smith, whose <em>Wealth of Nations</em> (1776) established the philosophical basis for market-based private ownership as the engine of prosperity and the natural condition of free individuals. Milton Friedman's <em>Capitalism and Freedom</em> (1962) provides the modern articulation of the capitalist position, arguing that economic and political freedom are inseparable and that central control of economic life necessarily threatens civil liberty. The socialist pole draws on the tradition of collective ownership as an instrument of genuine democratic self-governance rather than mere efficiency, a distinction developed extensively in the market socialism debate documented by Rees (1993).
+          </p>
+        </div>
+
+        <!-- Authority Axis -->
+        <div class="axis-card" id="authority-axis">
+          <div class="axis-card-header">
+            <span class="axis-badge">Axis II</span>
+            <span class="axis-name">Authority Axis</span>
+          </div>
+          <div class="axis-poles">
+            <span class="pole-left">− Reformist</span>
+            <span class="pole-arrow">←————————→</span>
+            <span class="pole-right">+ Traditionalist</span>
+          </div>
+          <p class="paper-p" style="margin-bottom:10px;">
+            The Authority axis measures an individual's relationship to the legitimacy, scope, and necessity of coercive institutional power. The positive (Traditionalist) pole reflects the view that strong, centralised authority is a necessary and legitimate feature of social organization, that without a sovereign capable of enforcing order, social life degrades into conflict. The negative (Reformist) pole reflects scepticism toward or outright rejection of coercive hierarchies, holding that authority must be radically limited, continuously challenged, or abolished entirely.
+          </p>
+          <p class="paper-p" style="margin-bottom:0;">
+            The philosophical grounding of the Traditionalist pole draws primarily on Thomas Hobbes's <em>Leviathan</em> (1651), which argues that in the absence of an absolute sovereign, the natural condition of humanity is a "war of all against all" in which life is "solitary, poor, nasty, brutish, and short." Hobbes provides the most thoroughgoing philosophical case for centralized authority as a prerequisite for any stable social order. The fascist tradition, as articulated by Giovanni Gentile, philosopher and primary author of the <em>Doctrine of Fascism</em> (1932), extends this toward a total identification of the individual with the state, in which authority is not merely necessary but ethically constitutive: the state as the realisation of ethical will. This philosophical position is distinct from mere authoritarianism and is essential to accurately locating fascist ideology. The Reformist pole draws on John Locke's <em>Two Treatises of Government</em> (1689), which grounds the legitimacy of authority entirely in the consent of the governed and establishes natural rights as a limit on sovereign power, and on the anarchist tradition as developed by Todd May in <em>The Political Philosophy of Post-structuralist Anarchism</em> (1994), which holds that all hierarchies of authority are philosophically unjustifiable and should be dissolved rather than reformed.
+          </p>
+        </div>
+
+        <!-- Adherence Axis -->
+        <div class="axis-card" id="adherence-axis">
+          <div class="axis-card-header">
+            <span class="axis-badge">Axis III</span>
+            <span class="axis-name">Adherence Axis</span>
+          </div>
+          <div class="axis-poles">
+            <span class="pole-left">− Relativistic</span>
+            <span class="pole-arrow">←————————→</span>
+            <span class="pole-right">+ Principled</span>
+          </div>
+          <p class="paper-p" style="margin-bottom:10px;">
+            The Adherence axis is the Civic Cube's most distinctive contribution to political measurement. It captures the degree to which an individual holds that moral and social norms are universal, fixed, and binding, as opposed to contextual, constructed, and adaptable. This dimension is entirely absent from two-dimensional models, yet it is one of the most historically significant fault lines within political traditions.
+          </p>
+          <p class="paper-p" style="margin-bottom:0;">
+            The Principled pole reflects the view that there exist objective or transcendent moral standards, whether grounded in natural law, divine revelation, cultural tradition, or rational philosophy, to which individuals and societies are obligated to conform. Aristotle's <em>Nicomachean Ethics</em> provides the foundational philosophical statement of virtue as a stable, cultivated character trait embedded in community life. Robert Putnam's <em>Bowling Alone</em> (2000) documents the social consequences of the erosion of shared norms, providing an empirical grounding for the principled position's claim that community coherence depends on stable moral commitments. The Relativistic pole holds that moral and social norms are historically contingent, culturally determined, and should evolve with circumstances and individual expression. Friedrich Nietzsche's <em>Beyond Good and Evil</em> (1886) represents the most radical philosophical articulation of this position, challenging the legitimacy of all inherited moral systems. David Riesman's <em>The Lonely Crowd</em> (1950) provides a sociological analysis of the shift from "inner-directed" individuals governed by internalized principles to "other-directed" individuals governed by social cues and peer expectations, a distinction that closely maps to the Adherence axis.
+          </p>
+        </div>
+      </section>
+
+      <!-- Ideological Classification -->
+      <section class="paper-section" id="ideologies">
+        <h2 class="section-heading">Ideological Classification</h2>
+        <p class="paper-p">
+          The combination of sign values across the three axes produces eight ideological octants, each corresponding to a named political tradition. Classification is determined by the sign of each normalized axis score: a positive score on a given axis indicates orientation toward the right/traditionalist/principled pole; a negative score indicates orientation toward the left/reformist/relativistic pole. The magnitude of each score indicates the strength of that orientation, respondents near the origin on any axis are genuinely centrist on that dimension, while those at the extremes hold strong, consistent positions.
+        </p>
+        <p class="paper-p">
+          The ideology labels used by the Civic Cube are grounded in the historical and philosophical definitions of each tradition, not in contemporary popular usage. The placement of ideologies is the result of examining the core philosophical commitments of each tradition across the three axes, not an attempt to locate contemporary political parties or figures, which inevitably introduces confounding from short-term policy positions.
+        </p>
+
+        <div class="method-note">
+          <strong>Classification notation:</strong> Each column shows the sign of the axis score associated with that ideology. <span class="sign-pos">+</span> indicates the positive pole (capitalist / traditionalist / principled); <span class="sign-neg">−</span> indicates the negative pole (socialist / reformist / relativistic).
+        </div>
+
+        <table class="ideology-table">
+          <thead>
+            <tr>
+              <th>Ideology</th>
+              <th>Economic</th>
+              <th>Authority</th>
+              <th>Adherence</th>
+              <th>Philosophical Grounding</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ideology-label">Libertarian</td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td>Private ownership, minimal state, natural rights as inviolable moral absolutes. Grounded in Lockean property theory and the non-aggression principle; liberty is constitutive of the moral order rather than merely instrumentally valuable.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Anarchism</td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td>Private ownership, total rejection of coercive hierarchy, contextual and voluntary ethics. Voluntary contract and mutual non-aggression as the sole legitimate social organisers; morality is self-constructed rather than inherited or universal.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Conservative</td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td>Private ownership, established authority as a stabilizing and legitimate force, adherence to inherited moral and cultural tradition. Burkean organic continuity; the accumulated wisdom of evolved institutions is presumed superior to abstract rational design.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Liberal</td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td>Private ownership, active state as enforcer and extender of individual rights, pluralist and evolving moral framework. State authority is legitimate when deployed to expand civil freedoms and manage market externalities; moral norms are subject to democratic revision.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Utopian Socialism</td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td>Collective ownership, dissolution or radical minimization of coercive authority, relativistic moral framework grounded in human potential rather than fixed tradition. The idealist socialist tradition; society remade through voluntary cooperation toward an envisioned emancipatory future.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Realist Socialism</td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td>Collective ownership, strong centralized state, adherence to a fixed ideological or moral doctrine. Includes historical fascism, which combined collectivist economic practice with extreme state authority and moral absolutism grounded in nationalist doctrine (Gentile, 1932), and Stalinist communism.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Progressivism</td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td>Collective or mixed ownership of key resources, active regulatory and re-distributive state, pragmatic and forward-looking moral framework. Social improvement through institutional reform; moral norms evolve with social understanding and are not fixed by tradition or doctrine.</td>
+            </tr>
+            <tr>
+              <td class="ideology-label">Corporatism</td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-neg">−</span></td>
+              <td><span class="sign-pos">+</span></td>
+              <td>Collective ownership organized through structured social bodies (guilds, corporations, vocational communities), rejection of centralized state authority in favour of distributed group governance, principled adherence to the moral codes of those bodies. Rooted in Catholic social thought and the tradition of subsidiarity; social order emerges from organized communities rather than either the state or the individual market.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="paper-p">
+          A key case worth addressing explicitly is the placement of historical fascism. On the standard two-dimensional Political Compass, fascism is typically placed in the far-right authoritarian quadrant, a placement driven primarily by its association with nationalist cultural politics and its historical opposition to communist movements. However, this placement obscures the economic and moral structure of fascist ideology. Gentile's doctrine describes the state as the total ethical community within which individual identity is subsumed, a position that is collectivist in its rejection of autonomous private interest, authoritarian in its absolute concentration of power, and principled in its demand for total moral conformity to the national will. On the Civic Cube, this maps to the Realist Socialist octant: collectivist economics, high authority, and high adherence. This is not a relativisation of fascism's historical crimes, it is a structurally more accurate account of its philosophical commitments.
+        </p>
+      </section>
+
+      <!-- Methodology -->
+      <section class="paper-section" id="methodology">
+        <h2 class="section-heading">Methodology</h2>
+        <p class="paper-p">
+          The Civic Cube instrument consists of 60 statements distributed evenly across six thematic subsections, with 10 statements per subsection. The six subsections are organized into three pairs, each pair corresponding to one of the three axes. Respondents rate each statement on a four-point scale: Agree, Somewhat Agree, Somewhat Disagree, or Disagree.
+        </p>
+
+        <h3 class="subsection-heading" id="question-design">Question Design Principles</h3>
+        <p class="paper-p">
+          Questions were designed with three principles in mind. First, statements address policy-level positions rather than value abstractions, the intent is to measure what respondents believe should happen, not merely what they value in the abstract. Abstract value questions (e.g., "Do you value freedom?") produce near-universal agreement that reveals nothing about ideological differentiation. Second, statements are drawn from genuine points of historical and contemporary political dispute, areas where different ideological traditions have taken clearly divergent positions grounded in their foundational commitments. Third, statements are constructed to avoid framing effects that advantage one pole over the other, neither the positive nor the negative response should be obviously "correct" to a neutral reader.
+        </p>
+        <p class="paper-p">
+          The thematic sections and their ideological functions are as follows:
+        </p>
+
+        <div class="subsection-block">
+          <h4>Section 1.1 — Property &amp; Production</h4>
+          <p>Measures views on the ownership of productive resources, the legitimacy of private capital accumulation, and the appropriate relationship between individuals and the means of production. Draws on the classical property rights tradition (Locke, Smith) and the Marxist critique of private appropriation (Marx, Engels). Contributes to the Economic axis score.</p>
+        </div>
+        <div class="subsection-block">
+          <h4>Section 1.2 — Wealth &amp; Redistribution</h4>
+          <p>Measures views on the legitimacy of economic inequality, the role of taxation and redistribution, and the moral obligations of wealth. Contributes to the Economic axis score alongside Section 1.1, with particular sensitivity to market socialist versus laissez-faire positions.</p>
+        </div>
+        <div class="subsection-block">
+          <h4>Section 2.1 — Law &amp; Order</h4>
+          <p>Measures views on the legitimacy and appropriate scope of state coercive power in maintaining social order, criminal justice, policing, civil law, and the balance between security and liberty. Draws on Hobbesian arguments for sovereign authority and Lockean arguments for natural rights as limits on state power. Contributes to the Authority axis score.</p>
+        </div>
+        <div class="subsection-block">
+          <h4>Section 2.2 — Power &amp; Rebellion</h4>
+          <p>Measures views on political authority, the legitimacy of dissent and revolution, and the conditions under which existing power structures may or should be challenged. Draws on Gentile's doctrine of the state as ethical totality, on Locke's right of revolution, and on anarchist arguments for the dissolution of coercive hierarchy. Contributes to the Authority axis score.</p>
+        </div>
+        <div class="subsection-block">
+          <h4>Section 3.1 — Faith &amp; Morality</h4>
+          <p>Measures views on the role of religious or transcendent moral frameworks in public and political life, the relationship between secular governance and moral tradition, and the appropriate weight given to religious communities in shaping social norms. Contributes to the Adherence axis score, with high-adherence respondents typically affirming the public relevance of moral tradition and low-adherence respondents favouring secular pluralism.</p>
+        </div>
+        <div class="subsection-block">
+          <h4>Section 3.2 — Tradition &amp; Progress</h4>
+          <p>Measures views on cultural continuity, the pace and direction of social change, and the value of inherited institutions and practices. Draws on Burke's argument that society is a "partnership between the dead, the living, and the unborn" and on progressive traditions that treat historical change as normatively desirable. Contributes to the Adherence axis score alongside Section 3.1.</p>
+        </div>
+
+        <h3 class="subsection-heading" id="scoring">Scoring and Normalization</h3>
+        <p class="paper-p">
+          Each response is scored on a weighted scale: Agree = +1, Somewhat Agree = +0.5, Somewhat Disagree = −0.5, Disagree = −1. The raw score for each axis is calculated as the mean of all weighted responses across the two subsections constituting that axis, ten questions per subsection, twenty per axis, yielding a raw axis score in the range [−1, +1].
+        </p>
+        <div class="method-note">
+          <strong>Axis score formula:</strong> For each axis, the score S is calculated as S = (Σwᵢ) / n, where wᵢ is the weighted response to question i and n = 20. The resulting score S ∈ [−1, +1]. Ideology classification is assigned by the vector of signs (sgn(S_economic), sgn(S_authority), sgn(S_adherence)), producing one of eight named octants.
+        </div>
+        <p class="paper-p">
+          Respondents whose score on any axis falls within a predefined band around zero (|S| &lt; 0.15) are flagged as genuinely centrist on that dimension. These respondents are classified by their two stronger axes with a centrist qualifier on the third, for example, a respondent who scores strongly socialist and reformist but nearly zero on adherence would be classified as a centrist corporatist rather than being forced into a binary classification that misrepresents their actual position.
+        </p>
+        <p class="paper-p">
+          All data submitted to the Civic Nexus backend is anonymised before storage. No personally identifiable information is retained. The backend stores axis scores and ideology labels only, alongside optional voluntarily-submitted demographic fields. Respondents who do not provide demographic information are included in all axis-level analyses.
+        </p>
+      </section>
+
+      <!-- Discussion -->
+      <section class="paper-section" id="discussion">
+        <h2 class="section-heading">Discussion</h2>
+        <p class="paper-p">
+          The Civic Cube represents a deliberate methodological departure from the dominant approach to political compass design. Where most instruments prioritize accessibility and immediate interpretability, the Civic Cube prioritizes definitional accuracy, accepting that some positions will be counter-intuitive to users whose understanding of political terms has been shaped by popular usage rather than historical or philosophical grounding.
+        </p>
+        <p class="paper-p">
+          The most significant departure is the treatment of fascism. By classifying historical fascism as a form of realist socialism, on the basis of its collectivist economic structure, its absolute identification of the individual with the state, and its demand for total moral conformity to a fixed national doctrine, the Civic Cube produces a result that contradicts the near-universal convention of placing fascism on the economic right. This is not a political claim about the relative merits of right and left politics; it is a structural claim about the philosophical commitments of the fascist tradition as articulated in its own foundational documents, particularly Gentile's <em>Doctrine of Fascism</em>. The standard two-dimensional model's placement of fascism on the right derives largely from its cultural and nationalist politics and its historical conflict with communist movements, neither of which speaks to the question of economic ownership or the relationship between individual and state authority.
+        </p>
+        <p class="paper-p">
+          A further methodological commitment is the refusal to define ideological positions by reference to contemporary political parties or figures. Modern political parties are coalitions of often-incompatible philosophical traditions, and their policy positions shift continuously with electoral pressures. An ideological compass grounded in party positions will necessarily be unstable, geographically parochial, and quickly dated. The Civic Cube instead locates positions by reference to the philosophical traditions from which they emerged, traditions that are substantially more stable across time and geography.
+        </p>
+        <p class="paper-p">
+          The primary limitation of the current instrument is the inherent difficulty of constructing questions that are genuinely neutral with respect to ideological framing. Despite systematic effort to avoid framing effects, any natural-language instrument will contain residual biases that are difficult to eliminate entirely. Future development will include formal inter-rater reliability testing of individual questions and ongoing review of the question bank as the dataset grows. The centrist band threshold (|S| &lt; 0.15) is also provisional and subject to revision based on empirical analysis of the score distribution.
+        </p>
+      </section>
+
+      <!-- Citations -->
+      <section class="paper-section" id="citations">
+        <h2 class="section-heading">Citations</h2>
+        <ol class="citation-list">
+          <li>Aristotle. (c. 350 BCE). <em>Nicomachean Ethics</em>. (R. Crisp, Trans.). Cambridge University Press, 2000.</li>
+          <li>Burke, E. (1790). <em>Reflections on the Revolution in France</em>. Penguin Classics, 1986.</li>
+          <li>Friedman, M. (1962). <em>Capitalism and Freedom</em>. University of Chicago Press.</li>
+          <li>Gentile, G., &amp; Mussolini, B. (1932). <em>The Doctrine of Fascism</em>. Published in <em>Enciclopedia Italiana</em>. (Translated sources: Schnapp, J. T., ed., 2000, <em>A Primer of Italian Fascism</em>. University of Nebraska Press.)</li>
+          <li>Hayek, F. A. (1944). <em>The Road to Serfdom</em>. University of Chicago Press.</li>
+          <li>Hobbes, T. (1651). <em>Leviathan</em>. Penguin Classics, 1985.</li>
+          <li>Locke, J. (1689). <em>Two Treatises of Government</em>. Cambridge University Press, 1988.</li>
+          <li>Marx, K., &amp; Engels, F. (1848). <em>The Communist Manifesto</em>. Penguin Classics, 2002.</li>
+          <li>May, T. (1994). <em>The Political Philosophy of Poststructuralist Anarchism</em>. Pennsylvania State University Press.</li>
+          <li>Nietzsche, F. (1886). <em>Beyond Good and Evil</em>. (J. Norman, Trans.). Cambridge University Press, 2002.</li>
+          <li>Putnam, R. D. (2000). <em>Bowling Alone: The Collapse and Revival of American Community</em>. Simon &amp; Schuster.</li>
+          <li>Rees, A. J. (1993). <em>Market Socialism: The Debate Among Socialists</em>. Routledge.</li>
+          <li>Riesman, D., Glazer, N., &amp; Denney, R. (1950). <em>The Lonely Crowd: A Study of the Changing American Character</em>. Yale University Press.</li>
+          <li>Smith, A. (1776). <em>An Inquiry into the Nature and Causes of the Wealth of Nations</em>. Oxford University Press, 1998.</li>
+        </ol>
+      </section>
+
+    </article>
+  </div>
+
+  <script>
+    const token = sessionStorage.getItem('cn_token');
+    if (!token) window.location.href = '../../authentication/login.html?redirect=research';
+
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      document.getElementById('darkModeToggle').checked = isDark;
+    }
+
+    // TOC active link on scroll
+    const sections = document.querySelectorAll('.paper-section, .axis-card');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+      tocLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === `#${current}`);
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+      }
+    });
+  </script>
+</body>
+</html>
